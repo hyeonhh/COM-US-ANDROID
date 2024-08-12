@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:paddingHorizontal="@dimen/activity_horizontal_padding"
         android:paddingVertical="@dimen/activity_vertical_padding"
         tools:context=".ui.home.HomeFragment">
@@ -22,7 +22,7 @@
             android:background="@drawable/shape_stroke_oval_d8d8d8"
             android:padding="6.35dp"
             android:src="@drawable/img_user_blue"
-            android:contentDescription="@string/home_cntdesc_profile"
+            android:contentDescription="프로필"
             app:layout_constraintEnd_toStartOf="@+id/textview_home_greeting"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -58,7 +58,7 @@
             android:background="@drawable/shape_stroke_oval_d8d8d8"
             android:padding="6dp"
             android:src="@drawable/ic_bell_black"
-            android:contentDescription="@string/home_cntdesc_notification"
+            android:contentDescription="알림"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/imageview_home_usericon" />
 
@@ -275,7 +275,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:src="@drawable/img_no_block"
-            android:contentDescription="@string/home_cntdesc_tempimage"
+            android:contentDescription="임시 이미지"
             app:layout_constraintBottom_toTopOf="@+id/textview_home_noblock"
             app:layout_constraintEnd_toEndOf="@+id/tableLayout3"
             app:layout_constraintStart_toStartOf="@+id/tableLayout3"

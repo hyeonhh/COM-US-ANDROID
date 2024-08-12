@@ -15,11 +15,16 @@
     <string name="home_sub_greeting">오늘도 대화 나눠봐요~!</string>
     <string name="home_title_start_conversation">대화를 시작해 볼까요?</string>
     <string name="home_sub_today_conversation_length">오늘 %1$d분 대화했어요.</string>
+    <string name="home_percent_conversation">%1$d%</string>
     <string name="home_title_our_block">우리의 대화 블럭</string>
-    <string name="home_title_level">%1$d단계</string>
+    <string name="home_title_no_block">아직 나눈 대화가 없어요!</string>
+    <string name="home_level">%1$d단계</string>
     <string name="home_hint_no_block">아직 나눈 대화가 없어요!</string>
     <string name="home_title_check_progress">대화 진행률 확인하기</string>
     <string name="home_theme_sub_random_description">주제가 떠오르지 않을 때 사용해요</string>
 
+    <string name="home_cntdesc_profile">프로필</string>
+    <string name="home_cntdesc_notification">알림</string>
+    <string name="home_cntdesc_tempimage">임시 이미지</string>
 
 </resources>
