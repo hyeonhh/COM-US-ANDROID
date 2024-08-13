@@ -2,8 +2,8 @@
     <string name="app_name">com-us</string>
     <string name="title_home">Home</string>
     <string name="title_cntdesc_home">홈</string>
-    <string name="title_questions">Questions</string>
-    <string name="title_cntdesc_questions">질문리스트</string>
+    <string name="title_question">Question</string>
+    <string name="title_cntdesc_question">질문리스트</string>
     <string name="title_profile">Profile</string>
     <string name="title_cntdesc_profile">프로필</string>
 
@@ -35,11 +35,15 @@
     <string name="home_theme_fraction">%1$d/10</string>
     <string name="home_theme_percent">%1$d%</string>
 
-    <string name="questions_title">전체 질문 리스트</string>
-    <string name="questions_title_question">질문</string>
-    <string name="questions_title_question_count">%1$d개</string>
-    <string name="questions_title_align_all">전체</string>
-    <string name="questions_title_align_complete">대화 완료</string>
+    <string name="question_title">전체 질문 리스트</string>
+    <string name="question_title_question">질문</string>
+    <string name="question_title_question_count">%1$d개</string>
+    <string name="question_title_align_all">전체</string>
+    <string name="question_title_align_complete">대화 완료</string>
+
+    <string name="question_detail_title_question">질문</string>
+    <string name="question_detail_button_answer_before"><u>이전 답변 보기</u></string>
+    <string name="question_detail_button_complete">완료하기</string>
 
     <string name="theme_question_list_title">일상 질문 리스트</string>
     <string name="title_activity_question_list_item">QuestionListItem</string>
