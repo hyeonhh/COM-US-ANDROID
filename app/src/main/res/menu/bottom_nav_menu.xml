@@ -5,21 +5,21 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_gray"
-        android:contentDescription="홈"
+        android:contentDescription="@string/title_cntdesc_home"
         android:title="@string/title_home"
         app:iconTint="@color/color_selector_nav_blue"/>
 
     <item
         android:id="@+id/navigation_questions"
         android:icon="@drawable/ic_list_gray"
-        android:contentDescription="질문 리스트"
+        android:contentDescription="@string/title_cntdesc_questions"
         android:title="@string/title_questions"
         app:iconTint="@color/color_selector_nav_orange"/>
 
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_user_gray_36dp"
-        android:contentDescription="프로필"
+        android:contentDescription="@string/title_cntdesc_profile"
         android:title="@string/title_profile"
         app:iconTint="@color/color_selector_nav_salmon"/>
 

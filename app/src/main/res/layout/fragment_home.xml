@@ -12,8 +12,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="@dimen/activity_horizontal_padding"
-            android:paddingVertical="@dimen/activity_vertical_padding"
+            android:paddingHorizontal="@dimen/activity_horizontal_whitespace"
+            android:paddingVertical="@dimen/activity_vertical_whitespace"
             android:layout_marginBottom="50dp"
             tools:context=".ui.home.HomeFragment">
 
@@ -22,7 +22,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/shape_stroke_oval_d8d8d8"
+                android:background="@drawable/shape_stroke_oval_gray200"
                 android:contentDescription="@string/home_cntdesc_profile"
                 android:padding="6.35dp"
                 android:src="@drawable/img_user_blue"
@@ -58,7 +58,7 @@
                 android:id="@+id/imagebutton_home_notif"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/shape_stroke_oval_d8d8d8"
+                android:background="@drawable/shape_stroke_oval_gray200"
                 android:contentDescription="@string/home_cntdesc_notification"
                 android:padding="6dp"
                 android:src="@drawable/ic_bell_black"
@@ -70,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/shape_stroke_rect10_d8d8d8"
+                android:background="@drawable/shape_stroke_rect10_gray200"
                 android:paddingStart="29dp"
                 android:paddingTop="16dp"
                 android:paddingEnd="24dp"
@@ -162,7 +162,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/shape_stroke_rect10_d8d8d8"
+                android:background="@drawable/shape_stroke_rect10_gray200"
                 android:stretchColumns="*"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintTop_toBottomOf="@+id/textView2"
@@ -176,22 +176,22 @@
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_d8d8d8" />
+                        android:background="@drawable/shape_stroke_rect_gray200" />
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_d8d8d8" />
+                        android:background="@drawable/shape_stroke_rect_gray200" />
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_d8d8d8" />
+                        android:background="@drawable/shape_stroke_rect_gray200" />
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_d8d8d8" />
+                        android:background="@drawable/shape_stroke_rect_gray200" />
                 </TableRow>
 
                 <TableRow
@@ -202,22 +202,22 @@
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_d8d8d8" />
+                        android:background="@drawable/shape_stroke_rect_gray200" />
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_d8d8d8" />
+                        android:background="@drawable/shape_stroke_rect_gray200" />
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_d8d8d8" />
+                        android:background="@drawable/shape_stroke_rect_gray200" />
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_d8d8d8" />
+                        android:background="@drawable/shape_stroke_rect_gray200" />
                 </TableRow>
 
                 <TableRow
@@ -228,22 +228,22 @@
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_d8d8d8" />
+                        android:background="@drawable/shape_stroke_rect_gray200" />
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_d8d8d8" />
+                        android:background="@drawable/shape_stroke_rect_gray200" />
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_d8d8d8" />
+                        android:background="@drawable/shape_stroke_rect_gray200" />
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_d8d8d8" />
+                        android:background="@drawable/shape_stroke_rect_gray200" />
                 </TableRow>
 
                 <TableRow
@@ -254,22 +254,22 @@
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_d8d8d8" />
+                        android:background="@drawable/shape_stroke_rect_gray200" />
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_d8d8d8" />
+                        android:background="@drawable/shape_stroke_rect_gray200" />
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_d8d8d8" />
+                        android:background="@drawable/shape_stroke_rect_gray200" />
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_d8d8d8" />
+                        android:background="@drawable/shape_stroke_rect_gray200" />
                 </TableRow>
             </TableLayout>
 

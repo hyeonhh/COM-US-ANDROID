@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="themeText"
+            type="String" />
+    </data>
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/shape_stroke_rect5_gray200"
+        android:textFontWeight="700"
+        android:textColor="@color/gray_500"
+        android:paddingHorizontal="13dp"
+        android:paddingVertical="3dp"
+        android:text="@{themeText != null ? themeText : @string/theme_default}" />
+</layout>
