@@ -36,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:text="@string/home_title_greeting_user_hi"
+                android:textColor="@color/text_black"
                 android:textFontWeight="700"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toStartOf="@+id/imagebutton_home_notif"
@@ -83,6 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/home_title_start_conversation"
+                    android:textColor="@color/text_black"
                     android:textFontWeight="700"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toTopOf="@+id/textview_home_minute"
@@ -90,13 +92,37 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textview_home_minute"
+                    android:id="@+id/textView20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/home_sub_today_conversation_length"
+                    android:text="@string/home_sub_today_conversation_today"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView1" />
+
+                <TextView
+                    android:id="@+id/textview_home_minute"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/home_sub_today_conversation_minute"
+                    android:textFontWeight="700"
+                    android:textColor="@color/green_700"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView20"
+                    app:layout_constraintTop_toBottomOf="@+id/textView1" />
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/home_sub_today_conversation_did"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textview_home_minute"
                     app:layout_constraintTop_toBottomOf="@+id/textView1" />
 
                 <ProgressBar
@@ -136,6 +162,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/home_title_our_block"
                 android:textFontWeight="700"
+                android:textColor="@color/text_black"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toStartOf="@+id/textview_home_step"
                 app:layout_constraintHorizontal_bias="0"
@@ -176,7 +203,7 @@
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_gray200" />
+                        android:background="@drawable/shape_stroke_rect_topleft10_gray200" />
 
                     <View
                         android:layout_width="0dp"
@@ -191,7 +218,7 @@
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_gray200" />
+                        android:background="@drawable/shape_stroke_rect_topright10_gray200" />
                 </TableRow>
 
                 <TableRow
@@ -254,7 +281,7 @@
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_gray200" />
+                        android:background="@drawable/shape_stroke_rect_bottomleft10_gray200" />
 
                     <View
                         android:layout_width="0dp"
@@ -269,23 +296,22 @@
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_gray200" />
+                        android:background="@drawable/shape_stroke_rect_bottomright10_gray200" />
                 </TableRow>
             </TableLayout>
 
             <ImageView
                 android:id="@+id/imageview_home_noblock"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
                 android:contentDescription="@string/home_cntdesc_tempimage"
                 android:src="@drawable/img_no_block"
+                android:adjustViewBounds="true"
                 app:layout_constraintBottom_toTopOf="@+id/textview_home_noblock"
                 app:layout_constraintEnd_toEndOf="@+id/tableLayout3"
-                app:layout_constraintHeight_percent=".23"
                 app:layout_constraintStart_toStartOf="@+id/tableLayout3"
                 app:layout_constraintTop_toTopOf="@+id/tableLayout3"
-                app:layout_constraintVertical_chainStyle="packed"
-                app:layout_constraintWidth_percent=".4" />
+                app:layout_constraintVertical_chainStyle="packed" />
 
 
             <TextView
@@ -296,6 +322,7 @@
                 android:text="@string/home_title_no_block"
                 android:textFontWeight="700"
                 android:textSize="18sp"
+                android:textColor="@color/gray_500"
                 app:layout_constraintBottom_toBottomOf="@+id/tableLayout3"
                 app:layout_constraintEnd_toEndOf="@+id/tableLayout3"
                 app:layout_constraintStart_toStartOf="@+id/tableLayout3"
@@ -307,6 +334,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/home_title_check_progress"
+                android:textColor="@color/text_black"
                 android:textFontWeight="700"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"

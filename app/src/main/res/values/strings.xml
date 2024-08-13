@@ -19,7 +19,9 @@
     <string name="home_title_greeting_user_hi">안녕하세요, %1$s님 %2$s</string>
     <string name="home_sub_greeting">오늘도 대화 나눠봐요~!</string>
     <string name="home_title_start_conversation">대화를 시작해 볼까요?</string>
-    <string name="home_sub_today_conversation_length">오늘 %1$d분 대화했어요.</string>
+    <string name="home_sub_today_conversation_today">오늘</string>
+    <string name="home_sub_today_conversation_minute">%1$d분</string>
+    <string name="home_sub_today_conversation_did">대화했어요.</string>
     <string name="home_percent_conversation">%1$d%</string>
     <string name="home_title_our_block">우리의 대화 블럭</string>
     <string name="home_title_no_block">아직 나눈 대화가 없어요!</string>
