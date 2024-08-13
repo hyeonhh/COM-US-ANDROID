@@ -45,7 +45,7 @@
         android:textColor="@color/text_black"
         android:textFontWeight="700"
         android:textSize="20sp"
-        android:text="질문 텍스트"
+        android:text="@string/question_sample_question"
         app:layout_constraintBottom_toTopOf="@+id/compose_detail_questiontype"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
