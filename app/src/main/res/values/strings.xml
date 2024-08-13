@@ -61,6 +61,8 @@
     <string name="question_follow_along_sign_descp">수형설명</string>
     <string name="question_follow_along_button_complete">완료하기</string>
 
+    <string name="question_collect_block_title">대화 블럭 획득!</string>
+
     <string name="toolbar_back">뒤로 가기</string>
 
 </resources>
