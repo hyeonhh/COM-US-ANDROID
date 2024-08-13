@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">com-us</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_questions">Questions</string>
+    <string name="title_profile">Profile</string>
 
     <string name="theme_daily">일상</string>
     <string name="theme_school">학교</string>

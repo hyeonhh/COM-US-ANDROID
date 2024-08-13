@@ -2,7 +2,8 @@
 <resources>
     <color name="status_bar">#FFC5C5C5</color>
 
-    <color name="purple_500">#FF6200EE</color>
+    <color name="nav_unselected">#FFE5E5E5</color>
+
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
@@ -11,6 +12,7 @@
     <color name="blue_700">#00A3E8</color>
     <color name="blue_200">#DFF6FF</color>
     <color name="purple_700">#9295FF</color>
+    <color name="purple_500">#DDC2FF</color>
     <color name="purple_200">#EFEFFF</color>
     <color name="orange_700">#FF9D0A</color>
     <color name="orange_200">#FFF4E3</color>
