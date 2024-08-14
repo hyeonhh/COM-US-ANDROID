@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.com_us.R
 import com.example.com_us.databinding.FragmentHomeBinding
+import com.example.com_us.ui.ThemeType
 import com.example.com_us.ui.home.theme.ThemeQuestionListActivity
 
 class HomeFragment : Fragment(), View.OnClickListener {
@@ -64,7 +65,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             }
         }
     }
-    fun moveToQuestionList(theme: String, themeKor: String) {
+    private fun moveToQuestionList(theme: String, themeKor: String) {
         val intent = Intent(context, ThemeQuestionListActivity::class.java)
         intent.putExtra("theme", theme)
         intent.putExtra("themeKor", themeKor)
@@ -75,8 +76,4 @@ class HomeFragment : Fragment(), View.OnClickListener {
         super.onDestroyView()
         _binding = null
     }
-}
-
-enum class ThemeType(val kor: String) {
-    DAILY("일상"), SCHOOL("학교"), FRIEND("친구"), FAMILY("가족"), INTEREST("관심사"), RANDOM("랜덤")
 }
