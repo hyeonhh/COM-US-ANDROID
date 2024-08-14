@@ -341,98 +341,104 @@
                 app:layout_constraintTop_toBottomOf="@+id/tableLayout3" />
 
             <include
-                android:id="@+id/include1"
+                android:id="@+id/include_home_daily"
                 layout="@layout/item_theme_progress"
                 app:title="@{@string/theme_daily}"
                 app:background="@{@drawable/shape_fill_stroke_rect10_orange}"
                 app:backgroundIcon="@{@drawable/ic_background_home}"
                 app:progressBackground="@{@drawable/custom_progress_bar_orange}"
                 app:percentColor="@{@color/orange_700}"
+                app:isRandom="@{false}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:layout_marginTop="15dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/include2"
+                app:layout_constraintEnd_toStartOf="@+id/include_home_school"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
             <include
-                android:id="@+id/include2"
+                android:id="@+id/include_home_school"
                 layout="@layout/item_theme_progress"
                 app:title="@{@string/theme_school}"
                 app:background="@{@drawable/shape_fill_stroke_rect10_blue}"
                 app:backgroundIcon="@{@drawable/ic_background_school}"
                 app:progressBackground="@{@drawable/custom_progress_bar_blue}"
                 app:percentColor="@{@color/blue_700}"
+                app:isRandom="@{false}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/include1"
+                app:layout_constraintStart_toEndOf="@+id/include_home_daily"
                 app:layout_constraintTop_toBottomOf="@id/textView3" />
 
             <include
-                android:id="@+id/include3"
+                android:id="@+id/include_home_friend"
                 layout="@layout/item_theme_progress"
                 app:title="@{@string/theme_friend}"
                 app:background="@{@drawable/shape_fill_stroke_rect10_green}"
                 app:backgroundIcon="@{@drawable/ic_background_friend}"
                 app:progressBackground="@{@drawable/custom_progress_bar_green}"
                 app:percentColor="@{@color/green_700}"
+                app:isRandom="@{false}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:layout_marginTop="15dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/include4"
-                app:layout_constraintTop_toBottomOf="@+id/include1" />
+                app:layout_constraintEnd_toStartOf="@+id/include_home_family"
+                app:layout_constraintTop_toBottomOf="@+id/include_home_daily" />
 
             <include
-                android:id="@+id/include4"
+                android:id="@+id/include_home_family"
                 layout="@layout/item_theme_progress"
                 app:title="@{@string/theme_family}"
                 app:background="@{@drawable/shape_fill_stroke_rect10_purple}"
                 app:backgroundIcon="@{@drawable/ic_background_family}"
                 app:progressBackground="@{@drawable/custom_progress_bar_purple}"
                 app:percentColor="@{@color/purple_700}"
+                app:isRandom="@{false}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/include3"
-                app:layout_constraintTop_toBottomOf="@id/include1" />
+                app:layout_constraintStart_toEndOf="@+id/include_home_friend"
+                app:layout_constraintTop_toBottomOf="@id/include_home_daily" />
 
             <include
-                android:id="@+id/include5"
+                android:id="@+id/include_home_interest"
                 layout="@layout/item_theme_progress"
                 app:title="@{@string/theme_interest}"
                 app:background="@{@drawable/shape_fill_stroke_rect10_pink}"
                 app:backgroundIcon="@{@drawable/ic_background_interest}"
                 app:progressBackground="@{@drawable/custom_progress_bar_pink}"
                 app:percentColor="@{@color/pink_700}"
+                app:isRandom="@{false}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:layout_marginTop="15dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/include6"
-                app:layout_constraintTop_toBottomOf="@+id/include3" />
+                app:layout_constraintEnd_toStartOf="@+id/include_home_random"
+                app:layout_constraintTop_toBottomOf="@+id/include_home_friend" />
 
             <include
-                android:id="@+id/include6"
+                android:id="@+id/include_home_random"
                 layout="@layout/item_theme_progress"
                 app:title="@{@string/theme_random}"
                 app:background="@{@drawable/shape_fill_stroke_rect10_salmon}"
                 app:backgroundIcon="@{@drawable/ic_background_random}"
+                app:isRandom="@{true}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/include5"
-                app:layout_constraintTop_toBottomOf="@id/include3" />
+                app:layout_constraintStart_toEndOf="@+id/include_home_interest"
+                app:layout_constraintTop_toBottomOf="@id/include_home_friend" />
 
 
             <TextView

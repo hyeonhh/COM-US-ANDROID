@@ -2,6 +2,7 @@ package com.example.com_us.ui.home.theme
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import com.example.com_us.R
 import com.example.com_us.databinding.ActivityThemeQuestionListBinding
 
@@ -13,6 +14,10 @@ class ThemeQuestionListActivity : AppCompatActivity() {
 
         binding = ActivityThemeQuestionListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val theme = intent.getStringExtra("theme")
+        val themeKor = intent.getStringExtra("themeKor")
+        binding.textviewTitle.text = String.format(resources.getString(R.string.theme_question_list_title), themeKor)
 
         setActionBar()
     }

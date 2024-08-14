@@ -28,7 +28,7 @@
     <string name="home_level">%1$d단계</string>
     <string name="home_hint_no_block">아직 나눈 대화가 없어요!</string>
     <string name="home_title_check_progress">대화 진행률 확인하기</string>
-    <string name="home_theme_sub_random_description">주제가 떠오르지 않을 때 사용해요</string>
+    <string name="home_theme_sub_random_description">주제가 떠오르지 않을 때\n사용해요</string>
 
     <string name="home_cntdesc_profile">프로필</string>
     <string name="home_cntdesc_notification">알림</string>
@@ -52,7 +52,7 @@
     <string name="question_answer_title_sign_descp">수형설명</string>
     <string name="question_answer_button_follow_along">따라해보기</string>
 
-    <string name="theme_question_list_title">일상 질문 리스트</string>
+    <string name="theme_question_list_title">%1$s 질문 리스트</string>
     <string name="title_activity_question_list_item">QuestionListItem</string>
 
     <string name="question_sample_question">질문 텍스트</string>
