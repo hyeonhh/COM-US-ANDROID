@@ -40,7 +40,6 @@ class QuestionFragment : Fragment(), View.OnClickListener {
         _binding = FragmentQuestionBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // 전체 질문 리스트 조회
         questionViewModel.loadQuestionListByCate("")
 
         setThemeList()

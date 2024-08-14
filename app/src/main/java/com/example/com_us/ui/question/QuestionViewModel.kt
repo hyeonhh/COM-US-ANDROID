@@ -29,7 +29,6 @@ class QuestionViewModel(private val questionRepository: QuestionRepository) : Vi
             questionRepository.getQuestionListByCate(category)
                 .onSuccess {
                     _questionListByCate.value = it
-                    println(_questionListByCate)
                 }
                 .onFailure {
                     Log.d("GET: [QUESTION LIST BY CATE] DATA FAILURE", it.toString())
