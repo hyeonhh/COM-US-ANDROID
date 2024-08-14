@@ -37,7 +37,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         binding.includeHomeSchool.constraint.setOnClickListener(this)
         binding.includeHomeFriend.constraint.setOnClickListener(this)
         binding.includeHomeFamily.constraint.setOnClickListener(this)
-        binding.includeHomeInterest.constraint.setOnClickListener(this)
+        binding.includeHomeHobby.constraint.setOnClickListener(this)
         binding.includeHomeRandom.constraint.setOnClickListener(this)
 
         return root
@@ -57,8 +57,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
             R.id.include_home_family -> {
                 moveToQuestionList(ThemeType.FAMILY.toString(), ThemeType.FAMILY.kor)
             }
-            R.id.include_home_interest -> {
-                moveToQuestionList(ThemeType.INTEREST.toString(), ThemeType.INTEREST.kor)
+            R.id.include_home_hobby -> {
+                moveToQuestionList(ThemeType.HOBBY.toString(), ThemeType.HOBBY.kor)
             }
             R.id.include_home_random -> {
                 moveToQuestionList(ThemeType.RANDOM.toString(), ThemeType.RANDOM.kor)

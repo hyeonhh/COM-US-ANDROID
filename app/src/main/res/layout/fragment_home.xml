@@ -409,7 +409,7 @@
                 app:layout_constraintTop_toBottomOf="@id/include_home_daily" />
 
             <include
-                android:id="@+id/include_home_interest"
+                android:id="@+id/include_home_hobby"
                 layout="@layout/item_theme_progress"
                 app:title="@{@string/theme_interest}"
                 app:background="@{@drawable/shape_fill_stroke_rect10_pink}"
@@ -428,7 +428,7 @@
             <include
                 android:id="@+id/include_home_random"
                 layout="@layout/item_theme_progress"
-                app:title="@{@string/theme_random}"
+                app:title="@{@string/theme_random_question}"
                 app:background="@{@drawable/shape_fill_stroke_rect10_salmon}"
                 app:backgroundIcon="@{@drawable/ic_background_random}"
                 app:isRandom="@{true}"
@@ -437,7 +437,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/include_home_interest"
+                app:layout_constraintStart_toEndOf="@+id/include_home_hobby"
                 app:layout_constraintTop_toBottomOf="@id/include_home_friend" />
 
 

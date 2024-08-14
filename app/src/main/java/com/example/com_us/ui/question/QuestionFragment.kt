@@ -1,17 +1,23 @@
 package com.example.com_us.ui.question
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.com_us.R
+import com.example.com_us.data.response.question.ResponseQuestionDto
 import com.example.com_us.databinding.FragmentQuestionBinding
+import com.example.com_us.ui.ThemeType
 
 class QuestionFragment : Fragment(), View.OnClickListener {
 
@@ -21,7 +27,7 @@ class QuestionFragment : Fragment(), View.OnClickListener {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: QuestionViewModel
+    private val questionViewModel: QuestionViewModel by viewModels { QuestionViewModelFactory(requireContext()) }
 
     private var lastSelectedView: TextView? = null
 
@@ -30,32 +36,16 @@ class QuestionFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val questionViewModel =
-            ViewModelProvider(this).get(QuestionViewModel::class.java)
 
         _binding = FragmentQuestionBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        /*val textView: TextView = binding.textDashboard
-        questionViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }*/
+        // 전체 질문 리스트 조회
+        questionViewModel.loadQuestionListByCate("")
 
-        viewModel = ViewModelProvider(this)[QuestionViewModel::class.java]
-
-        viewModel.selectedThemeId.observe(viewLifecycleOwner, Observer {
-            val selectedView = binding.root.findViewById<TextView>(it)
-            val themeKor = selectedView.text
-            setThemeSelected(selectedView, themeKor.toString())
-        })
-
-        binding.includeThemeAll.textviewTheme.setOnClickListener(this)
-        binding.includeThemeDaily.textviewTheme.setOnClickListener(this)
-        binding.includeThemeFamily.textviewTheme.setOnClickListener(this)
-        binding.includeThemeFriend.textviewTheme.setOnClickListener(this)
-        binding.includeThemeRandom.textviewTheme.setOnClickListener(this)
-        binding.includeThemeInterest.textviewTheme.setOnClickListener(this)
-        binding.includeThemeSchool.textviewTheme.setOnClickListener(this)
+        setThemeList()
+        setComposeList()
+        setThemeClickListener()
 
         return root
     }
@@ -64,7 +54,42 @@ class QuestionFragment : Fragment(), View.OnClickListener {
         super.onResume()
 
         val themeAllView = binding.includeThemeAll
-        viewModel.updateSelectedThemeId(themeAllView.textviewTheme.id)
+        questionViewModel.updateSelectedThemeId(themeAllView.textviewTheme.id)
+    }
+
+    private fun setThemeList() {
+        questionViewModel.selectedThemeId.observe(viewLifecycleOwner, Observer {
+            val selectedView = binding.root.findViewById<TextView>(it)
+            val themeKor = selectedView.text.toString()
+            questionViewModel.loadQuestionListByCate(ThemeType.fromKor(themeKor).toString())
+            setThemeSelected(selectedView, themeKor)
+        })
+    }
+
+    private fun setComposeList() {
+        questionViewModel.questionListByCate.observe(viewLifecycleOwner) {
+            binding.textviewQuestionCount.text = String.format(resources.getString(R.string.question_title_question_count), it.size)
+            binding.composeviewQuestion.apply {
+                setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+                setContent {
+                    LazyColumn {
+                        items(it.size) { idx ->
+                            QuestionListItem(data = it[idx])
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setThemeClickListener(){
+        binding.includeThemeAll.textviewTheme.setOnClickListener(this)
+        binding.includeThemeDaily.textviewTheme.setOnClickListener(this)
+        binding.includeThemeFamily.textviewTheme.setOnClickListener(this)
+        binding.includeThemeFriend.textviewTheme.setOnClickListener(this)
+        binding.includeThemeRandom.textviewTheme.setOnClickListener(this)
+        binding.includeThemeInterest.textviewTheme.setOnClickListener(this)
+        binding.includeThemeSchool.textviewTheme.setOnClickListener(this)
     }
 
     private fun setThemeSelected(selectedView: TextView, themeKor: String) {
@@ -77,18 +102,14 @@ class QuestionFragment : Fragment(), View.OnClickListener {
 
         selectedView?.let { view ->
             view.setBackgroundResource(R.drawable.shape_fill_rect5_gray700)
-            view.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))  // 안전한 색상 적용
+            view.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
         }
 
         lastSelectedView = selectedView
     }
 
-    private fun setThemeUnSelected() {
-
-    }
-
     override fun onClick(view: View) {
-        viewModel.updateSelectedThemeId(view.id)
+        questionViewModel.updateSelectedThemeId(view.id)
     }
 
     override fun onDestroyView() {

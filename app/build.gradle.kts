@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    kotlin("plugin.serialization") version "2.0.10"
 }
 
 android {
@@ -92,5 +93,18 @@ dependencies {
     // UI Tests
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    // retrofit
+    val retrofitVersion = "2.9.0"
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+
+    // OkHttp
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.9.0"))
+    implementation("com.squareup.okhttp3:okhttp")
+    implementation("com.squareup.okhttp3:logging-interceptor")
+
+    // serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
 
 }

@@ -1,0 +1,12 @@
+package com.example.com_us.data.repository
+
+import com.example.com_us.data.datasource.QuestionRemoteDataSource
+import com.example.com_us.data.response.question.ResponseQuestionDto
+
+class QuestionRepository(
+    private val questionRemoteDataSource: QuestionRemoteDataSource
+) {
+    suspend fun getQuestionListByCate(category: String): Result<List<ResponseQuestionDto>> {
+        return runCatching { questionRemoteDataSource.getQuestionListByCate(category).data!! }
+    }
+}

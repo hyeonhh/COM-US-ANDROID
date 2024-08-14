@@ -6,6 +6,7 @@
         android:paddingTop="58dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context=".ui.question.QuestionFragment">
 
         <TextView
@@ -81,17 +82,16 @@
             android:textColor="@color/text_black"
             android:textFontWeight="500"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/textView9"
+            app:layout_constraintEnd_toStartOf="@+id/textview_question_count"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/textview_question_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
-            android:text="@string/question_title_question_count"
             android:textFontWeight="500"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView8"
@@ -129,9 +129,12 @@
         </LinearLayout>
 
         <androidx.compose.ui.platform.ComposeView
-            android:id="@+id/composeView"
+            android:id="@+id/composeview_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="@dimen/activity_horizontal_whitespace"
+            android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />

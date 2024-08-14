@@ -32,7 +32,9 @@ fun AnswerTypeTag(colorType: ColorType, text: String) {
             .background(color = colorPalette.background)
     ) {
         Text(text = text,
-            Modifier.padding(10.dp, 5.dp), color = colorPalette.text)
+            softWrap = false,
+            modifier = Modifier.padding(10.dp, 5.dp),
+            color = colorPalette.text)
     }
 }
 
