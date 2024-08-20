@@ -5,19 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.example.com_us.R
-import com.example.com_us.data.response.question.Category
+import com.example.com_us.data.response.home.Category
 import com.example.com_us.databinding.FragmentHomeBinding
 import com.example.com_us.ui.ThemeType
 import com.example.com_us.ui.home.theme.ThemeQuestionListActivity
-import com.example.com_us.ui.question.QuestionListItem
-import com.example.com_us.ui.question.QuestionViewModel
-import com.example.com_us.ui.question.QuestionViewModelFactory
 
 class HomeFragment : Fragment(), View.OnClickListener {
 

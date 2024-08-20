@@ -1,4 +1,4 @@
-package com.example.com_us.data.response.question
+package com.example.com_us.data.response.home
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

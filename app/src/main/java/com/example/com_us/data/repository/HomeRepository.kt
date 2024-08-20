@@ -1,9 +1,7 @@
 package com.example.com_us.data.repository
 
 import com.example.com_us.data.datasource.HomeRemoteDataSource
-import com.example.com_us.data.datasource.QuestionRemoteDataSource
-import com.example.com_us.data.response.question.ResponseHomeDataDto
-import com.example.com_us.data.response.question.ResponseQuestionDto
+import com.example.com_us.data.response.home.ResponseHomeDataDto
 
 class HomeRepository(
     private val homeRemoteDataSource: HomeRemoteDataSource
