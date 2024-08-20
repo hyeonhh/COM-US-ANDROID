@@ -10,8 +10,7 @@ import androidx.fragment.app.viewModels
 import com.example.com_us.R
 import com.example.com_us.data.response.home.Category
 import com.example.com_us.databinding.FragmentHomeBinding
-import com.example.com_us.ui.ThemeType
-import com.example.com_us.ui.home.theme.ThemeQuestionListActivity
+import com.example.com_us.util.ThemeType
 
 class HomeFragment : Fragment(), View.OnClickListener {
 
@@ -102,7 +101,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         binding.includeHomeHobby.progressbarTheme.progress = categoryData.hobbyPercent.toInt()
     }
     private fun moveToQuestionList(theme: String, themeKor: String) {
-        val intent = Intent(context, ThemeQuestionListActivity::class.java)
+        val intent = Intent(context, HomeThemeQuestionListActivity::class.java)
         intent.putExtra("theme", theme)
         intent.putExtra("themeKor", themeKor)
         startActivity(intent)

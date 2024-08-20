@@ -1,4 +1,4 @@
-package com.example.com_us.ui
+package com.example.com_us.util
 
 enum class ThemeType(val kor: String) {
     ALL("전체"),

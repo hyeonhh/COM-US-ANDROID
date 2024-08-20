@@ -1,4 +1,4 @@
-package com.example.com_us.ui.theme
+package com.example.com_us.ui.compose.theme
 
 import androidx.compose.ui.graphics.Color
 
@@ -13,6 +13,7 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 val Gray200 = Color(0xFFD8D8D8)
+val Gray500 = Color(0xFF8F8F8F)
 
 val Blue700 = Color(0xFF00A3E8)
 val Blue500 = Color(0xFF5ACEFF)

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="107dp"
+    android:background="@color/white"
     android:paddingHorizontal="@dimen/activity_horizontal_whitespace"
     tools:context=".ui.question.QuestionDetailActivity">
 
@@ -16,78 +16,84 @@
         android:textColor="@color/orange_700"
         android:textFontWeight="700"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/button_detail_answerbefore"
+        app:layout_constraintBottom_toTopOf="@+id/textview_detail_question"
         app:layout_constraintEnd_toStartOf="@+id/button_detail_answerbefore"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button_detail_answerbefore"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
         android:id="@+id/button_detail_answerbefore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="0dp"
         android:background="@android:color/transparent"
+        android:padding="0dp"
         android:text="@string/question_detail_button_answer_before"
         android:textColor="@color/gray_500"
+        app:layout_constraintBottom_toBottomOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView7"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/textView7"
+        app:layout_constraintVertical_bias="0.5" />
 
     <TextView
         android:id="@+id/textview_detail_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:text="@string/question_sample_question"
         android:textColor="@color/text_black"
         android:textFontWeight="700"
         android:textSize="20sp"
-        android:text="@string/question_sample_question"
-        app:layout_constraintBottom_toTopOf="@+id/compose_detail_questiontype"
+        app:layout_constraintBottom_toTopOf="@+id/view2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintVertical_bias="0.5" />
 
     <androidx.compose.ui.platform.ComposeView
         android:id="@+id/compose_detail_questiontype"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/view2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_detail_question"
-        tools:layout_editor_absoluteX="25dp" />
+        app:layout_constraintVertical_bias="0.5" />
 
     <View
         android:id="@+id/view2"
         android:layout_width="wrap_content"
         android:layout_height="1dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="47dp"
         android:layout_marginBottom="47dp"
         android:background="@color/gray_200"
-        app:layout_constraintBottom_toTopOf="@+id/compose_detail_answeroption"
+        app:layout_constraintBottom_toTopOf="@+id/button_detail_complete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/compose_detail_questiontype" />
+        app:layout_constraintTop_toBottomOf="@+id/textview_detail_question"
+        app:layout_constraintVertical_bias="0.5" />
 
     <androidx.compose.ui.platform.ComposeView
         android:id="@+id/compose_detail_answeroption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/button_detail_complete"
-        app:layout_constraintTop_toBottomOf="@+id/view2"
-        tools:layout_editor_absoluteX="25dp" />
+        android:layout_marginTop="44dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
 
     <Button
         android:id="@+id/button_detail_complete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="73dp"
-        android:textFontWeight="700"
-        android:textSize="18sp"
         android:background="@drawable/shape_fill_rect10_gray200"
+        android:layout_marginTop="73dp"
         android:text="@string/question_detail_button_complete"
         android:textColor="@color/gray_500"
-        app:layout_constraintTop_toBottomOf="@+id/compose_detail_answeroption"
-        tools:layout_editor_absoluteX="25dp" />
+        android:textFontWeight="700"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/compose_detail_answeroption" />
 </androidx.constraintlayout.widget.ConstraintLayout>

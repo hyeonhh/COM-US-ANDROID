@@ -1,11 +1,10 @@
 package com.example.com_us.ui.question
 
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.ui.platform.ViewCompositionStrategy
@@ -13,11 +12,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.com_us.R
-import com.example.com_us.data.response.question.ResponseQuestionDto
 import com.example.com_us.databinding.FragmentQuestionBinding
-import com.example.com_us.ui.ThemeType
+import com.example.com_us.ui.compose.QuestionListItem
+import com.example.com_us.util.ThemeType
 
 class QuestionFragment : Fragment(), View.OnClickListener {
 
@@ -73,7 +71,7 @@ class QuestionFragment : Fragment(), View.OnClickListener {
                 setContent {
                     LazyColumn {
                         items(it.size) { idx ->
-                            QuestionListItem(data = it[idx])
+                            QuestionListItem(data = it[idx], onClick = { moveToQuestionDetail(it[idx].id) })
                         }
                     }
                 }
@@ -105,6 +103,12 @@ class QuestionFragment : Fragment(), View.OnClickListener {
         }
 
         lastSelectedView = selectedView
+    }
+
+    private fun moveToQuestionDetail(questionId: Long) {
+        val intent = Intent(activity, QuestionDetailActivity::class.java)
+        intent.putExtra("questionId", questionId)
+        startActivity(intent)
     }
 
     override fun onClick(view: View) {
