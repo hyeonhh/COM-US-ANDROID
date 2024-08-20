@@ -19,7 +19,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
     private val homeViewModel: HomeViewModel by viewModels { HomeViewModelFactory(requireContext()) }
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

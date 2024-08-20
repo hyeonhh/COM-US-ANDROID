@@ -19,6 +19,9 @@ class QuestionViewModel(private val questionRepository: QuestionRepository) : Vi
     }
     val selectedThemeId: LiveData<Int> = _selectedThemeId
 
+    private val _selectedAnswerOptionId = MutableLiveData(-1)
+    val selectedAnswerOptionId: LiveData<Int> = _selectedAnswerOptionId
+
     private val _questionListByCate = MutableLiveData<List<ResponseQuestionDto>>()
     val questionListByCate: LiveData<List<ResponseQuestionDto>> = _questionListByCate
 
@@ -27,6 +30,10 @@ class QuestionViewModel(private val questionRepository: QuestionRepository) : Vi
 
     fun updateSelectedThemeId(newId: Int) {
         _selectedThemeId.value = newId
+    }
+    fun updateSelectedAnswerOptionId(newOptionId: Int) {
+        _selectedAnswerOptionId.value = newOptionId
+        println("Update $newOptionId")
     }
     fun loadQuestionListByCate(category: String){
         viewModelScope.launch {

@@ -4,13 +4,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import com.example.com_us.R
 import com.example.com_us.databinding.ActivityQuestionDetailBinding
 import com.example.com_us.util.ColorMatch
-import com.example.com_us.ui.compose.AnswerOptionItem
+import com.example.com_us.ui.compose.AnswerOptionList
 import com.example.com_us.ui.compose.AnswerTypeTag
 
 class QuestionDetailActivity : AppCompatActivity() {
@@ -29,6 +29,11 @@ class QuestionDetailActivity : AppCompatActivity() {
 
         setQuestionDetail()
 
+        questionViewModel.selectedAnswerOptionId.observe(this) {
+            if (it > -1) {
+                setCompleteButton()
+            }
+        }
     }
 
     private fun setQuestionDetail() {
@@ -52,18 +57,24 @@ class QuestionDetailActivity : AppCompatActivity() {
     }
 
     private fun setQuestionAnswerOptionCompose(answerList: List<String>) {
-        var columCount = 2
         binding.composeDetailAnsweroption.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(columCount)
-                ) {
-                    items(answerList.size) { item ->
-                        AnswerOptionItem(answerList[item])
-                    }
-                }
+                AnswerOptionList(answerList, questionViewModel)
             }
+        }
+    }
+
+    private fun setCompleteButton(){
+        binding.buttonDetailComplete.isClickable = true
+        binding.buttonDetailComplete.setTextColor(
+            ContextCompat.getColor(
+                this,
+                R.color.white
+            )
+        )
+        binding.buttonDetailComplete.setBackgroundResource(R.drawable.shape_fill_rect10_orange700)
+        binding.buttonDetailComplete.setOnClickListener{
         }
     }
 }

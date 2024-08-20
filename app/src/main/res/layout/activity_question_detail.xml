@@ -91,6 +91,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/shape_fill_rect10_gray200"
         android:layout_marginTop="73dp"
+        android:clickable="false"
         android:text="@string/question_detail_button_complete"
         android:textColor="@color/gray_500"
         android:textFontWeight="700"
