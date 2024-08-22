@@ -24,7 +24,7 @@
 
     <TextView
         android:id="@+id/textview_answer_question"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
         android:layout_marginHorizontal="@dimen/activity_horizontal_whitespace"
@@ -87,7 +87,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <VideoView
-        android:id="@+id/videoView2"
+        android:id="@+id/videoview_answer_sign"
         android:layout_width="match_parent"
         android:layout_marginTop="20dp"
         android:layout_marginHorizontal="@dimen/activity_horizontal_whitespace"
@@ -104,12 +104,12 @@
         android:textColor="@color/text_black"
         android:textFontWeight="700"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/videoView2"
+        app:layout_constraintTop_toBottomOf="@+id/videoview_answer_sign"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textview_answer_descrp"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/activity_horizontal_whitespace"
         android:layout_marginTop="8dp"
@@ -118,7 +118,8 @@
         android:textFontWeight="500"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@+id/textView13"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <Button
         android:id="@+id/button_answer_complete"
@@ -130,8 +131,9 @@
         android:text="@string/question_answer_button_follow_along"
         android:textColor="@color/white"
         android:textFontWeight="700"
+        android:layout_marginBottom="80dp"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/textview_answer_descrp"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="25dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

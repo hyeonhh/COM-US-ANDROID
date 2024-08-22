@@ -1,6 +1,7 @@
 package com.example.com_us.data.service
 
 import com.example.com_us.data.response.BaseResponse
+import com.example.com_us.data.response.question.ResponseAnswerDetailDto
 import com.example.com_us.data.response.question.ResponseQuestionDetailDto
 import com.example.com_us.data.response.question.ResponseQuestionDto
 import retrofit2.http.GET
@@ -17,4 +18,9 @@ interface QuestionService {
     suspend fun getQuestionDetail(
         @Path("question_id") questionId: Long,
     ): BaseResponse<ResponseQuestionDetailDto>
+
+    @GET("/api/sign-language")
+    suspend fun getAnswerDetail(
+        @Query("answer") answer: String,
+    ): BaseResponse<List<ResponseAnswerDetailDto>>
 }

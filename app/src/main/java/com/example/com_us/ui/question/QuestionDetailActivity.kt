@@ -1,12 +1,12 @@
 package com.example.com_us.ui.question
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Row
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import com.example.com_us.R
 import com.example.com_us.databinding.ActivityQuestionDetailBinding
 import com.example.com_us.util.ColorMatch
@@ -16,6 +16,9 @@ import com.example.com_us.ui.compose.AnswerTypeTag
 class QuestionDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityQuestionDetailBinding
+    private lateinit var answerList: List<String>
+    private var answerOptionId: Int = -1
+    private lateinit var question: String
     private val questionViewModel: QuestionViewModel by viewModels { QuestionViewModelFactory(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,16 +35,18 @@ class QuestionDetailActivity : AppCompatActivity() {
         questionViewModel.selectedAnswerOptionId.observe(this) {
             if (it > -1) {
                 setCompleteButton()
+                answerOptionId = it
             }
         }
     }
 
     private fun setQuestionDetail() {
-        questionViewModel.questionDetail.observe(this, Observer {
+        questionViewModel.questionDetail.observe(this) {
             binding.textviewDetailQuestion.text = it.question.questionContent
+            this.question = it.question.questionContent
             setQuestionTypeCompose(it.question.category, it.question.answerType)
             setQuestionAnswerOptionCompose(it.answerList)
-        })
+        }
     }
 
     private fun setQuestionTypeCompose(category: String, answerType: String) {
@@ -57,6 +62,7 @@ class QuestionDetailActivity : AppCompatActivity() {
     }
 
     private fun setQuestionAnswerOptionCompose(answerList: List<String>) {
+        this.answerList = answerList
         binding.composeDetailAnsweroption.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
@@ -75,6 +81,14 @@ class QuestionDetailActivity : AppCompatActivity() {
         )
         binding.buttonDetailComplete.setBackgroundResource(R.drawable.shape_fill_rect10_orange700)
         binding.buttonDetailComplete.setOnClickListener{
+            if(answerOptionId > -1) moveToQuestionAnswer(answerOptionId)
         }
+    }
+
+    private fun moveToQuestionAnswer(answerOptionId: Int) {
+        val intent = Intent(this, QuestionAnswerActivity::class.java)
+        intent.putExtra("question", question)
+        intent.putExtra("answer", answerList[answerOptionId])
+        startActivity(intent)
     }
 }
