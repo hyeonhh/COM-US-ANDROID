@@ -1,13 +1,14 @@
 package com.example.com_us.ui.question
 
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import com.example.com_us.R
 import com.example.com_us.data.response.question.ResponseAnswerDetailDto
 import com.example.com_us.databinding.ActivityQuestionAnswerBinding
+
 
 class QuestionAnswerActivity : AppCompatActivity() {
 
@@ -16,6 +17,7 @@ class QuestionAnswerActivity : AppCompatActivity() {
 
     private lateinit var answer: String
     private lateinit var question: String
+    private lateinit var category: String
     private lateinit var signData: List<ResponseAnswerDetailDto>
 
     private var videoPlayCount: MutableLiveData<Int> = MutableLiveData(0)
@@ -25,6 +27,7 @@ class QuestionAnswerActivity : AppCompatActivity() {
 
         answer = intent.getStringExtra("answer").toString()
         question = intent.getStringExtra("question").toString()
+        category = intent.getStringExtra("category").toString()
 
         if(!answer.isNullOrEmpty()){
             questionViewModel.loadAnswerDetail(answer)
@@ -38,6 +41,9 @@ class QuestionAnswerActivity : AppCompatActivity() {
             if(!it.isNullOrEmpty()){
                 signData = it
                 setAnswerDetail()
+                binding.buttonAnswerFollowalong.setOnClickListener {
+                    moveToFollowAlongDialog()
+                }
             }
         }
     }
@@ -67,7 +73,7 @@ class QuestionAnswerActivity : AppCompatActivity() {
                     } else {
                         videoPlayCount.value = 0
                     }
-                } else
+                } else if(videoPlayCount.value != -1)
                     videoPlayCount.value = videoPlayCount.value?.plus(1)
 
             }
@@ -79,5 +85,10 @@ class QuestionAnswerActivity : AppCompatActivity() {
         binding.videoviewAnswerSign.setVideoURI(Uri.parse(signData[signIdx].signLanguageVideoUrl))
         binding.videoviewAnswerSign.start()
         binding.textviewAnswerDescrp.text = signData[signIdx].signLanguageDescription
+    }
+    private fun moveToFollowAlongDialog() {
+        videoPlayCount.value = -1
+        val dialog = QuestionFollowAlongDialog.newInstance(question, answer, category, signData)
+        dialog.show(supportFragmentManager, "FollowAlongDialog")
     }
 }

@@ -17,8 +17,11 @@ class QuestionDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityQuestionDetailBinding
     private lateinit var answerList: List<String>
-    private var answerOptionId: Int = -1
     private lateinit var question: String
+    private lateinit var category: String
+
+    private var questionId: Long = -1
+    private var answerOptionId: Int = -1
     private val questionViewModel: QuestionViewModel by viewModels { QuestionViewModelFactory(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +29,7 @@ class QuestionDetailActivity : AppCompatActivity() {
         binding = ActivityQuestionDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val questionId = intent.getLongExtra("questionId", 0L)
+        questionId = intent.getLongExtra("questionId", 0L)
 
         if(questionId > 0) questionViewModel.loadQuestionDetail(questionId)
 
@@ -43,13 +46,14 @@ class QuestionDetailActivity : AppCompatActivity() {
     private fun setQuestionDetail() {
         questionViewModel.questionDetail.observe(this) {
             binding.textviewDetailQuestion.text = it.question.questionContent
-            this.question = it.question.questionContent
-            setQuestionTypeCompose(it.question.category, it.question.answerType)
+            question = it.question.questionContent
+            category = it.question.category
+            setQuestionTypeCompose(it.question.answerType)
             setQuestionAnswerOptionCompose(it.answerList)
         }
     }
 
-    private fun setQuestionTypeCompose(category: String, answerType: String) {
+    private fun setQuestionTypeCompose(answerType: String) {
         binding.composeDetailQuestiontype.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
@@ -81,14 +85,19 @@ class QuestionDetailActivity : AppCompatActivity() {
         )
         binding.buttonDetailComplete.setBackgroundResource(R.drawable.shape_fill_rect10_orange700)
         binding.buttonDetailComplete.setOnClickListener{
-            if(answerOptionId > -1) moveToQuestionAnswer(answerOptionId)
+            if(answerOptionId > -1 && questionId > -1) {
+                questionViewModel.postAnswer(questionId, answerList[answerOptionId])
+                moveToQuestionAnswer(answerOptionId)
+            }
         }
     }
 
     private fun moveToQuestionAnswer(answerOptionId: Int) {
         val intent = Intent(this, QuestionAnswerActivity::class.java)
         intent.putExtra("question", question)
+        intent.putExtra("category", category)
         intent.putExtra("answer", answerList[answerOptionId])
         startActivity(intent)
+        finish()
     }
 }

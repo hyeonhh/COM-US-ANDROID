@@ -19,9 +19,6 @@
             android:name=".ui.question.QuestionCollectBlockActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.question.QuestionFollowAlongDialog"
-            android:exported="false" />
-        <activity
             android:name=".ui.question.QuestionAnswerActivity"
             android:exported="true">
         </activity>

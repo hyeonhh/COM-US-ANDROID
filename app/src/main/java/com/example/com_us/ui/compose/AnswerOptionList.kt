@@ -22,9 +22,7 @@ fun AnswerOptionList(answerList: List<String>, questionViewModel: QuestionViewMo
                 optionId = item,
                 text = answerList[item],
                 isSelected = selectedOption == item,
-                onClick = { selectedOption = it;
-                    questionViewModel.updateSelectedAnswerOptionId(it);
-                questionViewModel.updateSelectedAnswerOption(answerList[it])}
+                onClick = { selectedOption = it; questionViewModel.updateSelectedAnswerOptionId(it);}
             )
         }
     }

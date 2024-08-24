@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.com_us.R
 import com.example.com_us.data.repository.QuestionRepository
+import com.example.com_us.data.request.question.RequestAnswerDto
 import com.example.com_us.data.response.question.ResponseAnswerDetailDto
 import com.example.com_us.data.response.question.ResponseQuestionDetailDto
 import com.example.com_us.data.response.question.ResponseQuestionDto
@@ -23,9 +24,6 @@ class QuestionViewModel(private val questionRepository: QuestionRepository) : Vi
     private val _selectedAnswerOptionId = MutableLiveData(-1)
     val selectedAnswerOptionId: LiveData<Int> = _selectedAnswerOptionId
 
-    private val _selectedAnswerOption = MutableLiveData("")
-    val selectedAnswerOption: LiveData<String> = _selectedAnswerOption
-
     private val _questionListByCate = MutableLiveData<List<ResponseQuestionDto>>()
     val questionListByCate: LiveData<List<ResponseQuestionDto>> = _questionListByCate
 
@@ -40,9 +38,6 @@ class QuestionViewModel(private val questionRepository: QuestionRepository) : Vi
     }
     fun updateSelectedAnswerOptionId(newOptionId: Int) {
         _selectedAnswerOptionId.value = newOptionId
-    }
-    fun updateSelectedAnswerOption(newOption: String) {
-        _selectedAnswerOption.value = newOption
     }
     fun loadQuestionListByCate(category: String){
         viewModelScope.launch {
@@ -76,6 +71,18 @@ class QuestionViewModel(private val questionRepository: QuestionRepository) : Vi
                 }
                 .onFailure {
                     Log.d("GET: [ANSWER DETAIL] DATA FAILURE", it.toString())
+                }
+        }
+    }
+
+    fun postAnswer(questionId: Long, answerContent: String){
+        var body = RequestAnswerDto(questionId, answerContent)
+        viewModelScope.launch {
+            questionRepository.postAnswer(body)
+                .onSuccess {
+                }
+                .onFailure {
+                    Log.d("POST: [ANSWER] DATA FAILURE", it.toString())
                 }
         }
     }

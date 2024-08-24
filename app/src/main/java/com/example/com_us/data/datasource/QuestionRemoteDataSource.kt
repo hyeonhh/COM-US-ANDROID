@@ -1,6 +1,8 @@
 package com.example.com_us.data.datasource
 
+import com.example.com_us.data.request.question.RequestAnswerDto
 import com.example.com_us.data.response.BaseResponse
+import com.example.com_us.data.response.BaseResponseNoData
 import com.example.com_us.data.response.question.ResponseAnswerDetailDto
 import com.example.com_us.data.response.question.ResponseQuestionDetailDto
 import com.example.com_us.data.response.question.ResponseQuestionDto
@@ -15,5 +17,8 @@ class QuestionRemoteDataSource(private val questionService : QuestionService) : 
     }
     override suspend fun getAnswerDetail(answer: String): BaseResponse<List<ResponseAnswerDetailDto>> {
         return questionService.getAnswerDetail(answer)
+    }
+    override suspend fun postAnswer(body: RequestAnswerDto): BaseResponseNoData {
+        return questionService.postAnswer(body)
     }
 }
