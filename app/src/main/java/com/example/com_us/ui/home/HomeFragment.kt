@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import com.example.com_us.R
 import com.example.com_us.data.response.home.Block
 import com.example.com_us.data.response.home.Category
@@ -19,6 +20,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private lateinit var blockList: List<List<View>>
 
     private var _binding: FragmentHomeBinding? = null
+    private var isReload: MutableLiveData<Boolean> = MutableLiveData(false)
     private val binding get() = _binding!!
 
     private val homeViewModel: HomeViewModel by viewModels { HomeViewModelFactory(requireContext()) }
@@ -41,10 +43,28 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
         homeViewModel.loadHomeData()
 
+        setSwipeRefresh()
         setThemeClickListener()
         setHomeData()
 
         return root
+    }
+
+    private fun setSwipeRefresh() {
+        binding.swiperefreshHome.setOnRefreshListener {
+            homeViewModel.loadHomeData()
+        }
+
+        isReload.observe(viewLifecycleOwner) {
+            if(it){
+                isReload.value = false
+                binding.swiperefreshHome.isRefreshing = false
+            }
+        }
+
+        binding.scrollviewHome.viewTreeObserver.addOnScrollChangedListener {
+            binding.swiperefreshHome.isEnabled = (binding.scrollviewHome.scrollY == 0)
+        }
     }
 
     private fun setThemeClickListener() {
@@ -64,6 +84,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             binding.textviewHomeMinute.text = String.format(resources.getString(R.string.home_sub_today_conversation_minute), chatMinute)
             setThemeProgress(it.category)
             setBlock(it.block)
+            isReload.value = true
         }
     }
 
