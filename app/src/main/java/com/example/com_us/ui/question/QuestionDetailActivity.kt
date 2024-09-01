@@ -104,7 +104,7 @@ class QuestionDetailActivity : AppCompatActivity() {
     }
 
     private fun moveToQuestionAnswer(answerOptionId: Int) {
-        val intent = Intent(this, QuestionAnswerActivity::class.java)
+        val intent = Intent(this, QuestionCheckAnswerActivity::class.java)
         intent.putExtra("question", question)
         intent.putExtra("category", category)
         intent.putExtra("answer", answerList[answerOptionId])

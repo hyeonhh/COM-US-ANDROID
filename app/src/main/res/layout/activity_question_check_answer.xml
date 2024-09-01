@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/constraint_answer"
-    tools:context=".ui.question.QuestionAnswerActivity">
+    tools:context=".ui.question.QuestionCheckAnswerActivity">
 
     <include
         android:id="@+id/include_answer_toolbar"

@@ -7,12 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import com.example.com_us.R
 import com.example.com_us.data.response.question.ResponseAnswerDetailDto
-import com.example.com_us.databinding.ActivityQuestionAnswerBinding
+import com.example.com_us.databinding.ActivityQuestionCheckAnswerBinding
 
 
-class QuestionAnswerActivity : AppCompatActivity() {
+class QuestionCheckAnswerActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityQuestionAnswerBinding
+    private lateinit var binding: ActivityQuestionCheckAnswerBinding
     private val questionViewModel: QuestionViewModel by viewModels { QuestionViewModelFactory(this) }
 
     private lateinit var answer: String
@@ -33,7 +33,7 @@ class QuestionAnswerActivity : AppCompatActivity() {
             questionViewModel.loadAnswerDetail(answer)
         }
 
-        binding = ActivityQuestionAnswerBinding.inflate(layoutInflater)
+        binding = ActivityQuestionCheckAnswerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setActionBar()

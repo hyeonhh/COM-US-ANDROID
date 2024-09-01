@@ -25,7 +25,7 @@
             android:name=".ui.question.QuestionResultActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.question.QuestionAnswerActivity"
+            android:name=".ui.question.QuestionCheckAnswerActivity"
             android:exported="true">
         </activity>
         <activity
