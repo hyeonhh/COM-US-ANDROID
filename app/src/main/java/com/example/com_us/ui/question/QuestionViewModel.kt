@@ -10,6 +10,7 @@ import com.example.com_us.R
 import com.example.com_us.data.repository.QuestionRepository
 import com.example.com_us.data.request.question.RequestAnswerDto
 import com.example.com_us.data.response.question.ResponseAnswerDetailDto
+import com.example.com_us.data.response.question.ResponsePreviousAnswerDto
 import com.example.com_us.data.response.question.ResponseQuestionDetailDto
 import com.example.com_us.data.response.question.ResponseQuestionDto
 import kotlinx.coroutines.launch
@@ -32,6 +33,9 @@ class QuestionViewModel(private val questionRepository: QuestionRepository) : Vi
 
     private val _answerDetail = MutableLiveData<List<ResponseAnswerDetailDto>>()
     val answerDetail: LiveData<List<ResponseAnswerDetailDto>> = _answerDetail
+
+    private val _answerPrevious = MutableLiveData<ResponsePreviousAnswerDto>()
+    val answerPrevious: LiveData<ResponsePreviousAnswerDto> = _answerPrevious
 
     fun updateSelectedThemeId(newId: Int) {
         _selectedThemeId.value = newId
@@ -83,6 +87,18 @@ class QuestionViewModel(private val questionRepository: QuestionRepository) : Vi
                 }
                 .onFailure {
                     Log.d("POST: [ANSWER] DATA FAILURE", it.toString())
+                }
+        }
+    }
+
+    fun loadPreviousAnswer(questionId: Long) {
+        viewModelScope.launch {
+            questionRepository.getPreviousAnswer(questionId)
+                .onSuccess {
+                    _answerPrevious.value = it
+                }
+                .onFailure {
+                    Log.d("GET: [ANSWER DETAIL] DATA FAILURE", it.toString())
                 }
         }
     }

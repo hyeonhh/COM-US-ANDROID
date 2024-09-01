@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Comus"
         tools:targetApi="31">
         <activity
+            android:name=".ui.question.QuestionPreviousAnswerActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.question.QuestionCollectBlockActivity"
             android:exported="false" />
         <activity

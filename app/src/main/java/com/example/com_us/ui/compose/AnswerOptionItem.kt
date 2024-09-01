@@ -32,6 +32,6 @@ fun AnswerOptionItem(optionId: Int, text: String, isSelected: Boolean, onClick: 
         contentAlignment = Alignment.Center
     ) {
         Text(text = text,
-            Modifier.padding(0.dp, 14.dp), color = if(isSelected) Orange700 else Gray500, style = Typography.titleLarge)
+            Modifier.padding(0.dp, 14.dp), color = if(isSelected) Orange700 else Gray500, style = Typography.headlineLarge)
     }
 }

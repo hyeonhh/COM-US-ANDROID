@@ -31,7 +31,10 @@ class QuestionDetailActivity : AppCompatActivity() {
 
         questionId = intent.getLongExtra("questionId", 0L)
 
-        if(questionId > 0) questionViewModel.loadQuestionDetail(questionId)
+        if(questionId > 0) {
+            questionViewModel.loadQuestionDetail(questionId)
+            setPreviousAnswerButton()
+        }
 
         setQuestionDetail()
 
@@ -89,6 +92,14 @@ class QuestionDetailActivity : AppCompatActivity() {
                 questionViewModel.postAnswer(questionId, answerList[answerOptionId])
                 moveToQuestionAnswer(answerOptionId)
             }
+        }
+    }
+
+    private fun setPreviousAnswerButton() {
+        binding.buttonDetailAnswerbefore.setOnClickListener {
+            val intent = Intent(this, QuestionPreviousAnswerActivity::class.java)
+            intent.putExtra("questionId", questionId)
+            startActivity(intent)
         }
     }
 

@@ -2,8 +2,9 @@ package com.example.com_us.data.service
 
 import com.example.com_us.data.request.question.RequestAnswerDto
 import com.example.com_us.data.response.BaseResponse
-import com.example.com_us.data.response.BaseResponseNoData
 import com.example.com_us.data.response.question.ResponseAnswerDetailDto
+import com.example.com_us.data.response.question.ResponseAnswerDetailWithDateDto
+import com.example.com_us.data.response.question.ResponsePreviousAnswerDto
 import com.example.com_us.data.response.question.ResponseQuestionDetailDto
 import com.example.com_us.data.response.question.ResponseQuestionDto
 import retrofit2.http.Body
@@ -31,5 +32,10 @@ interface QuestionService {
     @POST("/api/answer")
     suspend fun postAnswer(
         @Body body: RequestAnswerDto,
-    ): BaseResponseNoData
+    ): BaseResponse<ResponseAnswerDetailWithDateDto>
+
+    @GET("/api/answer/{questionId}")
+    suspend fun getPreviousAnswer(
+        @Path("questionId") questionId: Long,
+    ): BaseResponse<ResponsePreviousAnswerDto>
 }
