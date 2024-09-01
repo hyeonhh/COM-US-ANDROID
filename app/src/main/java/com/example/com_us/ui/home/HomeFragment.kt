@@ -59,7 +59,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private fun setHomeData() {
         val emojiText = String(Character.toChars(resources.getInteger(R.integer.waving_hand_sign)))
         homeViewModel.homeData.observe(viewLifecycleOwner) {
-            val chatMinute = it.user.todayChatTime.substring(3, 5)
+            val chatMinute = it.user.todayChatTime.substring(3, 5).toInt()
             binding.textviewHomeGreeting.text = String.format(resources.getString(R.string.home_title_greeting_user_hi), it.user.name, emojiText)
             binding.textviewHomeMinute.text = String.format(resources.getString(R.string.home_sub_today_conversation_minute), chatMinute)
             setThemeProgress(it.category)
