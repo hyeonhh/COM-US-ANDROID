@@ -53,7 +53,7 @@ fun QuestionListItem(data: ResponseQuestionDto, onClick: () -> Unit) {
                 ) {
                     Text(
                         text = data.category,
-                        style = Typography.titleMedium,
+                        style = Typography.headlineMedium,
                         color = ColorMatch.fromKor(data.category)?.color ?: Color.LightGray,
                         modifier = Modifier.padding(end = 4.dp)
                     )
