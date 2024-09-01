@@ -11,25 +11,41 @@ import com.example.com_us.R
 
 val pretendardFontFamily = FontFamily(
     Font(R.font.pretendard_regular, FontWeight.Normal, FontStyle.Normal),
+    Font(R.font.pretendard_medium, FontWeight.Medium, FontStyle.Normal),
     Font(R.font.pretendard_semibold, FontWeight.SemiBold, FontStyle.Normal),
     Font(R.font.pretendard_bold, FontWeight.Bold, FontStyle.Normal),
 )
 
 // Set of Material typography styles to start with
 val Typography = Typography(
-    titleLarge = TextStyle(
+    headlineLarge = TextStyle(
         fontFamily = pretendardFontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 18.sp,
     ),
-    titleMedium = TextStyle(
+    headlineMedium = TextStyle(
         fontFamily = pretendardFontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 14.sp,
     ),
-    titleSmall = TextStyle(
+    headlineSmall = TextStyle(
         fontFamily = pretendardFontFamily,
         fontWeight = FontWeight.Bold,
+        fontSize = 12.sp,
+    ),
+    titleLarge = TextStyle(
+        fontFamily = pretendardFontFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 18.sp,
+    ),
+    titleMedium = TextStyle(
+        fontFamily = pretendardFontFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 14.sp,
+    ),
+    titleSmall = TextStyle(
+        fontFamily = pretendardFontFamily,
+        fontWeight = FontWeight.Medium,
         fontSize = 12.sp,
     ),
     bodyLarge = TextStyle(
