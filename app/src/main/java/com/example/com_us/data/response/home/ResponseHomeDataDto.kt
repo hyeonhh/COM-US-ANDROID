@@ -74,9 +74,9 @@ data class Block(
     @SerialName("id")
     val id: Long,
     @SerialName("level")
-    val name: Long,
+    val level: Long,
     @SerialName("category")
-    val imageUrl: String,
+    val category: String,
     @SerialName("blockRow")
     val blockRow: Long,
     @SerialName("blockColumn")

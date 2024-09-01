@@ -8,11 +8,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.com_us.R
+import com.example.com_us.data.response.home.Block
 import com.example.com_us.data.response.home.Category
 import com.example.com_us.databinding.FragmentHomeBinding
+import com.example.com_us.util.ColorMatch
 import com.example.com_us.util.ThemeType
 
 class HomeFragment : Fragment(), View.OnClickListener {
+
+    private lateinit var blockList: List<List<View>>
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -27,6 +31,13 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        blockList = listOf(
+            listOf(binding.viewHomeBlock00, binding.viewHomeBlock01, binding.viewHomeBlock02, binding.viewHomeBlock03),
+            listOf(binding.viewHomeBlock10, binding.viewHomeBlock11, binding.viewHomeBlock12, binding.viewHomeBlock13),
+            listOf(binding.viewHomeBlock20, binding.viewHomeBlock21, binding.viewHomeBlock22, binding.viewHomeBlock23),
+            listOf(binding.viewHomeBlock30, binding.viewHomeBlock31, binding.viewHomeBlock32, binding.viewHomeBlock33),
+        )
 
         homeViewModel.loadHomeData()
 
@@ -52,6 +63,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             binding.textviewHomeGreeting.text = String.format(resources.getString(R.string.home_title_greeting_user_hi), it.user.name, emojiText)
             binding.textviewHomeMinute.text = String.format(resources.getString(R.string.home_sub_today_conversation_minute), chatMinute)
             setThemeProgress(it.category)
+            setBlock(it.block)
         }
     }
 
@@ -98,6 +110,23 @@ class HomeFragment : Fragment(), View.OnClickListener {
         binding.includeHomeHobby.textviewThemeFraction.text = String.format(resources.getString(R.string.home_theme_fraction), categoryData.hobbyCount, categoryData.hobbyTotalCount)
         binding.includeHomeHobby.textviewThemePercent.text = String.format(resources.getString(R.string.home_theme_percent), categoryData.hobbyPercent)
         binding.includeHomeHobby.progressbarTheme.progress = categoryData.hobbyPercent.toInt()
+    }
+
+    private fun setBlock(blockData: List<Block>){
+        if(blockData.isNotEmpty()) setNoBlockBackground(false) else setNoBlockBackground(true)
+        var color: Int?
+        for(data in blockData) {
+            println("$data")
+            color = ColorMatch.findColorFromKor(data.category)
+            if(color != null){
+                blockList[data.blockRow.toInt()][data.blockColumn.toInt()].setBackgroundResource(color)
+            }
+        }
+    }
+    private fun setNoBlockBackground(setBg: Boolean) {
+        val visibility = if(setBg) View.VISIBLE else View.INVISIBLE
+        binding.imageviewHomeNoblock.visibility = visibility
+        binding.textviewHomeNoblock.visibility = visibility
     }
     private fun moveToQuestionList(theme: String, themeKor: String) {
         val intent = Intent(context, HomeThemeQuestionListActivity::class.java)

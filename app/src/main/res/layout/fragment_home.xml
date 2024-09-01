@@ -200,21 +200,25 @@
                     android:layout_weight="1">
 
                     <View
+                        android:id="@+id/view_home_block30"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_stroke_rect_topleft10_gray200" />
 
                     <View
+                        android:id="@+id/view_home_block31"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_stroke_rect_gray200" />
 
                     <View
+                        android:id="@+id/view_home_block32"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_stroke_rect_gray200" />
 
                     <View
+                        android:id="@+id/view_home_block33"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_stroke_rect_topright10_gray200" />
@@ -226,47 +230,25 @@
                     android:layout_weight="1">
 
                     <View
+                        android:id="@+id/view_home_block20"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_stroke_rect_gray200" />
 
                     <View
+                        android:id="@+id/view_home_block21"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_stroke_rect_gray200" />
 
                     <View
+                        android:id="@+id/view_home_block22"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_stroke_rect_gray200" />
 
                     <View
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_gray200" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_gray200" />
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_gray200" />
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_rect_gray200" />
-
-                    <View
+                        android:id="@+id/view_home_block23"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_stroke_rect_gray200" />
@@ -278,21 +260,55 @@
                     android:layout_weight="1">
 
                     <View
+                        android:id="@+id/view_home_block10"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_stroke_rect_gray200" />
+
+                    <View
+                        android:id="@+id/view_home_block11"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_stroke_rect_gray200" />
+
+                    <View
+                        android:id="@+id/view_home_block12"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_stroke_rect_gray200" />
+
+                    <View
+                        android:id="@+id/view_home_block13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_stroke_rect_gray200" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <View
+                        android:id="@+id/view_home_block00"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_stroke_rect_bottomleft10_gray200" />
 
                     <View
+                        android:id="@+id/view_home_block01"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_stroke_rect_gray200" />
 
                     <View
+                        android:id="@+id/view_home_block02"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_stroke_rect_gray200" />
 
                     <View
+                        android:id="@+id/view_home_block03"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_stroke_rect_bottomright10_gray200" />
