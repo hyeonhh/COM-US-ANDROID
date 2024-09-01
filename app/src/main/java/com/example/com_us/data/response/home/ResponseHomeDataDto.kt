@@ -27,46 +27,46 @@ data class User(
 @Serializable
 data class Category(
     @SerialName("DailyCount")
-    val dailyCount: Long,
+    val DailyCount: Int,
     @SerialName("DailyTotalCount")
-    val dailyTotalCount: Long,
+    val DailyTotalCount: Int,
     @SerialName("DailyPercent")
-    val dailyPercent: Long,
+    val DailyPercent: Int,
 
     @SerialName("SchoolCount")
-    val schoolCount: Long,
+    val SchoolCount: Int,
     @SerialName("SchoolTotalCount")
-    val schoolTotalCount: Long,
+    val SchoolTotalCount: Int,
     @SerialName("SchoolPercent")
-    val schoolPercent: Long,
+    val SchoolPercent: Int,
 
     @SerialName("FriendCount")
-    val friendCount: Long,
+    val FriendCount: Int,
     @SerialName("FriendTotalCount")
-    val friendTotalCount: Long,
+    val FriendTotalCount: Int,
     @SerialName("FriendPercent")
-    val friendPercent: Long,
+    val FriendPercent: Int,
 
     @SerialName("FamilyCount")
-    val familyCount: Long,
+    val FamilyCount: Int,
     @SerialName("FamilyTotalCount")
-    val familyTotalCount: Long,
+    val FamilyTotalCount: Int,
     @SerialName("FamilyPercent")
-    val familyPercent: Long,
+    val FamilyPercent: Int,
 
     @SerialName("HobbyCount")
-    val hobbyCount: Long,
+    val HobbyCount: Int,
     @SerialName("HobbyTotalCount")
-    val hobbyTotalCount: Long,
+    val HobbyTotalCount: Int,
     @SerialName("HobbyPercent")
-    val hobbyPercent: Long,
+    val HobbyPercent: Int,
 
     @SerialName("RandomCount")
-    val randomCount: Long,
+    val RandomCount: Int,
     @SerialName("RandomTotalCount")
-    val randomTotalCount: Long,
+    val RandomTotalCount: Int,
     @SerialName("RandomPercent")
-    val randomPercent: Long,
+    val RandomPercent: Int,
 )
 
 @Serializable
@@ -74,11 +74,11 @@ data class Block(
     @SerialName("id")
     val id: Long,
     @SerialName("level")
-    val level: Long,
+    val level: Int,
     @SerialName("category")
     val category: String,
     @SerialName("blockRow")
-    val blockRow: Long,
+    val blockRow: Int,
     @SerialName("blockColumn")
-    val blockColumn: Long,
+    val blockColumn: Int,
 )

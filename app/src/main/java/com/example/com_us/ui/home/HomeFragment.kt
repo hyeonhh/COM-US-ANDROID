@@ -91,32 +91,31 @@ class HomeFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setThemeProgress(categoryData: Category) {
-        binding.includeHomeDaily.textviewThemeFraction.text = String.format(resources.getString(R.string.home_theme_fraction), categoryData.dailyCount, categoryData.dailyTotalCount)
-        binding.includeHomeDaily.textviewThemePercent.text = String.format(resources.getString(R.string.home_theme_percent), categoryData.dailyPercent)
-        binding.includeHomeDaily.progressbarTheme.progress = categoryData.dailyPercent.toInt()
+        binding.includeHomeDaily.textviewThemeFraction.text = String.format(resources.getString(R.string.home_theme_fraction), categoryData.DailyCount, categoryData.DailyTotalCount)
+        binding.includeHomeDaily.textviewThemePercent.text = String.format(resources.getString(R.string.home_theme_percent), categoryData.DailyPercent)
+        binding.includeHomeDaily.progressbarTheme.progress = categoryData.DailyPercent.toInt()
 
-        binding.includeHomeSchool.textviewThemeFraction.text = String.format(resources.getString(R.string.home_theme_fraction), categoryData.schoolCount, categoryData.schoolTotalCount)
-        binding.includeHomeSchool.textviewThemePercent.text = String.format(resources.getString(R.string.home_theme_percent), categoryData.schoolPercent)
-        binding.includeHomeSchool.progressbarTheme.progress = categoryData.schoolPercent.toInt()
+        binding.includeHomeSchool.textviewThemeFraction.text = String.format(resources.getString(R.string.home_theme_fraction), categoryData.SchoolCount, categoryData.SchoolTotalCount)
+        binding.includeHomeSchool.textviewThemePercent.text = String.format(resources.getString(R.string.home_theme_percent), categoryData.SchoolPercent)
+        binding.includeHomeSchool.progressbarTheme.progress = categoryData.SchoolPercent.toInt()
 
-        binding.includeHomeFriend.textviewThemeFraction.text = String.format(resources.getString(R.string.home_theme_fraction), categoryData.friendCount, categoryData.friendTotalCount)
-        binding.includeHomeFriend.textviewThemePercent.text = String.format(resources.getString(R.string.home_theme_percent), categoryData.friendPercent)
-        binding.includeHomeFriend.progressbarTheme.progress = categoryData.friendPercent.toInt()
+        binding.includeHomeFriend.textviewThemeFraction.text = String.format(resources.getString(R.string.home_theme_fraction), categoryData.FriendCount, categoryData.FriendTotalCount)
+        binding.includeHomeFriend.textviewThemePercent.text = String.format(resources.getString(R.string.home_theme_percent), categoryData.FriendPercent)
+        binding.includeHomeFriend.progressbarTheme.progress = categoryData.FriendPercent.toInt()
 
-        binding.includeHomeFamily.textviewThemeFraction.text = String.format(resources.getString(R.string.home_theme_fraction), categoryData.familyCount, categoryData.familyTotalCount)
-        binding.includeHomeFamily.textviewThemePercent.text = String.format(resources.getString(R.string.home_theme_percent), categoryData.familyPercent)
-        binding.includeHomeFamily.progressbarTheme.progress = categoryData.familyPercent.toInt()
+        binding.includeHomeFamily.textviewThemeFraction.text = String.format(resources.getString(R.string.home_theme_fraction), categoryData.FamilyCount, categoryData.FamilyTotalCount)
+        binding.includeHomeFamily.textviewThemePercent.text = String.format(resources.getString(R.string.home_theme_percent), categoryData.FamilyPercent)
+        binding.includeHomeFamily.progressbarTheme.progress = categoryData.FamilyPercent.toInt()
 
-        binding.includeHomeHobby.textviewThemeFraction.text = String.format(resources.getString(R.string.home_theme_fraction), categoryData.hobbyCount, categoryData.hobbyTotalCount)
-        binding.includeHomeHobby.textviewThemePercent.text = String.format(resources.getString(R.string.home_theme_percent), categoryData.hobbyPercent)
-        binding.includeHomeHobby.progressbarTheme.progress = categoryData.hobbyPercent.toInt()
+        binding.includeHomeHobby.textviewThemeFraction.text = String.format(resources.getString(R.string.home_theme_fraction), categoryData.HobbyCount, categoryData.HobbyTotalCount)
+        binding.includeHomeHobby.textviewThemePercent.text = String.format(resources.getString(R.string.home_theme_percent), categoryData.HobbyPercent)
+        binding.includeHomeHobby.progressbarTheme.progress = categoryData.HobbyPercent.toInt()
     }
 
     private fun setBlock(blockData: List<Block>){
         if(blockData.isNotEmpty()) setNoBlockBackground(false) else setNoBlockBackground(true)
         var color: Int?
         for(data in blockData) {
-            println("$data")
             color = ColorMatch.findColorFromKor(data.category)
             if(color != null){
                 blockList[data.blockRow.toInt()][data.blockColumn.toInt()].setBackgroundResource(color)

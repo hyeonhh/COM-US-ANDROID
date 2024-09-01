@@ -18,7 +18,6 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
             homeRepository.getHomeData()
                 .onSuccess {
                     _homeData.value = it
-                    println(_homeData)
                 }
                 .onFailure {
                     Log.d("GET: [HOME DATA] DATA FAILURE", it.toString())
