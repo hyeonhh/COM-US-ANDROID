@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.example.com_us.R
 import com.example.com_us.data.response.home.Block
 import com.example.com_us.data.response.home.Category
@@ -82,6 +85,11 @@ class HomeFragment : Fragment(), View.OnClickListener {
             val chatMinute = it.user.todayChatTime.substring(3, 5).toInt()
             binding.textviewHomeGreeting.text = String.format(resources.getString(R.string.home_title_greeting_user_hi), it.user.name, emojiText)
             binding.textviewHomeMinute.text = String.format(resources.getString(R.string.home_sub_today_conversation_minute), chatMinute)
+            Glide.with(this)
+                .load(it.user.imageUrl)
+                .apply(RequestOptions().transform(RoundedCorners(300)))
+                .into(binding.imageviewHomeUsericon)
+
             setThemeProgress(it.category)
             setBlock(it.block)
             isReload.value = true
