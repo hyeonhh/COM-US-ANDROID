@@ -12,6 +12,7 @@ import com.example.com_us.databinding.ActivityQuestionDetailBinding
 import com.example.com_us.util.ColorMatch
 import com.example.com_us.ui.compose.AnswerOptionList
 import com.example.com_us.ui.compose.AnswerTypeTag
+import com.example.com_us.util.QuestionManager
 
 class QuestionDetailActivity : AppCompatActivity() {
 
@@ -32,6 +33,7 @@ class QuestionDetailActivity : AppCompatActivity() {
         questionId = intent.getLongExtra("questionId", 0L)
 
         if(questionId > 0) {
+            QuestionManager.questionId = questionId
             questionViewModel.loadQuestionDetail(questionId)
             setPreviousAnswerButton()
         }
@@ -88,8 +90,7 @@ class QuestionDetailActivity : AppCompatActivity() {
         )
         binding.buttonDetailComplete.setBackgroundResource(R.drawable.shape_fill_rect10_orange700)
         binding.buttonDetailComplete.setOnClickListener{
-            if(answerOptionId > -1 && questionId > -1) {
-                questionViewModel.postAnswer(questionId, answerList[answerOptionId])
+            if(answerOptionId > -1) {
                 moveToQuestionAnswer(answerOptionId)
             }
         }

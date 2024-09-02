@@ -9,34 +9,39 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import com.example.com_us.data.response.question.ResponseAnswerDetailDto
 import com.example.com_us.databinding.DialogQuestionFollowAlongBinding
+import com.example.com_us.util.QuestionManager
 
 private const val ARG_PARAM_QUESTION  = "paramQuestion"
 private const val ARG_PARAM_ANSWER = "paramAnswer"
 private const val ARG_PARAM_CATEGORY = "paramCategory"
 private const val ARG_PARAM_SIGNDATA = "paramSignData"
 
-class QuestionFollowAlongDialog : DialogFragment() {
+class QuestionFollowAlongDialog : DialogFragment(), MoveActivityInterface {
     // TODO: Rename and change types of parameters
     private lateinit var paramQuestion: String
     private lateinit var paramAnswer: String
     private lateinit var paramCategory: String
-    private lateinit var paramSignData: List<ResponseAnswerDetailDto>
+
+    private lateinit var signData: List<ResponseAnswerDetailDto>
 
     private var videoPlayCount: MutableLiveData<Int> = MutableLiveData(0)
 
     private var _binding: DialogQuestionFollowAlongBinding? = null
     private val binding get() = _binding!!
 
+    private val questionViewModel: QuestionViewModel by viewModels { QuestionViewModelFactory(requireContext()) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        questionViewModel.questionInterface = this
         arguments?.let {
             paramQuestion = it.getString(ARG_PARAM_QUESTION)!!
             paramAnswer = it.getString(ARG_PARAM_ANSWER)!!
             paramCategory = it.getString(ARG_PARAM_CATEGORY)!!
-            paramSignData = it.getSerializable(ARG_PARAM_SIGNDATA) as List<ResponseAnswerDetailDto>
+            //paramSignData = it.getSerializable(ARG_PARAM_SIGNDATA) as List<ResponseAnswerDetailDto>
         }
     }
 
@@ -47,13 +52,14 @@ class QuestionFollowAlongDialog : DialogFragment() {
         _binding = DialogQuestionFollowAlongBinding.inflate(inflater, container, false)
         val view = binding.root
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        signData = QuestionManager.signLanguageInfo
 
         setAnswerDetail()
+        getAnswerDate()
+
         binding.buttonAnswerComplete.setOnClickListener {
-            val intent = Intent(activity, QuestionCollectBlockActivity::class.java)
-            intent.putExtra("category", paramCategory)
-            startActivity(intent)
-            activity?.finish()
+            val questionId = QuestionManager.questionId
+            if(questionId > 0 && paramAnswer.isNotEmpty()) questionViewModel.postAnswer(questionId, paramAnswer)
         }
 
         // Inflate the layout for this fragment
@@ -68,13 +74,13 @@ class QuestionFollowAlongDialog : DialogFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(paramQuestion: String, paramAnswer: String, paramCategory: String, paramSignData: List<ResponseAnswerDetailDto>) =
+        fun newInstance(paramQuestion: String, paramAnswer: String, paramCategory: String) =
             QuestionFollowAlongDialog().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM_QUESTION, paramQuestion)
                     putString(ARG_PARAM_ANSWER, paramAnswer)
                     putString(ARG_PARAM_CATEGORY, paramCategory)
-                    putSerializable(ARG_PARAM_SIGNDATA, ArrayList(paramSignData))
+                    //putSerializable(ARG_PARAM_SIGNDATA, ArrayList(paramSignData))
                 }
             }
     }
@@ -92,9 +98,9 @@ class QuestionFollowAlongDialog : DialogFragment() {
             if(it >= 0) setSignDetail(it)
         }
 
-        if(paramSignData.size > 1) {
+        if(signData.size > 1) {
             binding.videoviewFollowdialogSign.setOnCompletionListener {
-                if(videoPlayCount.value!! >= paramSignData.size-1){
+                if(videoPlayCount.value!! >= signData.size-1){
                     if(++repeatCount > 3) {
                         videoPlayCount.value = -1
                         repeatCount = 0
@@ -108,10 +114,23 @@ class QuestionFollowAlongDialog : DialogFragment() {
         }
     }
 
+    private fun getAnswerDate() {
+        questionViewModel.resultData.observe(this) {
+            if(it != null) QuestionManager.answerDate = it.answerDate
+        }
+    }
+
     private fun setSignDetail(signIdx: Int) {
-        binding.textviewFollowdialogAnswer.text = paramSignData[signIdx].signLanguageName
-        binding.videoviewFollowdialogSign.setVideoURI(Uri.parse(paramSignData[signIdx].signLanguageVideoUrl))
+        binding.textviewFollowdialogAnswer.text = signData[signIdx].signLanguageName
+        binding.videoviewFollowdialogSign.setVideoURI(Uri.parse(signData[signIdx].signLanguageVideoUrl))
         binding.videoviewFollowdialogSign.start()
-        binding.textviewFollodialogDescrp.text = paramSignData[signIdx].signLanguageDescription
+        binding.textviewFollodialogDescrp.text = signData[signIdx].signLanguageDescription
+    }
+
+    override fun moveToBlockCollect() {
+        val intent = Intent(activity, QuestionCollectBlockActivity::class.java)
+        intent.putExtra("category", paramCategory)
+        startActivity(intent)
+        activity?.finish()
     }
 }

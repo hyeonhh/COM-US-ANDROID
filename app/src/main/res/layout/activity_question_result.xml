@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraint_answer"
+    android:id="@+id/constraint_result"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.question.QuestionResultActivity">
@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/activity_horizontal_whitespace"
-        android:text="@string/question_answer_title_question"
+        android:text="@string/question_result_title_question"
         android:textColor="@color/orange_700"
         android:textFontWeight="700"
         android:textSize="20sp"
@@ -32,12 +32,12 @@
         android:textColor="@color/gray_700"
         android:textFontWeight="400"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/include_answer_toolbar"
+        app:layout_constraintTop_toBottomOf="@id/include_result_toolbar"
         app:layout_constraintStart_toEndOf="@id/textView7"
         tools:layout_editor_absoluteY="30dp" />
 
     <TextView
-        android:id="@+id/textview_answer_question"
+        android:id="@+id/textview_result_question"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/activity_horizontal_whitespace"
@@ -46,22 +46,22 @@
         android:textColor="@color/text_black"
         android:textFontWeight="700"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/compose_answer_questiontype"
+        app:layout_constraintEnd_toStartOf="@+id/compose_result_questiontype"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView7" />
 
     <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/compose_answer_questiontype"
+        android:id="@+id/compose_result_questiontype"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/activity_horizontal_whitespace"
-        app:layout_constraintBottom_toBottomOf="@+id/textview_answer_question"
+        app:layout_constraintBottom_toBottomOf="@+id/textview_result_question"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textview_answer_question"
-        app:layout_constraintTop_toTopOf="@+id/textview_answer_question" />
+        app:layout_constraintStart_toEndOf="@+id/textview_result_question"
+        app:layout_constraintTop_toTopOf="@+id/textview_result_question" />
 
     <View
         android:id="@+id/view2"
@@ -72,7 +72,7 @@
         android:background="@color/gray_200"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_answer_question" />
+        app:layout_constraintTop_toBottomOf="@+id/textview_result_question" />
 
     <TextView
         android:id="@+id/textView8"
@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/activity_horizontal_whitespace"
         android:layout_marginVertical="20dp"
-        android:text="@string/question_answer_title_answer"
+        android:text="@string/question_result_title_answer"
         android:textColor="@color/orange_700"
         android:textFontWeight="700"
         android:textSize="20sp"
@@ -88,7 +88,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view2" />
 
     <TextView
-        android:id="@+id/textview_answer_answer"
+        android:id="@+id/textview_result_answer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/activity_horizontal_whitespace"
@@ -111,10 +111,10 @@
         android:textFontWeight="700"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_answer_answer" />
+        app:layout_constraintTop_toBottomOf="@+id/textview_result_answer" />
 
     <VideoView
-        android:id="@+id/videoview_answer_sign"
+        android:id="@+id/videoview_result_sign"
         android:layout_width="match_parent"
         android:layout_height="210dp"
         android:layout_marginHorizontal="@dimen/activity_horizontal_whitespace"
@@ -127,15 +127,15 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/activity_horizontal_whitespace"
         android:layout_marginTop="20dp"
-        android:text="@string/question_answer_title_sign_descp"
+        android:text="@string/question_result_sign_descp"
         android:textColor="@color/text_black"
         android:textFontWeight="700"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/videoview_answer_sign" />
+        app:layout_constraintTop_toBottomOf="@+id/videoview_result_sign" />
 
     <TextView
-        android:id="@+id/textview_answer_descrp"
+        android:id="@+id/textview_result_descrp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/activity_horizontal_whitespace"
@@ -149,14 +149,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <Button
-        android:id="@+id/button_answer_followalong"
+        android:id="@+id/button_result_complete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/activity_horizontal_whitespace"
         android:layout_marginTop="42dp"
         android:layout_marginBottom="80dp"
         android:background="@drawable/shape_fill_rect10_orange700"
-        android:text="@string/question_answer_button_follow_along"
+        android:text="@string/question_result_button_complete"
         android:textColor="@color/white"
         android:textFontWeight="700"
         android:textSize="18sp"

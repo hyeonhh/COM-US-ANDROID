@@ -10,12 +10,15 @@ import com.example.com_us.R
 import com.example.com_us.data.repository.QuestionRepository
 import com.example.com_us.data.request.question.RequestAnswerDto
 import com.example.com_us.data.response.question.ResponseAnswerDetailDto
+import com.example.com_us.data.response.question.ResponseAnswerDetailWithDateDto
 import com.example.com_us.data.response.question.ResponsePreviousAnswerDto
 import com.example.com_us.data.response.question.ResponseQuestionDetailDto
 import com.example.com_us.data.response.question.ResponseQuestionDto
 import kotlinx.coroutines.launch
 
 class QuestionViewModel(private val questionRepository: QuestionRepository) : ViewModel() {
+
+    var questionInterface: MoveActivityInterface? = null
 
     private val _selectedThemeId = MutableLiveData<Int>().apply {
         value = R.id.include_theme_all
@@ -36,6 +39,9 @@ class QuestionViewModel(private val questionRepository: QuestionRepository) : Vi
 
     private val _answerPrevious = MutableLiveData<ResponsePreviousAnswerDto>()
     val answerPrevious: LiveData<ResponsePreviousAnswerDto> = _answerPrevious
+
+    private val _resultData = MutableLiveData<ResponseAnswerDetailWithDateDto>()
+    val resultData: LiveData<ResponseAnswerDetailWithDateDto> = _resultData
 
     fun updateSelectedThemeId(newId: Int) {
         _selectedThemeId.value = newId
@@ -84,6 +90,8 @@ class QuestionViewModel(private val questionRepository: QuestionRepository) : Vi
         viewModelScope.launch {
             questionRepository.postAnswer(body)
                 .onSuccess {
+                    _resultData.value = it
+                    questionInterface?.moveToBlockCollect()
                 }
                 .onFailure {
                     Log.d("POST: [ANSWER] DATA FAILURE", it.toString())

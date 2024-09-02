@@ -2,12 +2,14 @@ package com.example.com_us.ui.question
 
 import android.net.Uri
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import com.example.com_us.R
 import com.example.com_us.data.response.question.ResponseAnswerDetailDto
 import com.example.com_us.databinding.ActivityQuestionCheckAnswerBinding
+import com.example.com_us.util.QuestionManager
 
 
 class QuestionCheckAnswerActivity : AppCompatActivity() {
@@ -30,6 +32,7 @@ class QuestionCheckAnswerActivity : AppCompatActivity() {
         category = intent.getStringExtra("category").toString()
 
         if(!answer.isNullOrEmpty()){
+            QuestionManager.question = question
             questionViewModel.loadAnswerDetail(answer)
         }
 
@@ -39,6 +42,7 @@ class QuestionCheckAnswerActivity : AppCompatActivity() {
         setActionBar()
         questionViewModel.answerDetail.observe(this) {
             if(!it.isNullOrEmpty()){
+                QuestionManager.signLanguageInfo = it
                 signData = it
                 setAnswerDetail()
                 binding.buttonAnswerFollowalong.setOnClickListener {
@@ -55,6 +59,15 @@ class QuestionCheckAnswerActivity : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setHomeAsUpIndicator(R.drawable.ic_x)
     }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            android.R.id.home -> {
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 
     private fun setAnswerDetail() {
         binding.textviewAnswerQuestion.text = question
@@ -88,7 +101,7 @@ class QuestionCheckAnswerActivity : AppCompatActivity() {
     }
     private fun moveToFollowAlongDialog() {
         videoPlayCount.value = -1
-        val dialog = QuestionFollowAlongDialog.newInstance(question, answer, category, signData)
+        val dialog = QuestionFollowAlongDialog.newInstance(question, answer, category)
         dialog.show(supportFragmentManager, "FollowAlongDialog")
     }
 }
