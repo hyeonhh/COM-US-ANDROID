@@ -17,6 +17,8 @@
     <string name="theme_random">랜덤</string>
     <string name="theme_random_question">랜덤 질문</string>
 
+    <string name="percent">%1$d%%</string>
+
     <string name="home_title_greeting_user_hi">안녕하세요, %1$s님 %2$s</string>
     <string name="home_sub_greeting">오늘도 대화 나눠봐요~!</string>
     <string name="home_title_start_conversation">대화를 시작해 볼까요?</string>
@@ -72,6 +74,17 @@
     <string name="question_previous_conv_count">대화 %1$d회 완료</string>
     <string name="question_previous_answer">답변</string>
     <string name="question_previous_answer_count">%1$d개</string>
+
+    <string name="profile_username">%1$s님</string>
+    <string name="profile_edit_profile"><u>프로필 수정</u></string>
+    <string name="profile_conv_statistics">대화통계</string>
+    <string name="profile_time_taken">소요시간</string>
+    <string name="profile_time_taken_minute">%1$d분</string>
+    <string name="profile_conv_count">대화 수</string>
+    <string name="profile_conv_count_count">%1$d개</string>
+    <string name="profile_conv_type">대화 유형</string>
+    <string name="profile_conv_type_choice">선택형</string>
+    <string name="profile_conv_type_interactive">대화형</string>
 
     <string name="toolbar_back">뒤로 가기</string>
 

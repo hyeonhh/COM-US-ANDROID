@@ -2,4 +2,5 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_whitespace">25dp</dimen>
     <dimen name="activity_vertical_whitespace">35dp</dimen>
+    <dimen name="profile_graph_margin">1dp</dimen>
 </resources>

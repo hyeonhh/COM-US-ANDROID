@@ -16,6 +16,11 @@
     <color name="gray_200">#FFD8D8D8</color>
     <color name="gray_100">#FFF5F5F5</color>
 
+    <color name="graph_blue_light">#EDFFFF</color>
+    <color name="graph_blue_border">#5ACEFF</color>
+    <color name="graph_pink_light">#FFF0F8</color>
+    <color name="graph_pink_border">#EF9B9B</color>
+
     <color name="blue_700">#00A3E8</color>
     <color name="blue_500">#9DCCE1</color>
     <color name="blue_200">#DFF6FF</color>
