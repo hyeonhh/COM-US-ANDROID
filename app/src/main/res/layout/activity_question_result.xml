@@ -8,8 +8,8 @@
     tools:context=".ui.question.QuestionResultActivity">
 
     <include
-        android:id="@+id/include_answer_toolbar"
-        layout="@layout/toolbar_sub" />
+        android:id="@+id/include_result_toolbar"
+        layout="@layout/toolbar_top" />
 
     <TextView
         android:id="@+id/textView7"
