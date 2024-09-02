@@ -140,14 +140,14 @@ class ProfileFragment : Fragment() {
     private fun changeGraphShape(graphDrawableId: Int, ratio: Float, position: GraphPosition) {
         val drawable = context?.let { ContextCompat.getDrawable(it, graphDrawableId) } as? GradientDrawable
         if(ratio >= 100.0) {
-            drawable?.cornerRadius = 34f
+            drawable?.cornerRadius = 40f
         } else {
             drawable?.apply {
                 var radius = floatArrayOf(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f)
                 // 반경을 각각의 모서리에 적용: 순서대로 [top-left, top-right, bottom-right, bottom-left]
-                if(position == GraphPosition.LEFT) radius = floatArrayOf(30f, 30f, 0f, 0f, 0f, 0f, 30f, 30f)
+                if(position == GraphPosition.LEFT) radius = floatArrayOf(40f, 40f, 0f, 0f, 0f, 0f, 40f, 40f)
                 else if(position == GraphPosition.MIDDLE) radius = floatArrayOf(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f)
-                else if(position == GraphPosition.RIGHT) radius = floatArrayOf(0f, 0f, 30f, 30f, 30f, 30f, 0f, 0f)
+                else if(position == GraphPosition.RIGHT) radius = floatArrayOf(0f, 0f, 40f, 40f, 40f, 40f, 0f, 0f)
 
                 this.cornerRadii = radius
             }
