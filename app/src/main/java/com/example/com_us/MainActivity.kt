@@ -3,6 +3,7 @@ package com.example.com_us
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -35,5 +36,30 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        navView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> {
+                    changeNavItemColor(R.color.color_selector_nav_blue)
+                    navController.navigate(R.id.navigation_home)
+                    true
+                }
+                R.id.navigation_questions -> {
+                    changeNavItemColor(R.color.color_selector_nav_orange)
+                    navController.navigate(R.id.navigation_questions)
+                    true
+                }
+                R.id.navigation_profile -> {
+                    changeNavItemColor(R.color.color_selector_nav_salmon)
+                    navController.navigate(R.id.navigation_profile)
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
+    private fun changeNavItemColor(colorResId: Int) {
+        binding.navView.itemIconTintList = ContextCompat.getColorStateList(this, colorResId)
     }
 }
