@@ -16,11 +16,12 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.com_us.R
 import com.example.com_us.databinding.FragmentProfileBinding
+import com.example.com_us.util.ServerResponseHandler
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment(), ServerResponseHandler {
 
     private var _binding: FragmentProfileBinding? = null
     private val profileViewModel: ProfileViewModel by viewModels { ProfileViewModelFactory(requireContext()) }
@@ -35,6 +36,7 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
 
         profileViewModel.loadProfileData()
+        profileViewModel.serverResponseHandler = this
 
         setProfile()
 
@@ -104,7 +106,7 @@ class ProfileFragment : Fragment() {
 
         for((i, tRatio) in themeGraphRatioList.withIndex()) {
             if(rightThemeIdx != -1) {
-                if(leftThemeIdx == i && rightThemeIdx == i) changeGraphShape(themeGraphBg[i], tRatio, GraphPosition.LEFT)
+                if(leftThemeIdx == i && rightThemeIdx == i) changeGraphShape(themeGraphBg[i], 100f, GraphPosition.LEFT)
                 else if(leftThemeIdx == i) changeGraphShape(themeGraphBg[i], tRatio, GraphPosition.LEFT)
                 else if(rightThemeIdx == i) changeGraphShape(themeGraphBg[i], tRatio, GraphPosition.RIGHT)
                 else changeGraphShape(themeGraphBg[i], tRatio, GraphPosition.MIDDLE)
@@ -168,5 +170,13 @@ class ProfileFragment : Fragment() {
 
     enum class GraphPosition {
         RIGHT, MIDDLE, LEFT
+    }
+
+    override fun onServerSuccess() {
+        binding.constraintProfile.visibility = View.VISIBLE
+    }
+
+    override fun onServerFailure() {
+        TODO("Not yet implemented")
     }
 }
