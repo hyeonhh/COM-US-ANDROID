@@ -49,6 +49,7 @@
     <string name="question_detail_title_question">질문</string>
     <string name="question_detail_button_answer_before"><u>이전 답변 보기</u></string>
     <string name="question_detail_button_complete">완료하기</string>
+    <string name="question_detail_msg_when_server_failure">질문을 준비중이에요!</string>
 
     <string name="question_answer_title_question">질문1</string>
     <string name="question_answer_title_answer">답변</string>
@@ -65,6 +66,7 @@
     <string name="question_follow_along_title_follow">따라해보세요!</string>
     <string name="question_follow_along_sign_descp">수형설명</string>
     <string name="question_follow_along_button_complete">완료하기</string>
+    <string name="question_follow_along_server_failure">블럭 획득에 실패했어요</string>
 
     <string name="question_collect_block_title">대화 블럭 획득!</string>
 
@@ -91,6 +93,10 @@
     <string name="profile_conv_type">대화 유형</string>
     <string name="profile_conv_type_choice">선택형</string>
     <string name="profile_conv_type_interactive">대화형</string>
+
+
+    <string name="server_data_error">데이터를 불러오는데 실패했어요</string>
+    <string name="server_try_again_later">잠시후 다시 시도해주세요</string>
 
     <string name="toolbar_back">뒤로 가기</string>
 

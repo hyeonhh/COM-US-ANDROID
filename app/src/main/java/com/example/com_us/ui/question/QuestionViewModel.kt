@@ -1,7 +1,6 @@
 package com.example.com_us.ui.question
 
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,11 +13,12 @@ import com.example.com_us.data.response.question.ResponseAnswerDetailWithDateDto
 import com.example.com_us.data.response.question.ResponsePreviousAnswerDto
 import com.example.com_us.data.response.question.ResponseQuestionDetailDto
 import com.example.com_us.data.response.question.ResponseQuestionDto
+import com.example.com_us.util.ServerResponseHandler
 import kotlinx.coroutines.launch
 
 class QuestionViewModel(private val questionRepository: QuestionRepository) : ViewModel() {
 
-    var questionInterface: MoveActivityInterface? = null
+    var serverResponseHandler: ServerResponseHandler? = null
 
     private val _selectedThemeId = MutableLiveData<Int>().apply {
         value = R.id.include_theme_all
@@ -53,10 +53,12 @@ class QuestionViewModel(private val questionRepository: QuestionRepository) : Vi
         viewModelScope.launch {
             questionRepository.getQuestionListByCate(category)
                 .onSuccess {
+                    serverResponseHandler?.onServerSuccess()
                     _questionListByCate.value = it
                 }
                 .onFailure {
-                    Log.d("GET: [QUESTION LIST BY CATE] DATA FAILURE", it.toString())
+                    serverResponseHandler?.onServerFailure()
+                    Log.d("GET: [QUESTION LIST BY CATE]", it.toString())
                 }
         }
     }
@@ -66,9 +68,11 @@ class QuestionViewModel(private val questionRepository: QuestionRepository) : Vi
             questionRepository.getQuestionDetail(questionId)
                 .onSuccess {
                     _questionDetail.value = it
+                    serverResponseHandler?.onServerSuccess()
                 }
                 .onFailure {
-                    Log.d("GET: [QUESTION DETAIL] DATA FAILURE", it.toString())
+                    serverResponseHandler?.onServerFailure()
+                    Log.d("GET: [QUESTION DETAIL]", it.toString())
                 }
         }
     }
@@ -78,9 +82,11 @@ class QuestionViewModel(private val questionRepository: QuestionRepository) : Vi
             questionRepository.getAnswerDetail(answer)
                 .onSuccess {
                     _answerDetail.value = it
+                    serverResponseHandler?.onServerSuccess()
                 }
                 .onFailure {
-                    Log.d("GET: [ANSWER DETAIL] DATA FAILURE", it.toString())
+                    serverResponseHandler?.onServerFailure()
+                    Log.d("GET: [ANSWER DETAIL]", it.toString())
                 }
         }
     }
@@ -91,10 +97,11 @@ class QuestionViewModel(private val questionRepository: QuestionRepository) : Vi
             questionRepository.postAnswer(body)
                 .onSuccess {
                     _resultData.value = it
-                    questionInterface?.moveToBlockCollect()
+                    serverResponseHandler?.onServerSuccess()
                 }
                 .onFailure {
-                    Log.d("POST: [ANSWER] DATA FAILURE", it.toString())
+                    serverResponseHandler?.onServerFailure()
+                    Log.d("POST: [ANSWER]", it.toString())
                 }
         }
     }
@@ -104,9 +111,11 @@ class QuestionViewModel(private val questionRepository: QuestionRepository) : Vi
             questionRepository.getPreviousAnswer(questionId)
                 .onSuccess {
                     _answerPrevious.value = it
+                    serverResponseHandler?.onServerSuccess()
                 }
                 .onFailure {
-                    Log.d("GET: [ANSWER DETAIL] DATA FAILURE", it.toString())
+                    serverResponseHandler?.onServerFailure()
+                    Log.d("GET: [ANSWER DETAIL]", it.toString())
                 }
         }
     }

@@ -3,6 +3,8 @@ package com.example.com_us.ui.question
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Row
 import androidx.compose.ui.platform.ViewCompositionStrategy
@@ -13,8 +15,9 @@ import com.example.com_us.util.ColorMatch
 import com.example.com_us.ui.compose.AnswerOptionList
 import com.example.com_us.ui.compose.AnswerTypeTag
 import com.example.com_us.util.QuestionManager
+import com.example.com_us.util.ServerResponseHandler
 
-class QuestionDetailActivity : AppCompatActivity() {
+class QuestionDetailActivity : AppCompatActivity(), ServerResponseHandler {
 
     private lateinit var binding: ActivityQuestionDetailBinding
     private lateinit var answerList: List<String>
@@ -29,6 +32,8 @@ class QuestionDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityQuestionDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        questionViewModel.serverResponseHandler = this
 
         questionId = intent.getLongExtra("questionId", 0L)
 
@@ -110,6 +115,15 @@ class QuestionDetailActivity : AppCompatActivity() {
         intent.putExtra("category", category)
         intent.putExtra("answer", answerList[answerOptionId])
         startActivity(intent)
+        finish()
+    }
+
+    override fun onServerSuccess() {
+        binding.constraintQuestionDetail.visibility = View.VISIBLE
+    }
+
+    override fun onServerFailure() {
+        Toast.makeText(this, getString(R.string.question_detail_msg_when_server_failure), Toast.LENGTH_SHORT).show()
         finish()
     }
 }

@@ -3,6 +3,7 @@ package com.example.com_us.ui.question
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
@@ -10,9 +11,10 @@ import com.example.com_us.R
 import com.example.com_us.data.response.question.ResponseAnswerDetailDto
 import com.example.com_us.databinding.ActivityQuestionCheckAnswerBinding
 import com.example.com_us.util.QuestionManager
+import com.example.com_us.util.ServerResponseHandler
 
 
-class QuestionCheckAnswerActivity : AppCompatActivity() {
+class QuestionCheckAnswerActivity : AppCompatActivity(), ServerResponseHandler {
 
     private lateinit var binding: ActivityQuestionCheckAnswerBinding
     private val questionViewModel: QuestionViewModel by viewModels { QuestionViewModelFactory(this) }
@@ -26,6 +28,8 @@ class QuestionCheckAnswerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        questionViewModel.serverResponseHandler = this
 
         answer = intent.getStringExtra("answer").toString()
         question = intent.getStringExtra("question").toString()
@@ -103,5 +107,14 @@ class QuestionCheckAnswerActivity : AppCompatActivity() {
         videoPlayCount.value = -1
         val dialog = QuestionFollowAlongDialog.newInstance(question, answer, category)
         dialog.show(supportFragmentManager, "FollowAlongDialog")
+    }
+
+    override fun onServerSuccess() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onServerFailure() {
+        Toast.makeText(this, getString(R.string.server_data_error), Toast.LENGTH_SHORT).show()
+        finish()
     }
 }

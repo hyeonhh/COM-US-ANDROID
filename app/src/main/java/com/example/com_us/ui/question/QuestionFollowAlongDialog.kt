@@ -8,19 +8,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
+import com.example.com_us.R
 import com.example.com_us.data.response.question.ResponseAnswerDetailDto
 import com.example.com_us.databinding.DialogQuestionFollowAlongBinding
 import com.example.com_us.util.QuestionManager
+import com.example.com_us.util.ServerResponseHandler
 
 private const val ARG_PARAM_QUESTION  = "paramQuestion"
 private const val ARG_PARAM_ANSWER = "paramAnswer"
 private const val ARG_PARAM_CATEGORY = "paramCategory"
 private const val ARG_PARAM_SIGNDATA = "paramSignData"
 
-class QuestionFollowAlongDialog : DialogFragment(), MoveActivityInterface {
+class QuestionFollowAlongDialog : DialogFragment(), ServerResponseHandler {
     // TODO: Rename and change types of parameters
     private lateinit var paramQuestion: String
     private lateinit var paramAnswer: String
@@ -36,7 +39,7 @@ class QuestionFollowAlongDialog : DialogFragment(), MoveActivityInterface {
     private val questionViewModel: QuestionViewModel by viewModels { QuestionViewModelFactory(requireContext()) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        questionViewModel.questionInterface = this
+        questionViewModel.serverResponseHandler = this
         arguments?.let {
             paramQuestion = it.getString(ARG_PARAM_QUESTION)!!
             paramAnswer = it.getString(ARG_PARAM_ANSWER)!!
@@ -127,10 +130,14 @@ class QuestionFollowAlongDialog : DialogFragment(), MoveActivityInterface {
         binding.textviewFollodialogDescrp.text = signData[signIdx].signLanguageDescription
     }
 
-    override fun moveToBlockCollect() {
+    override fun onServerSuccess() {
         val intent = Intent(activity, QuestionCollectBlockActivity::class.java)
         intent.putExtra("category", paramCategory)
         startActivity(intent)
         activity?.finish()
+    }
+
+    override fun onServerFailure() {
+        Toast.makeText(context, getString(R.string.question_follow_along_server_failure), Toast.LENGTH_SHORT).show()
     }
 }
