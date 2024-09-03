@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
@@ -27,6 +28,12 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private val binding get() = _binding!!
 
     private val homeViewModel: HomeViewModel by viewModels { HomeViewModelFactory(requireContext()) }
+
+    private val scrollChangedListener = ViewTreeObserver.OnScrollChangedListener {
+        _binding?.let {
+            it.swiperefreshHome.isEnabled = (it.scrollviewHome.scrollY == 0)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,9 +72,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             }
         }
 
-        binding.scrollviewHome.viewTreeObserver.addOnScrollChangedListener {
-            binding.swiperefreshHome.isEnabled = (binding.scrollviewHome.scrollY == 0)
-        }
+        binding.scrollviewHome.viewTreeObserver.addOnScrollChangedListener(scrollChangedListener)
     }
 
     private fun setThemeClickListener() {
@@ -147,7 +152,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         for(data in blockData) {
             color = ColorMatch.findColorFromKor(data.category)
             if(color != null){
-                blockList[data.blockRow.toInt()][data.blockColumn.toInt()].setBackgroundResource(color)
+                blockList[data.blockRow][data.blockColumn].setBackgroundResource(color)
             }
         }
     }
@@ -163,7 +168,18 @@ class HomeFragment : Fragment(), View.OnClickListener {
         startActivity(intent)
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.scrollviewHome.viewTreeObserver.addOnScrollChangedListener(scrollChangedListener)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.scrollviewHome.viewTreeObserver?.removeOnScrollChangedListener(scrollChangedListener)
+    }
+
     override fun onDestroyView() {
+        binding.scrollviewHome.viewTreeObserver?.removeOnScrollChangedListener(scrollChangedListener)
         super.onDestroyView()
         _binding = null
     }
