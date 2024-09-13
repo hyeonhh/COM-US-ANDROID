@@ -177,6 +177,5 @@ class ProfileFragment : Fragment(), ServerResponseHandler {
     }
 
     override fun onServerFailure() {
-        TODO("Not yet implemented")
     }
 }

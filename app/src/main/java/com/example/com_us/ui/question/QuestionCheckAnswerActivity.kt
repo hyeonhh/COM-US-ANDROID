@@ -110,7 +110,6 @@ class QuestionCheckAnswerActivity : AppCompatActivity(), ServerResponseHandler {
     }
 
     override fun onServerSuccess() {
-        TODO("Not yet implemented")
     }
 
     override fun onServerFailure() {

@@ -17,9 +17,10 @@ import com.example.com_us.data.response.home.Block
 import com.example.com_us.data.response.home.Category
 import com.example.com_us.databinding.FragmentHomeBinding
 import com.example.com_us.util.ColorMatch
+import com.example.com_us.util.ServerResponseHandler
 import com.example.com_us.util.ThemeType
 
-class HomeFragment : Fragment(), View.OnClickListener {
+class HomeFragment : Fragment(), View.OnClickListener, ServerResponseHandler {
 
     private lateinit var blockList: List<List<View>>
 
@@ -51,6 +52,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             listOf(binding.viewHomeBlock30, binding.viewHomeBlock31, binding.viewHomeBlock32, binding.viewHomeBlock33),
         )
 
+        homeViewModel.serverResponseHandler = this
         homeViewModel.loadHomeData()
 
         setSwipeRefresh()
@@ -182,5 +184,12 @@ class HomeFragment : Fragment(), View.OnClickListener {
         binding.scrollviewHome.viewTreeObserver?.removeOnScrollChangedListener(scrollChangedListener)
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onServerSuccess() {
+        binding.constraintHome.visibility = View.VISIBLE
+    }
+
+    override fun onServerFailure() {
     }
 }

@@ -15,8 +15,10 @@
             android:paddingBottom="50dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_home"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="invisible"
                 android:paddingHorizontal="@dimen/activity_horizontal_whitespace"
                 android:paddingVertical="@dimen/activity_vertical_whitespace"
                 android:layout_marginBottom="50dp"
