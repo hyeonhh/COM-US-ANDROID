@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.content.ContextCompat
@@ -64,10 +63,9 @@ class QuestionFragment : Fragment(), View.OnClickListener, ServerResponseHandler
         questionViewModel.selectedThemeId.observe(viewLifecycleOwner) {
             selectedView = binding.root.findViewById(it)
             themeKor = selectedView.text.toString()
-            val category = ThemeType.fromKor(themeKor).toString()
-            if(category != null) {
-                questionViewModel.loadQuestionListByCate(category)
-            }
+            var category = ThemeType.fromKor(themeKor).toString()
+            if(category == ThemeType.ALL.toString()) category = ""
+            questionViewModel.loadQuestionListByCate(category)
         }
     }
 
@@ -77,8 +75,7 @@ class QuestionFragment : Fragment(), View.OnClickListener, ServerResponseHandler
             binding.composeviewQuestion.apply {
                 setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
                 setContent {
-                    val listState = rememberLazyListState()
-                    LazyColumn(state = listState, modifier = Modifier.fillMaxSize()) {
+                    LazyColumn(modifier = Modifier.fillMaxSize()) {
                         items(it.size) { idx ->
                             QuestionListItem(data = it[idx], onClick = { moveToQuestionDetail(it[idx].id) })
                         }
