@@ -13,7 +13,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import com.example.com_us.R
-import com.example.com_us.data.response.question.ResponseAnswerDetailDto
+import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailDto
 import com.example.com_us.databinding.DialogQuestionFollowAlongBinding
 import com.example.com_us.util.QuestionManager
 import com.example.com_us.util.ServerResponseHandler
@@ -36,7 +36,7 @@ class QuestionFollowAlongDialog : DialogFragment(), ServerResponseHandler {
     private var _binding: DialogQuestionFollowAlongBinding? = null
     private val binding get() = _binding!!
 
-    private val questionViewModel: QuestionViewModel by viewModels { QuestionViewModelFactory(requireContext()) }
+    private val questionViewModel: QuestionViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         questionViewModel.serverResponseHandler = this

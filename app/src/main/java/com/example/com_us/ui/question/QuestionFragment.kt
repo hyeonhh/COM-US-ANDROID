@@ -18,7 +18,9 @@ import com.example.com_us.databinding.FragmentQuestionBinding
 import com.example.com_us.ui.compose.QuestionListItem
 import com.example.com_us.util.ServerResponseHandler
 import com.example.com_us.util.ThemeType
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class QuestionFragment : Fragment(), View.OnClickListener, ServerResponseHandler {
 
     private var _binding: FragmentQuestionBinding? = null
@@ -27,7 +29,7 @@ class QuestionFragment : Fragment(), View.OnClickListener, ServerResponseHandler
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val questionViewModel: QuestionViewModel by viewModels { QuestionViewModelFactory(requireContext()) }
+    private val questionViewModel: QuestionViewModel by viewModels()
 
     private var lastSelectedView: TextView? = null
 

@@ -8,7 +8,9 @@ import androidx.activity.OnBackPressedCallback
 import com.example.com_us.R
 import com.example.com_us.databinding.ActivityQuestionCollectBlockBinding
 import com.example.com_us.util.ThemeType
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class QuestionCollectBlockActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityQuestionCollectBlockBinding

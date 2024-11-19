@@ -6,11 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.com_us.data.repository.HomeRepository
-import com.example.com_us.data.response.home.ResponseHomeDataDto
+import com.example.com_us.data.model.home.ResponseHomeDataDto
 import com.example.com_us.util.ServerResponseHandler
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val homeRepository: HomeRepository) : ViewModel() {
     private val _homeData = MutableLiveData<ResponseHomeDataDto>()
     val homeData: LiveData<ResponseHomeDataDto> = _homeData
 

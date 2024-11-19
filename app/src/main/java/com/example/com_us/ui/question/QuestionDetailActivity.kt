@@ -16,6 +16,9 @@ import com.example.com_us.ui.compose.AnswerOptionList
 import com.example.com_us.ui.compose.AnswerTypeTag
 import com.example.com_us.util.QuestionManager
 import com.example.com_us.util.ServerResponseHandler
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
 
 class QuestionDetailActivity : AppCompatActivity(), ServerResponseHandler {
 
@@ -26,7 +29,7 @@ class QuestionDetailActivity : AppCompatActivity(), ServerResponseHandler {
 
     private var questionId: Long = -1
     private var answerOptionId: Int = -1
-    private val questionViewModel: QuestionViewModel by viewModels { QuestionViewModelFactory(this) }
+    private val questionViewModel: QuestionViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

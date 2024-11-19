@@ -11,13 +11,13 @@ import com.example.com_us.R
 import com.example.com_us.databinding.ActivityThemeQuestionListBinding
 import com.example.com_us.ui.question.QuestionDetailActivity
 import com.example.com_us.ui.compose.QuestionListItem
-import com.example.com_us.ui.question.QuestionViewModel
-import com.example.com_us.ui.question.QuestionViewModelFactory
+import com.example.com_us.ui.question.QuestionViewModel import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeThemeQuestionListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityThemeQuestionListBinding
-    private val questionViewModel: QuestionViewModel by viewModels { QuestionViewModelFactory(applicationContext) }
+    private val questionViewModel: QuestionViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

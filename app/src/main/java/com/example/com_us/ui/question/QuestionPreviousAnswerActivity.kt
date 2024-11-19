@@ -9,17 +9,19 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.example.com_us.R
-import com.example.com_us.data.response.question.Answer
+import com.example.com_us.data.model.question.response.question.Answer
 import com.example.com_us.databinding.ActivityQuestionPreviousAnswerBinding
 import com.example.com_us.ui.compose.AnswerHistoryItem
 import com.example.com_us.ui.compose.AnswerTypeTag
 import com.example.com_us.util.ColorMatch
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class QuestionPreviousAnswerActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityQuestionPreviousAnswerBinding
 
-    private val questionViewModel: QuestionViewModel by viewModels { QuestionViewModelFactory(applicationContext) }
+    private val questionViewModel: QuestionViewModel by viewModels()
     private var questionId: Long = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {

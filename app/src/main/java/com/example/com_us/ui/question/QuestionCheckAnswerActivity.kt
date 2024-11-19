@@ -8,16 +8,18 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import com.example.com_us.R
-import com.example.com_us.data.response.question.ResponseAnswerDetailDto
+import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailDto
 import com.example.com_us.databinding.ActivityQuestionCheckAnswerBinding
 import com.example.com_us.util.QuestionManager
 import com.example.com_us.util.ServerResponseHandler
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class QuestionCheckAnswerActivity : AppCompatActivity(), ServerResponseHandler {
 
     private lateinit var binding: ActivityQuestionCheckAnswerBinding
-    private val questionViewModel: QuestionViewModel by viewModels { QuestionViewModelFactory(this) }
+    private val questionViewModel: QuestionViewModel by viewModels()
 
     private lateinit var answer: String
     private lateinit var question: String

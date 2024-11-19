@@ -17,14 +17,16 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.com_us.R
 import com.example.com_us.databinding.FragmentProfileBinding
 import com.example.com_us.util.ServerResponseHandler
+import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 
+@AndroidEntryPoint
 class ProfileFragment : Fragment(), ServerResponseHandler {
 
     private var _binding: FragmentProfileBinding? = null
-    private val profileViewModel: ProfileViewModel by viewModels { ProfileViewModelFactory(requireContext()) }
+    private val profileViewModel: ProfileViewModel by viewModels()
     private val binding get() = _binding!!
 
     @RequiresApi(Build.VERSION_CODES.O)

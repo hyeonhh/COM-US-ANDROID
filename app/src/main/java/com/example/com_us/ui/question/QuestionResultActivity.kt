@@ -8,10 +8,12 @@ import android.view.MenuItem
 import androidx.lifecycle.MutableLiveData
 import com.example.com_us.MainActivity
 import com.example.com_us.R
-import com.example.com_us.data.response.question.ResponseAnswerDetailDto
+import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailDto
 import com.example.com_us.databinding.ActivityQuestionResultBinding
 import com.example.com_us.util.QuestionManager
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class QuestionResultActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityQuestionResultBinding

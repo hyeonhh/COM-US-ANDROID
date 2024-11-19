@@ -7,16 +7,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.com_us.R
 import com.example.com_us.data.repository.QuestionRepository
-import com.example.com_us.data.request.question.RequestAnswerDto
-import com.example.com_us.data.response.question.ResponseAnswerDetailDto
-import com.example.com_us.data.response.question.ResponseAnswerDetailWithDateDto
-import com.example.com_us.data.response.question.ResponsePreviousAnswerDto
-import com.example.com_us.data.response.question.ResponseQuestionDetailDto
-import com.example.com_us.data.response.question.ResponseQuestionDto
+import com.example.com_us.data.model.question.request.RequestAnswerRequest
+import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailDto
+import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailWithDateDto
+import com.example.com_us.data.model.question.response.question.ResponsePreviousAnswerDto
+import com.example.com_us.data.model.question.response.question.ResponseQuestionDetailDto
+import com.example.com_us.data.model.question.response.question.ResponseQuestionDto
 import com.example.com_us.util.ServerResponseHandler
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class QuestionViewModel(private val questionRepository: QuestionRepository) : ViewModel() {
+@HiltViewModel
+class QuestionViewModel @Inject constructor(private val questionRepository: QuestionRepository) : ViewModel() {
 
     var serverResponseHandler: ServerResponseHandler? = null
 
@@ -92,7 +95,7 @@ class QuestionViewModel(private val questionRepository: QuestionRepository) : Vi
     }
 
     fun postAnswer(questionId: Long, answerContent: String){
-        var body = RequestAnswerDto(questionId, answerContent)
+        var body = RequestAnswerRequest(questionId, answerContent)
         viewModelScope.launch {
             questionRepository.postAnswer(body)
                 .onSuccess {

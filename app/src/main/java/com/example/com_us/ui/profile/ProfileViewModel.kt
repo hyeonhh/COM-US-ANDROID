@@ -6,11 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.com_us.data.repository.ProfileRepository
-import com.example.com_us.data.response.question.ResponseProfileDto
+import com.example.com_us.data.model.question.response.question.ResponseProfileDto
 import com.example.com_us.util.ServerResponseHandler
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ProfileViewModel(private val profileRepository: ProfileRepository) : ViewModel() {
+@HiltViewModel
+class ProfileViewModel @Inject constructor(private val profileRepository: ProfileRepository) : ViewModel() {
 
     var serverResponseHandler: ServerResponseHandler? = null
 

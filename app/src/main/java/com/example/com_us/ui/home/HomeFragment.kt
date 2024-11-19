@@ -13,13 +13,15 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.com_us.R
-import com.example.com_us.data.response.home.Block
-import com.example.com_us.data.response.home.Category
+import com.example.com_us.data.model.home.Block
+import com.example.com_us.data.model.home.Category
 import com.example.com_us.databinding.FragmentHomeBinding
 import com.example.com_us.util.ColorMatch
 import com.example.com_us.util.ServerResponseHandler
 import com.example.com_us.util.ThemeType
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment(), View.OnClickListener, ServerResponseHandler {
 
     private lateinit var blockList: List<List<View>>
@@ -28,7 +30,7 @@ class HomeFragment : Fragment(), View.OnClickListener, ServerResponseHandler {
     private var isReload: MutableLiveData<Boolean> = MutableLiveData(false)
     private val binding get() = _binding!!
 
-    private val homeViewModel: HomeViewModel by viewModels { HomeViewModelFactory(requireContext()) }
+    private val homeViewModel: HomeViewModel by viewModels()
 
     private val scrollChangedListener = ViewTreeObserver.OnScrollChangedListener {
         _binding?.let {
