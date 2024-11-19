@@ -2,7 +2,7 @@ package com.example.com_us.data.di
 
 import android.content.Context
 import android.util.Log
-import com.example.com_us.base.ApiClient
+import com.example.com_us.base.AppInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,10 +32,8 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideInterceptor(
-        @ApplicationContext context: Context
-    ) : ApiClient.AppInterceptor {
-        return ApiClient.AppInterceptor(
-            context = context,
+    ) : AppInterceptor {
+        return AppInterceptor(
             accessToken =  "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNzMxOTI3NDI0LCJleHAiOjE3MzQ1MTk0MjR9.jU6s6drHXR09SBvFMbd5w_rbkxG3wYHYHwTzy403ifY"
         )
     }
@@ -44,7 +42,7 @@ object NetworkModule {
     @Singleton
     fun provideOkHttpClient(
         @ApplicationContext context: Context,
-        interceptor: ApiClient.AppInterceptor
+        interceptor: AppInterceptor
     ) : OkHttpClient {
         val okHttpClient = OkHttpClient.Builder()
         try {
