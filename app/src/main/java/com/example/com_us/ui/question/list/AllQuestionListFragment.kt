@@ -1,4 +1,4 @@
-package com.example.com_us.ui.question
+package com.example.com_us.ui.question.list
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.ui.Modifier
@@ -16,23 +17,20 @@ import androidx.fragment.app.viewModels
 import com.example.com_us.R
 import com.example.com_us.databinding.FragmentQuestionBinding
 import com.example.com_us.ui.compose.QuestionListItem
-import com.example.com_us.util.ServerResponseHandler
+import com.example.com_us.ui.question.select.SelectAnswerActivity
 import com.example.com_us.util.ThemeType
 import dagger.hilt.android.AndroidEntryPoint
 
+// 바텀 네비게이션바에서 햄버거 버튼 클릭 시 이동하는 질문 리스트 화면
 @AndroidEntryPoint
-class QuestionFragment : Fragment(), View.OnClickListener, ServerResponseHandler {
+class AllQuestionListFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentQuestionBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
-    private val questionViewModel: QuestionViewModel by viewModels()
+    private val viewModel: AllQuestionListViewModel by viewModels()
 
     private var lastSelectedView: TextView? = null
-
     private lateinit var selectedView:TextView
     private lateinit var themeKor:String
 
@@ -41,48 +39,58 @@ class QuestionFragment : Fragment(), View.OnClickListener, ServerResponseHandler
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentQuestionBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        return root
+    }
 
-        questionViewModel.serverResponseHandler = this
-        questionViewModel.loadQuestionListByCate("")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val themeAllView = binding.includeThemeAll
+        viewModel.updateSelectedThemeId(themeAllView.textviewTheme.id)
 
         setThemeList()
         setComposeList()
         setThemeClickListener()
 
-        return root
     }
 
-    override fun onResume() {
-        super.onResume()
-        val themeAllView = binding.includeThemeAll
-        questionViewModel.updateSelectedThemeId(themeAllView.textviewTheme.id)
-    }
-
+    // 선택한 카테고리에 맞는 질문 리스트 얻기
     private fun setThemeList() {
-        questionViewModel.selectedThemeId.observe(viewLifecycleOwner) {
+        viewModel.selectedThemeId.observe(viewLifecycleOwner) {
             selectedView = binding.root.findViewById(it)
             themeKor = selectedView.text.toString()
             var category = ThemeType.fromKor(themeKor).toString()
             if(category == ThemeType.ALL.toString()) category = ""
-            questionViewModel.loadQuestionListByCate(category)
+            viewModel.loadQuestionListByCate(category)
         }
     }
 
+    // 각 질문을 담을 아이템
     private fun setComposeList() {
-        questionViewModel.questionListByCate.observe(viewLifecycleOwner) {
-            binding.textviewQuestionCount.text = String.format(resources.getString(R.string.question_title_question_count), it.size)
-            binding.composeviewQuestion.apply {
-                setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-                setContent {
-                    LazyColumn(modifier = Modifier.fillMaxSize()) {
-                        items(it.size) { idx ->
-                            QuestionListItem(data = it[idx], onClick = { moveToQuestionDetail(it[idx].id) })
+        // 데이터 리스트
+        viewModel.questionListByCate.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                setThemeSelected()
+                binding.constraintQuestion.visibility = View.VISIBLE
+                binding.textviewQuestionCount.text = String.format(
+                    resources.getString(R.string.question_title_question_count),
+                    it.size
+                )
+                binding.composeviewQuestion.apply {
+                    setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+                    setContent {
+                        LazyColumn(modifier = Modifier.fillMaxSize()) {
+                            items(it.size) { idx ->
+                                QuestionListItem(
+                                    data = it[idx],
+                                    onClick = { movieToSelectAnswer(it[idx].id) })
+                            }
                         }
                     }
                 }
+            }
+             else  {
+                Toast.makeText(context,"질문을 준비중이에요!",Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -113,14 +121,14 @@ class QuestionFragment : Fragment(), View.OnClickListener, ServerResponseHandler
         lastSelectedView = selectedView
     }
 
-    private fun moveToQuestionDetail(questionId: Long) {
-        val intent = Intent(activity, QuestionDetailActivity::class.java)
+    private fun movieToSelectAnswer(questionId: Long) {
+        val intent = Intent(activity, SelectAnswerActivity::class.java)
         intent.putExtra("questionId", questionId)
         startActivity(intent)
     }
 
     override fun onClick(view: View) {
-        questionViewModel.updateSelectedThemeId(view.id)
+        viewModel.updateSelectedThemeId(view.id)
     }
 
     override fun onDestroyView() {
@@ -128,11 +136,4 @@ class QuestionFragment : Fragment(), View.OnClickListener, ServerResponseHandler
         _binding = null
     }
 
-    override fun onServerSuccess() {
-        setThemeSelected()
-        binding.constraintQuestion.visibility = View.VISIBLE
-    }
-
-    override fun onServerFailure() {
-    }
 }

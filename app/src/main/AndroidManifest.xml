@@ -17,23 +17,23 @@
         android:theme="@style/Theme.Comus"
         tools:targetApi="31">
         <activity
-            android:name=".ui.question.QuestionPreviousAnswerActivity"
+            android:name=".ui.question.previous.PreviousAnswerActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.question.QuestionCollectBlockActivity"
+            android:name=".ui.question.block.CollectBlockActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.question.QuestionResultActivity"
+            android:name=".ui.question.result.ResultAfterSignActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.question.QuestionCheckAnswerActivity"
+            android:name=".ui.question.result.ResultBeforeSignActivity"
             android:exported="true">
         </activity>
         <activity
-            android:name=".ui.question.QuestionDetailActivity"
+            android:name=".ui.question.select.SelectAnswerActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.HomeThemeQuestionListActivity"
+            android:name=".ui.question.theme.ThemeQuestionListActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

@@ -14,18 +14,38 @@ class DefaultQuestionRepository @Inject constructor(
     private val defaultQuestionDataSource: DefaultQuestionDataSource
 )  : QuestionRepository {
    override suspend fun getQuestionListByCate(category: String): Result<List<ResponseQuestionDto>> {
-        return runCatching { defaultQuestionDataSource.getQuestionListByCate(category).data!! }
+        return try{
+            defaultQuestionDataSource.getQuestionListByCate(category).toResult()
+        } catch (e: Exception) {
+            Result.failure(NetworkError.NetworkException(e))
+        }
     }
    override suspend fun getQuestionDetail(questionId: Long): Result<ResponseQuestionDetailDto> {
-        return runCatching { defaultQuestionDataSource.getQuestionDetail(questionId).data!! }
+       return try{
+           defaultQuestionDataSource.getQuestionDetail(questionId).toResult()
+       } catch (e: Exception) {
+           Result.failure(NetworkError.NetworkException(e))
+       }
     }
     override suspend fun getAnswerDetail(answer: String): Result<List<ResponseAnswerDetailDto>> {
-        return runCatching { defaultQuestionDataSource.getAnswerDetail(answer).data!! }
+        return try{
+            defaultQuestionDataSource.getAnswerDetail(answer).toResult()
+        } catch (e: Exception) {
+            Result.failure(NetworkError.NetworkException(e))
+        }
     }
    override suspend fun postAnswer(body: RequestAnswerRequest): Result<ResponseAnswerDetailWithDateDto> {
-        return runCatching { defaultQuestionDataSource.postAnswer(body).data!! }
+       return try{
+           defaultQuestionDataSource.postAnswer(body).toResult()
+       } catch (e: Exception) {
+           Result.failure(NetworkError.NetworkException(e))
+       }
     }
    override suspend fun getPreviousAnswer(questionId: Long ): Result<ResponsePreviousAnswerDto> {
-        return runCatching { defaultQuestionDataSource.getPreviousAnswer(questionId).data!! }
+       return try{
+           defaultQuestionDataSource.getPreviousAnswer(questionId).toResult()
+       } catch (e: Exception) {
+           Result.failure(NetworkError.NetworkException(e))
+       }
     }
 }

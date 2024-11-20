@@ -1,4 +1,4 @@
-package com.example.com_us.ui.question
+package com.example.com_us.ui.question.select
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -14,13 +14,14 @@ import com.example.com_us.databinding.ActivityQuestionDetailBinding
 import com.example.com_us.util.ColorMatch
 import com.example.com_us.ui.compose.AnswerOptionList
 import com.example.com_us.ui.compose.AnswerTypeTag
+import com.example.com_us.ui.question.result.ResultBeforeSignActivity
+import com.example.com_us.ui.question.previous.PreviousAnswerActivity
 import com.example.com_us.util.QuestionManager
-import com.example.com_us.util.ServerResponseHandler
 import dagger.hilt.android.AndroidEntryPoint
 
+// 질문에 대한 답변을 선택하는 화면
 @AndroidEntryPoint
-
-class QuestionDetailActivity : AppCompatActivity(), ServerResponseHandler {
+class SelectAnswerActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityQuestionDetailBinding
     private lateinit var answerList: List<String>
@@ -29,26 +30,25 @@ class QuestionDetailActivity : AppCompatActivity(), ServerResponseHandler {
 
     private var questionId: Long = -1
     private var answerOptionId: Int = -1
-    private val questionViewModel: QuestionViewModel by viewModels()
+    private val viewModel: SelectAnswerViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityQuestionDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        questionViewModel.serverResponseHandler = this
 
         questionId = intent.getLongExtra("questionId", 0L)
 
         if(questionId > 0) {
             QuestionManager.questionId = questionId
-            questionViewModel.loadQuestionDetail(questionId)
+            viewModel.loadQuestionDetail(questionId)
             setPreviousAnswerButton()
         }
 
         setQuestionDetail()
 
-        questionViewModel.selectedAnswerOptionId.observe(this) {
+        viewModel.selectedAnswerOptionId.observe(this) {
             if (it > -1) {
                 setCompleteButton()
                 answerOptionId = it
@@ -57,12 +57,19 @@ class QuestionDetailActivity : AppCompatActivity(), ServerResponseHandler {
     }
 
     private fun setQuestionDetail() {
-        questionViewModel.questionDetail.observe(this) {
-            binding.textviewDetailQuestion.text = it.question.questionContent
-            question = it.question.questionContent
-            category = it.question.category
-            setQuestionTypeCompose(it.question.answerType)
-            setQuestionAnswerOptionCompose(it.answerList)
+        viewModel.questionDetail.observe(this) {
+                if(it != null) {
+                    binding.constraintQuestionDetail.visibility = View.VISIBLE
+                    binding.textviewDetailQuestion.text = it.question.questionContent
+                    question = it.question.questionContent
+                    category = it.question.category
+                    setQuestionTypeCompose(it.question.answerType)
+                    setQuestionAnswerOptionCompose(it.answerList)
+                }
+            else{
+                Toast.makeText(this, getString(R.string.question_detail_msg_when_server_failure), Toast.LENGTH_SHORT).show()
+            finish()
+                }
         }
     }
 
@@ -83,7 +90,7 @@ class QuestionDetailActivity : AppCompatActivity(), ServerResponseHandler {
         binding.composeDetailAnsweroption.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                AnswerOptionList(answerList, questionViewModel)
+                AnswerOptionList(answerList, viewModel)
             }
         }
     }
@@ -106,14 +113,14 @@ class QuestionDetailActivity : AppCompatActivity(), ServerResponseHandler {
 
     private fun setPreviousAnswerButton() {
         binding.buttonDetailAnswerbefore.setOnClickListener {
-            val intent = Intent(this, QuestionPreviousAnswerActivity::class.java)
+            val intent = Intent(this, PreviousAnswerActivity::class.java)
             intent.putExtra("questionId", questionId)
             startActivity(intent)
         }
     }
 
     private fun moveToQuestionAnswer(answerOptionId: Int) {
-        val intent = Intent(this, QuestionCheckAnswerActivity::class.java)
+        val intent = Intent(this, ResultBeforeSignActivity::class.java)
         intent.putExtra("question", question)
         intent.putExtra("category", category)
         intent.putExtra("answer", answerList[answerOptionId])
@@ -121,12 +128,12 @@ class QuestionDetailActivity : AppCompatActivity(), ServerResponseHandler {
         finish()
     }
 
-    override fun onServerSuccess() {
-        binding.constraintQuestionDetail.visibility = View.VISIBLE
-    }
-
-    override fun onServerFailure() {
-        Toast.makeText(this, getString(R.string.question_detail_msg_when_server_failure), Toast.LENGTH_SHORT).show()
-        finish()
-    }
+//    override fun onServerSuccess() {
+//        binding.constraintQuestionDetail.visibility = View.VISIBLE
+//    }
+//
+//    override fun onServerFailure() {
+//        Toast.makeText(this, getString(R.string.question_detail_msg_when_server_failure), Toast.LENGTH_SHORT).show()
+//        finish()
+//    }
 }

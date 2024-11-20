@@ -1,4 +1,4 @@
-package com.example.com_us.ui.question
+package com.example.com_us.ui.question.previous
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,12 +16,13 @@ import com.example.com_us.ui.compose.AnswerTypeTag
 import com.example.com_us.util.ColorMatch
 import dagger.hilt.android.AndroidEntryPoint
 
+// 이전 답변을 보여주는 화면
 @AndroidEntryPoint
-class QuestionPreviousAnswerActivity : AppCompatActivity() {
+class PreviousAnswerActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityQuestionPreviousAnswerBinding
 
-    private val questionViewModel: QuestionViewModel by viewModels()
+    private val viewModel: PreviousAnswerViewModel by viewModels()
     private var questionId: Long = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,9 +36,9 @@ class QuestionPreviousAnswerActivity : AppCompatActivity() {
         questionId = intent.getLongExtra("questionId", -1)
 
         println(questionId)
-        if(questionId > -1) questionViewModel.loadPreviousAnswer(questionId)
+        if(questionId > -1) viewModel.loadPreviousAnswer(questionId)
 
-        questionViewModel.answerPrevious.observe(this) {
+        viewModel.answerPrevious.observe(this) {
             setQuestion(it.question.questionCount, it.question.questionContent)
             setQuestionTypeCompose(it.question.category, it.question.answerType)
             setComposeList(it.answerList)

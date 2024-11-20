@@ -1,17 +1,18 @@
-package com.example.com_us.ui.question
+package com.example.com_us.ui.question.block
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import androidx.activity.OnBackPressedCallback
-import com.example.com_us.R
 import com.example.com_us.databinding.ActivityQuestionCollectBlockBinding
+import com.example.com_us.ui.question.result.ResultAfterSignActivity
 import com.example.com_us.util.ThemeType
 import dagger.hilt.android.AndroidEntryPoint
 
+// 대화 블럭 획득 화면
 @AndroidEntryPoint
-class QuestionCollectBlockActivity : AppCompatActivity() {
+class CollectBlockActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityQuestionCollectBlockBinding
     private lateinit var category: String
@@ -29,7 +30,7 @@ class QuestionCollectBlockActivity : AppCompatActivity() {
         controlBackButton()
 
         Handler().postDelayed({
-            val intent = Intent(this, QuestionResultActivity::class.java)
+            val intent = Intent(this, ResultAfterSignActivity::class.java)
             startActivity(intent)
             finish()
         }, 1500) // 3초

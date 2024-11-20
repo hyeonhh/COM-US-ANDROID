@@ -16,6 +16,7 @@ import com.example.com_us.R
 import com.example.com_us.data.model.home.Block
 import com.example.com_us.data.model.home.Category
 import com.example.com_us.databinding.FragmentHomeBinding
+import com.example.com_us.ui.question.theme.ThemeQuestionListActivity
 import com.example.com_us.util.ColorMatch
 import com.example.com_us.util.ServerResponseHandler
 import com.example.com_us.util.ThemeType
@@ -157,6 +158,7 @@ class HomeFragment : Fragment(), View.OnClickListener, ServerResponseHandler {
             color = ColorMatch.findColorFromKor(data.category)
             if(color != null){
                 blockList[data.blockRow][data.blockColumn].setBackgroundResource(color)
+
             }
         }
     }
@@ -166,7 +168,7 @@ class HomeFragment : Fragment(), View.OnClickListener, ServerResponseHandler {
         binding.textviewHomeNoblock.visibility = visibility
     }
     private fun moveToQuestionList(theme: String, themeKor: String) {
-        val intent = Intent(context, HomeThemeQuestionListActivity::class.java)
+        val intent = Intent(context, ThemeQuestionListActivity::class.java)
         intent.putExtra("theme", theme)
         intent.putExtra("themeKor", themeKor)
         startActivity(intent)

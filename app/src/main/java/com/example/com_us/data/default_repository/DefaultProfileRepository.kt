@@ -9,6 +9,10 @@ class DefaultProfileRepository @Inject constructor(
     private val profileRemoteDataSource: DefaultProfileDataSource
 )  : ProfileRepository {
    override suspend fun getProfileData(): Result<ResponseProfileDto> {
-        return runCatching { profileRemoteDataSource.getProfileData().data!! }
-    }
+        return try {
+            profileRemoteDataSource.getProfileData().toResult()
+        }catch (e: Exception){
+            Result.failure(NetworkError.NetworkException(e))
+        }
+   }
 }

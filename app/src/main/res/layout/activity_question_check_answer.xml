@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/constraint_answer"
-    tools:context=".ui.question.QuestionCheckAnswerActivity">
+    tools:context=".ui.question.result.ResultBeforeSignActivity">
 
     <include
         android:id="@+id/include_answer_toolbar"
@@ -102,7 +102,7 @@
         android:layout_marginHorizontal="@dimen/activity_horizontal_whitespace"
         android:layout_marginTop="20dp"
         android:text="@string/question_answer_title_sign_descp"
-        android:textColor="@color/text_black"
+        android:textColor="@color/gray_100"
         android:textFontWeight="700"
         android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@+id/videoview_answer_sign"

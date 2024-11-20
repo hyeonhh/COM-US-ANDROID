@@ -1,25 +1,25 @@
-package com.example.com_us.ui.question
+package com.example.com_us.ui.question.result
 
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import com.example.com_us.R
 import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailDto
 import com.example.com_us.databinding.ActivityQuestionCheckAnswerBinding
+import com.example.com_us.ui.question.sign.SignAnswerDialog
 import com.example.com_us.util.QuestionManager
-import com.example.com_us.util.ServerResponseHandler
 import dagger.hilt.android.AndroidEntryPoint
 
-
+// 답변 선택 시 처음으로 이동하는 화면 (질문, 답변 , 수형 영상, 따라해보기 버튼)
 @AndroidEntryPoint
-class QuestionCheckAnswerActivity : AppCompatActivity(), ServerResponseHandler {
+class ResultBeforeSignActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityQuestionCheckAnswerBinding
-    private val questionViewModel: QuestionViewModel by viewModels()
+    private val viewModel: ResultViewModel by viewModels()
 
     private lateinit var answer: String
     private lateinit var question: String
@@ -31,7 +31,6 @@ class QuestionCheckAnswerActivity : AppCompatActivity(), ServerResponseHandler {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        questionViewModel.serverResponseHandler = this
 
         answer = intent.getStringExtra("answer").toString()
         question = intent.getStringExtra("question").toString()
@@ -39,14 +38,14 @@ class QuestionCheckAnswerActivity : AppCompatActivity(), ServerResponseHandler {
 
         if(!answer.isNullOrEmpty()){
             QuestionManager.question = question
-            questionViewModel.loadAnswerDetail(answer)
+            viewModel.loadAnswerDetail(answer)
         }
 
         binding = ActivityQuestionCheckAnswerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setActionBar()
-        questionViewModel.answerDetail.observe(this) {
+        viewModel.answerDetail.observe(this) {
             if(!it.isNullOrEmpty()){
                 QuestionManager.signLanguageInfo = it
                 signData = it
@@ -107,15 +106,25 @@ class QuestionCheckAnswerActivity : AppCompatActivity(), ServerResponseHandler {
     }
     private fun moveToFollowAlongDialog() {
         videoPlayCount.value = -1
-        val dialog = QuestionFollowAlongDialog.newInstance(question, answer, category)
+        val dialog = SignAnswerDialog.newInstance(question, answer, category)
+
+        // 다이얼로그가 뜨면 아래 내용 질문만 희미하게 보이게 하기
+        binding.textView8.visibility = View.GONE
+        binding.textviewAnswerAnswer.visibility = View.GONE
+        binding.textView13.visibility = View.GONE
+        binding.textviewAnswerDescrp.visibility = View.GONE
+        binding.buttonAnswerFollowalong.visibility = View.GONE
+        binding.videoviewAnswerSign.visibility = View.GONE
+        dialog.isCancelable = false
+
         dialog.show(supportFragmentManager, "FollowAlongDialog")
     }
 
-    override fun onServerSuccess() {
-    }
-
-    override fun onServerFailure() {
-        Toast.makeText(this, getString(R.string.server_data_error), Toast.LENGTH_SHORT).show()
-        finish()
-    }
+//    override fun onServerSuccess() {
+//    }
+//
+//    override fun onServerFailure() {
+//        Toast.makeText(this, getString(R.string.server_data_error), Toast.LENGTH_SHORT).show()
+//        finish()
+//    }
 }

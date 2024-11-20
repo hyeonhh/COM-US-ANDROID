@@ -1,5 +1,6 @@
 package com.example.com_us.util
 
+import android.content.Context
 import androidx.compose.ui.graphics.Color
 import com.example.com_us.R
 import com.example.com_us.ui.compose.theme.Blue700
@@ -9,7 +10,8 @@ import com.example.com_us.ui.compose.theme.Pink700
 import com.example.com_us.ui.compose.theme.Purple700
 import com.example.com_us.ui.compose.theme.Salmon700
 
-enum class ColorMatch(val kor: String, val colorType: ColorType, val color: Color, val colorRes: Int) {
+enum class ColorMatch(
+    val kor: String, val colorType: ColorType, val color: Color, val colorRes: Int) {
     DAILY("일상", ColorType.ORANGE, Orange700, R.color.orange_700),
     SCHOOL("학교", ColorType.BLUE, Blue700, R.color.blue_700),
     FRIEND("친구", ColorType.GREEN, Green700, R.color.green_700),

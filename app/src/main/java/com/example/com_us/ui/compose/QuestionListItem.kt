@@ -27,7 +27,7 @@ import com.example.com_us.ui.compose.theme.Typography
 @Composable
 fun QuestionListItem(data: ResponseQuestionDto, onClick: () -> Unit) {
 
-    var color = ColorMatch.fromKor(data.answerType)?.colorType ?: ColorType.GRAY
+    val color = ColorMatch.fromKor(data.answerType)?.colorType ?: ColorType.GRAY
 
 
     Surface(

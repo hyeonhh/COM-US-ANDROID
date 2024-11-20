@@ -1,4 +1,4 @@
-package com.example.com_us.ui.question
+package com.example.com_us.ui.question.result
 
 import android.content.Intent
 import android.net.Uri
@@ -13,8 +13,9 @@ import com.example.com_us.databinding.ActivityQuestionResultBinding
 import com.example.com_us.util.QuestionManager
 import dagger.hilt.android.AndroidEntryPoint
 
+// 수형 따라해보기 완료 후 대화 블럭 얻기 전 답변 완료 화면
 @AndroidEntryPoint
-class QuestionResultActivity : AppCompatActivity() {
+class ResultAfterSignActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityQuestionResultBinding
 

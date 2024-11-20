@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:paddingHorizontal="@dimen/activity_horizontal_whitespace"
-    tools:context=".ui.question.QuestionDetailActivity">
+    tools:context=".ui.question.select.SelectAnswerActivity">
 
     <TextView
         android:id="@+id/textView7"
