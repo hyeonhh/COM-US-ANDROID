@@ -6,14 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.com_us.R
 import com.example.com_us.data.default_repository.NetworkError
-import com.example.com_us.data.model.home.ResponseHomeDataDto
-import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailWithDateDto
 import com.example.com_us.data.model.question.response.question.ResponseQuestionDto
 import com.example.com_us.data.repository.QuestionRepository
-import com.example.com_us.ui.UiState
+import com.example.com_us.ui.ApiResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -34,8 +31,8 @@ class AllQuestionListViewModel @Inject constructor(
 
 
     // ui 상태 변수
-    private val _uiState = MutableStateFlow<UiState<List<ResponseQuestionDto>>>(UiState.Initial)
-    val uiState  = _uiState.asStateFlow()
+    private val _apiResult = MutableStateFlow<ApiResult<List<ResponseQuestionDto>>>(ApiResult.Initial)
+    val apiResult  = _apiResult.asStateFlow()
 
 
     // 선택한 테마의 id
@@ -56,7 +53,7 @@ class AllQuestionListViewModel @Inject constructor(
         viewModelScope.launch {
             questionRepository.getQuestionListByCate(category)
                 .onSuccess {
-                    _uiState.value = UiState.Success(it)
+                    _apiResult.value = ApiResult.Success(it)
                 }
                 .onFailure {
                     val errorMessage = when(it){
@@ -65,7 +62,7 @@ class AllQuestionListViewModel @Inject constructor(
                         else -> "알 수 없는 에러가 발생했습니다. 다시 시도해주세요!"
                     }
                     if (errorMessage != null) {
-                        _uiState.value = UiState.Error(errorMessage)
+                        _apiResult.value = ApiResult.Error(errorMessage)
                     }                }
         }
     }

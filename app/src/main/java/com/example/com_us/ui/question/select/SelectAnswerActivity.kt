@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.com_us.R
 import com.example.com_us.databinding.ActivityQuestionDetailBinding
-import com.example.com_us.ui.UiState
+import com.example.com_us.ui.ApiResult
 import com.example.com_us.util.ColorMatch
 import com.example.com_us.ui.compose.AnswerOptionList
 import com.example.com_us.ui.compose.AnswerTypeTag
@@ -61,8 +61,8 @@ class SelectAnswerActivity : AppCompatActivity() {
 
     private fun setQuestionDetail() {
         lifecycleScope.launch {
-            viewModel.uiState.collect {
-                       if (it is UiState.Success) {
+            viewModel.apiResult.collect {
+                       if (it is ApiResult.Success) {
                             binding.constraintQuestionDetail.visibility = View.VISIBLE
                             binding.textviewDetailQuestion.text = it.data.question.questionContent
                             question = it.data.question.questionContent
@@ -71,7 +71,7 @@ class SelectAnswerActivity : AppCompatActivity() {
                             setQuestionAnswerOptionCompose(it.data.answerList)
                         }
 
-                        if  (it is UiState.Error) {
+                        if  (it is ApiResult.Error) {
                             Toast.makeText(
                                 this@SelectAnswerActivity,
                                 it.message,

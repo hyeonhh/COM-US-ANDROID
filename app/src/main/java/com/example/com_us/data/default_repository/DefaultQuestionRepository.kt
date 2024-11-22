@@ -8,6 +8,7 @@ import com.example.com_us.data.model.question.response.question.ResponseQuestion
 import com.example.com_us.data.model.question.response.question.ResponseQuestionDto
 import com.example.com_us.data.repository.QuestionRepository
 import com.example.com_us.data.default_source.DefaultQuestionDataSource
+import com.example.com_us.data.model.toResult
 import javax.inject.Inject
 
 class DefaultQuestionRepository @Inject constructor(

@@ -8,7 +8,7 @@ import com.example.com_us.data.default_repository.NetworkError
 import com.example.com_us.data.repository.QuestionRepository
 import com.example.com_us.data.model.question.request.RequestAnswerRequest
 import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailWithDateDto
-import com.example.com_us.ui.UiState
+import com.example.com_us.ui.ApiResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,21 +25,21 @@ class SignAnswerViewModel @Inject constructor(
     private val _signIndex = MutableStateFlow<Int>(0)
     val signIndex  = _signIndex.asStateFlow()
 
-    private val _uiState = MutableStateFlow<UiState<ResponseAnswerDetailWithDateDto>>(UiState.Initial)
-    val uiState=   _uiState.asStateFlow()
+    private val _apiResult = MutableStateFlow<ApiResult<ResponseAnswerDetailWithDateDto>>(ApiResult.Initial)
+    val uiState=   _apiResult.asStateFlow()
     private val _resultData = MutableLiveData<ResponseAnswerDetailWithDateDto>()
     val resultData: LiveData<ResponseAnswerDetailWithDateDto> = _resultData
 
     fun setSignIndex(index : Int ) {
         _signIndex.value = index
     }
-// todo :
+// todo : 이 함수의 역할은 뭐야?
     fun postAnswer(questionId: Long, answerContent: String){
         val body = RequestAnswerRequest(questionId, answerContent)
         viewModelScope.launch {
             questionRepository.postAnswer(body)
                 .onSuccess {
-                    _uiState.value = UiState.Success(it)
+                    _apiResult.value = ApiResult.Success(it)
                 }
                 .onFailure {
                    val errorMessage =  when(it) {
@@ -48,7 +48,7 @@ class SignAnswerViewModel @Inject constructor(
                        is NetworkError.NullDataError -> {"데이터를 준비하고 있어요!"}
                        else -> { "잠시 후에 다시 시도해주세요"}
                    }
-                    _uiState.value = UiState.Error(errorMessage)
+                    _apiResult.value = ApiResult.Error(errorMessage)
                 }
         }
     }

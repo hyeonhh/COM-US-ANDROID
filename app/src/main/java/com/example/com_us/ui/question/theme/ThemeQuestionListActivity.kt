@@ -8,15 +8,12 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.ui.platform.ViewCompositionStrategy
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.example.com_us.R
 import com.example.com_us.databinding.ActivityThemeQuestionListBinding
-import com.example.com_us.ui.UiState
+import com.example.com_us.ui.ApiResult
 import com.example.com_us.ui.question.select.SelectAnswerActivity
 import com.example.com_us.ui.compose.QuestionListItem
-import com.example.com_us.ui.question.list.AllQuestionListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -48,7 +45,7 @@ class ThemeQuestionListActivity : AppCompatActivity() {
         lifecycleScope.launch {
             viewModel.uiState.collect {
                 when (it) {
-                    is UiState.Success -> {
+                    is ApiResult.Success -> {
                         binding.composeviewTheme.apply {
                             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
                             setContent {

@@ -19,7 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.com_us.R
 import com.example.com_us.databinding.FragmentQuestionBinding
-import com.example.com_us.ui.UiState
+import com.example.com_us.ui.ApiResult
 import com.example.com_us.ui.compose.QuestionListItem
 import com.example.com_us.ui.question.select.SelectAnswerActivity
 import com.example.com_us.util.ThemeType
@@ -73,9 +73,9 @@ class AllQuestionListFragment : Fragment(), View.OnClickListener {
         // 데이터 리스트
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.uiState.collect {
+                viewModel.apiResult.collect {
                     when(it) {
-                        is UiState.Success -> {
+                        is ApiResult.Success -> {
                             if (it.data.isNotEmpty()) {
                                 setThemeSelected()
                                 binding.constraintQuestion.visibility = View.VISIBLE
