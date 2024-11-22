@@ -21,7 +21,7 @@ sealed class NetworkError : Exception(){
     ) : NetworkError()
 
     data class  NetworkException(
-        override val cause : Throwable
+        override val cause : Throwable,
     ) : NetworkError()
 
     data class NullDataError(

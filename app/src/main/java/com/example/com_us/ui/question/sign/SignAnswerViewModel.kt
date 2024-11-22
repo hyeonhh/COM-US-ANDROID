@@ -1,26 +1,20 @@
 package com.example.com_us.ui.question.sign
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.com_us.data.default_repository.NetworkError
 import com.example.com_us.data.repository.QuestionRepository
 import com.example.com_us.data.model.question.request.RequestAnswerRequest
 import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailWithDateDto
-import com.example.com_us.data.model.question.response.question.ResponseQuestionDto
+import com.example.com_us.ui.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
-// Ui 상태 정의
-sealed class QuestionUiState {
-    data object Initial : QuestionUiState()
-    data class Success(val data : List<ResponseQuestionDto>) : QuestionUiState()
-    data class Error(val message : String) : QuestionUiState()
-
-}
 
 @HiltViewModel
 class SignAnswerViewModel @Inject constructor(
@@ -28,21 +22,33 @@ class SignAnswerViewModel @Inject constructor(
 ) : ViewModel() {
 
 
+    private val _signIndex = MutableStateFlow<Int>(0)
+    val signIndex  = _signIndex.asStateFlow()
 
+    private val _uiState = MutableStateFlow<UiState<ResponseAnswerDetailWithDateDto>>(UiState.Initial)
+    val uiState=   _uiState.asStateFlow()
     private val _resultData = MutableLiveData<ResponseAnswerDetailWithDateDto>()
     val resultData: LiveData<ResponseAnswerDetailWithDateDto> = _resultData
 
-
-
+    fun setSignIndex(index : Int ) {
+        _signIndex.value = index
+    }
+// todo :
     fun postAnswer(questionId: Long, answerContent: String){
-        var body = RequestAnswerRequest(questionId, answerContent)
+        val body = RequestAnswerRequest(questionId, answerContent)
         viewModelScope.launch {
             questionRepository.postAnswer(body)
                 .onSuccess {
-                    _resultData.value = it
+                    _uiState.value = UiState.Success(it)
                 }
                 .onFailure {
-                    Log.d("POST: [ANSWER]", it.toString())
+                   val errorMessage =  when(it) {
+                       is NetworkError.NetworkException -> { "네트워크 에러가 발생했어요! 잠시 후에 다시 시도해주세에요"}
+                       is NetworkError.ApiError ->{it.message}
+                       is NetworkError.NullDataError -> {"데이터를 준비하고 있어요!"}
+                       else -> { "잠시 후에 다시 시도해주세요"}
+                   }
+                    _uiState.value = UiState.Error(errorMessage)
                 }
         }
     }

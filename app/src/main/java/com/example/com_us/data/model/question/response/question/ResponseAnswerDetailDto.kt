@@ -5,11 +5,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ResponseAnswerDetailDto(
     @SerialName("id")
-    val id: Long,
+    val id: Long=0L,
     @SerialName("signLanguageName")
-    val signLanguageName: String,
+    val signLanguageName: String = "",
     @SerialName("signLanguageVideoUrl")
-    val signLanguageVideoUrl: String,
+    val signLanguageVideoUrl: String = "",
     @SerialName("signLanguageDescription")
-    val signLanguageDescription: String,
+    val signLanguageDescription: String = "",
 )

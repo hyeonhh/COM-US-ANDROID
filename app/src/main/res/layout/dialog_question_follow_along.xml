@@ -106,7 +106,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button_answer_complete"
+        android:id="@+id/button_next_step"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -120,6 +120,7 @@
         app:layout_constraintTop_toBottomOf="@id/textview_follodialog_descrp" />
 
     <Button
+        android:id="@+id/btn_complete_without_block"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -129,7 +130,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_answer_complete" />
+        app:layout_constraintTop_toBottomOf="@+id/button_next_step" />
 
 
 

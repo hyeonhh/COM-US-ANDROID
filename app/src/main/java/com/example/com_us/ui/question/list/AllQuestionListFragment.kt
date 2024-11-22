@@ -14,12 +14,17 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.com_us.R
 import com.example.com_us.databinding.FragmentQuestionBinding
+import com.example.com_us.ui.UiState
 import com.example.com_us.ui.compose.QuestionListItem
 import com.example.com_us.ui.question.select.SelectAnswerActivity
 import com.example.com_us.util.ThemeType
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 // 바텀 네비게이션바에서 햄버거 버튼 클릭 시 이동하는 질문 리스트 화면
 @AndroidEntryPoint
@@ -27,9 +32,7 @@ class AllQuestionListFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentQuestionBinding? = null
     private val binding get() = _binding!!
-
     private val viewModel: AllQuestionListViewModel by viewModels()
-
     private var lastSelectedView: TextView? = null
     private lateinit var selectedView:TextView
     private lateinit var themeKor:String
@@ -68,31 +71,41 @@ class AllQuestionListFragment : Fragment(), View.OnClickListener {
     // 각 질문을 담을 아이템
     private fun setComposeList() {
         // 데이터 리스트
-        viewModel.questionListByCate.observe(viewLifecycleOwner) {
-            if (it.isNotEmpty()) {
-                setThemeSelected()
-                binding.constraintQuestion.visibility = View.VISIBLE
-                binding.textviewQuestionCount.text = String.format(
-                    resources.getString(R.string.question_title_question_count),
-                    it.size
-                )
-                binding.composeviewQuestion.apply {
-                    setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-                    setContent {
-                        LazyColumn(modifier = Modifier.fillMaxSize()) {
-                            items(it.size) { idx ->
-                                QuestionListItem(
-                                    data = it[idx],
-                                    onClick = { movieToSelectAnswer(it[idx].id) })
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.uiState.collect {
+                    when(it) {
+                        is UiState.Success -> {
+                            if (it.data.isNotEmpty()) {
+                                setThemeSelected()
+                                binding.constraintQuestion.visibility = View.VISIBLE
+                                binding.textviewQuestionCount.text = String.format(
+                                    resources.getString(R.string.question_title_question_count),
+                                    it.data.size
+                                )
+                                binding.composeviewQuestion.apply {
+                                    setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+                                    setContent {
+                                        LazyColumn(modifier = Modifier.fillMaxSize()) {
+                                            items(it.data.size) { idx ->
+                                                QuestionListItem(
+                                                    data = it.data[idx],
+                                                    onClick = { movieToSelectAnswer(it.data[idx].id) })
+                                            }
+                                        }
+                                    }
+                                }
                             }
+                        }
+                        else ->  {
+                            binding.constraintQuestion.visibility = View.GONE
+                            Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
             }
-             else  {
-                Toast.makeText(context,"질문을 준비중이에요!",Toast.LENGTH_SHORT).show()
-            }
         }
+
     }
 
     private fun setThemeClickListener(){

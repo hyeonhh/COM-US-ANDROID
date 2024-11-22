@@ -4,15 +4,21 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.com_us.R
 import com.example.com_us.databinding.ActivityThemeQuestionListBinding
+import com.example.com_us.ui.UiState
 import com.example.com_us.ui.question.select.SelectAnswerActivity
 import com.example.com_us.ui.compose.QuestionListItem
 import com.example.com_us.ui.question.list.AllQuestionListViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ThemeQuestionListActivity : AppCompatActivity() {
@@ -36,24 +42,34 @@ class ThemeQuestionListActivity : AppCompatActivity() {
         binding.textviewTitle.text = String.format(resources.getString(R.string.theme_question_list_title), themeKor)
         setActionBar()
         setComposeList()
-
-
     }
+
     private fun setComposeList() {
-        viewModel.questionListByCate.observe(this) {
-            binding.composeviewTheme.apply {
-                setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-                setContent {
-                    LazyColumn {
-                        items(it.size) { idx ->
-                            QuestionListItem(data = it[idx], onClick = { moveToQuestionDetail(it[idx].id) })
+        lifecycleScope.launch {
+            viewModel.uiState.collect {
+                when (it) {
+                    is UiState.Success -> {
+                        binding.composeviewTheme.apply {
+                            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+                            setContent {
+                                LazyColumn {
+                                    println(it.data)
+                                    items(it.data.size) { idx ->
+                                        QuestionListItem(
+                                            data = it.data[idx],
+                                            onClick = { moveToQuestionDetail(it.data[idx].id) })
+                                    }
+                                }
+                            }
                         }
                     }
+                   else -> {
+                       Toast.makeText(this@ThemeQuestionListActivity,it.toString(),Toast.LENGTH_SHORT).show()
+                   }
                 }
             }
         }
     }
-
 
     private fun setActionBar() {
         setSupportActionBar(binding.includeToolbar.toolbar)

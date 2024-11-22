@@ -10,6 +10,7 @@ import com.example.com_us.MainActivity
 import com.example.com_us.R
 import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailDto
 import com.example.com_us.databinding.ActivityQuestionResultBinding
+import com.example.com_us.ui.question.block.CollectBlockActivity
 import com.example.com_us.util.QuestionManager
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ResultAfterSignActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityQuestionResultBinding
+    private lateinit var category : String
 
     private var videoPlayCount: MutableLiveData<Int> = MutableLiveData(0)
 
@@ -35,6 +37,7 @@ class ResultAfterSignActivity : AppCompatActivity() {
         if(!QuestionManager.answerDate.isNullOrEmpty()) {
             binding.textviewResultDate.text = QuestionManager.answerDate
         }
+        category = intent.getStringExtra("category").toString()
 
         setActionBar()
         setCompleteButton()
@@ -91,7 +94,8 @@ class ResultAfterSignActivity : AppCompatActivity() {
     private fun setCompleteButton() {
         binding.buttonResultComplete.setOnClickListener{
             QuestionManager.reset()
-            val intent = Intent(this, MainActivity::class.java)
+            // 메인 화면으로 이동
+            val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
             finish()
         }

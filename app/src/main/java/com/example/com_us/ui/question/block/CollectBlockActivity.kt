@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import androidx.activity.OnBackPressedCallback
+import com.example.com_us.MainActivity
 import com.example.com_us.databinding.ActivityQuestionCollectBlockBinding
 import com.example.com_us.ui.question.result.ResultAfterSignActivity
 import com.example.com_us.util.ThemeType
@@ -20,10 +21,9 @@ class CollectBlockActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityQuestionCollectBlockBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         category = intent.getStringExtra("category").toString()
 
-        if(!category.isNullOrEmpty()){
+        if(category.isNotEmpty()){
             setTheme()
         }
 
@@ -31,9 +31,10 @@ class CollectBlockActivity : AppCompatActivity() {
 
         Handler().postDelayed({
             val intent = Intent(this, ResultAfterSignActivity::class.java)
+            intent.putExtra("category",category)
             startActivity(intent)
             finish()
-        }, 1500) // 3초
+        }, 3000) // 3초
     }
 
     private fun setTheme() {

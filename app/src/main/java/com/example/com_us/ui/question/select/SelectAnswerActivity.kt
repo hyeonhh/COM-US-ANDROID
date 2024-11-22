@@ -9,8 +9,10 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Row
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.example.com_us.R
 import com.example.com_us.databinding.ActivityQuestionDetailBinding
+import com.example.com_us.ui.UiState
 import com.example.com_us.util.ColorMatch
 import com.example.com_us.ui.compose.AnswerOptionList
 import com.example.com_us.ui.compose.AnswerTypeTag
@@ -18,6 +20,7 @@ import com.example.com_us.ui.question.result.ResultBeforeSignActivity
 import com.example.com_us.ui.question.previous.PreviousAnswerActivity
 import com.example.com_us.util.QuestionManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 // 질문에 대한 답변을 선택하는 화면
 @AndroidEntryPoint
@@ -57,20 +60,29 @@ class SelectAnswerActivity : AppCompatActivity() {
     }
 
     private fun setQuestionDetail() {
-        viewModel.questionDetail.observe(this) {
-                if(it != null) {
-                    binding.constraintQuestionDetail.visibility = View.VISIBLE
-                    binding.textviewDetailQuestion.text = it.question.questionContent
-                    question = it.question.questionContent
-                    category = it.question.category
-                    setQuestionTypeCompose(it.question.answerType)
-                    setQuestionAnswerOptionCompose(it.answerList)
-                }
-            else{
-                Toast.makeText(this, getString(R.string.question_detail_msg_when_server_failure), Toast.LENGTH_SHORT).show()
-            finish()
-                }
-        }
+        lifecycleScope.launch {
+            viewModel.uiState.collect {
+                       if (it is UiState.Success) {
+                            binding.constraintQuestionDetail.visibility = View.VISIBLE
+                            binding.textviewDetailQuestion.text = it.data.question.questionContent
+                            question = it.data.question.questionContent
+                            category = it.data.question.category
+                            setQuestionTypeCompose(it.data.question.answerType)
+                            setQuestionAnswerOptionCompose(it.data.answerList)
+                        }
+
+                        if  (it is UiState.Error) {
+                            Toast.makeText(
+                                this@SelectAnswerActivity,
+                                it.message,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            finish()
+                        }
+                    }
+
+            }
+
     }
 
     private fun setQuestionTypeCompose(answerType: String) {

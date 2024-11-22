@@ -1,5 +1,6 @@
 package com.example.com_us.ui.question.result
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
@@ -16,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 // 답변 선택 시 처음으로 이동하는 화면 (질문, 답변 , 수형 영상, 따라해보기 버튼)
 @AndroidEntryPoint
-class ResultBeforeSignActivity : AppCompatActivity() {
+class ResultBeforeSignActivity : AppCompatActivity(){
 
     private lateinit var binding: ActivityQuestionCheckAnswerBinding
     private val viewModel: ResultViewModel by viewModels()
@@ -106,7 +107,14 @@ class ResultBeforeSignActivity : AppCompatActivity() {
     }
     private fun moveToFollowAlongDialog() {
         videoPlayCount.value = -1
-        val dialog = SignAnswerDialog.newInstance(question, answer, category)
+
+        viewModel.answerDetail.value
+        val dialog = viewModel.answerDetail.value?.let {
+            SignAnswerDialog.newInstance(question, answer, category,
+                it
+            )
+        }
+        print(viewModel.answerDetail.value)
 
         // 다이얼로그가 뜨면 아래 내용 질문만 희미하게 보이게 하기
         binding.textView8.visibility = View.GONE
@@ -115,10 +123,11 @@ class ResultBeforeSignActivity : AppCompatActivity() {
         binding.textviewAnswerDescrp.visibility = View.GONE
         binding.buttonAnswerFollowalong.visibility = View.GONE
         binding.videoviewAnswerSign.visibility = View.GONE
-        dialog.isCancelable = false
+        dialog?.isCancelable = false
 
-        dialog.show(supportFragmentManager, "FollowAlongDialog")
+        dialog?.show(supportFragmentManager, "FollowAlongDialog")
     }
+
 
 //    override fun onServerSuccess() {
 //    }
