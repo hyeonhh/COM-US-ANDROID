@@ -97,10 +97,11 @@ class AllQuestionListFragment : Fragment(), View.OnClickListener {
                                 }
                             }
                         }
-                        else ->  {
+                        is ApiResult.Error -> {
                             binding.constraintQuestion.visibility = View.GONE
                             Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
                         }
+                        else ->  {}
                     }
                 }
             }

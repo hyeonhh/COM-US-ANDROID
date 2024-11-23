@@ -60,9 +60,10 @@ class ThemeQuestionListActivity : AppCompatActivity() {
                             }
                         }
                     }
-                   else -> {
+                   is ApiResult.Error -> {
                        Toast.makeText(this@ThemeQuestionListActivity,it.toString(),Toast.LENGTH_SHORT).show()
                    }
+                    else -> {}
                 }
             }
         }

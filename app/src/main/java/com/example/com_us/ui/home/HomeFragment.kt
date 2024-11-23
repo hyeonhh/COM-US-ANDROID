@@ -6,9 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -16,14 +20,16 @@ import com.example.com_us.R
 import com.example.com_us.data.model.home.Block
 import com.example.com_us.data.model.home.Category
 import com.example.com_us.databinding.FragmentHomeBinding
+import com.example.com_us.ui.ApiResult
 import com.example.com_us.ui.question.theme.ThemeQuestionListActivity
 import com.example.com_us.util.ColorMatch
 import com.example.com_us.util.ServerResponseHandler
 import com.example.com_us.util.ThemeType
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(), View.OnClickListener, ServerResponseHandler {
+class HomeFragment : Fragment(), View.OnClickListener {
 
     private lateinit var blockList: List<List<View>>
 
@@ -54,9 +60,6 @@ class HomeFragment : Fragment(), View.OnClickListener, ServerResponseHandler {
             listOf(binding.viewHomeBlock20, binding.viewHomeBlock21, binding.viewHomeBlock22, binding.viewHomeBlock23),
             listOf(binding.viewHomeBlock30, binding.viewHomeBlock31, binding.viewHomeBlock32, binding.viewHomeBlock33),
         )
-
-        homeViewModel.serverResponseHandler = this
-        homeViewModel.loadHomeData()
 
         setSwipeRefresh()
         setThemeClickListener()
@@ -91,19 +94,41 @@ class HomeFragment : Fragment(), View.OnClickListener, ServerResponseHandler {
 
     private fun setHomeData() {
         val emojiText = String(Character.toChars(resources.getInteger(R.integer.waving_hand_sign)))
-        homeViewModel.homeData.observe(viewLifecycleOwner) {
-            val chatMinute = it.user.todayChatTime.substring(3, 5).toInt()
-            binding.textviewHomeGreeting.text = String.format(resources.getString(R.string.home_title_greeting_user_hi), it.user.name, emojiText)
-            binding.textviewHomeMinute.text = String.format(resources.getString(R.string.home_sub_today_conversation_minute), chatMinute)
-            Glide.with(this)
-                .load(it.user.imageUrl)
-                .apply(RequestOptions().transform(RoundedCorners(300)))
-                .into(binding.imageviewHomeUsericon)
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                homeViewModel.homeUiState.collect {
+                    when (it) {
+                        is ApiResult.Success -> {
+                            binding.constraintHome.visibility = View.VISIBLE
+                            val chatMinute = it.data.user.todayChatTime.substring(3, 5).toInt()
+                            binding.textviewHomeGreeting.text = String.format(
+                                resources.getString(R.string.home_title_greeting_user_hi),
+                                it.data.user.name,
+                                emojiText
+                            )
+                            binding.textviewHomeMinute.text = String.format(
+                                resources.getString(R.string.home_sub_today_conversation_minute),
+                                chatMinute
+                            )
+                            Glide.with(this@HomeFragment)
+                                .load(it.data.user.imageUrl)
+                                .apply(RequestOptions().transform(RoundedCorners(300)))
+                                .into(binding.imageviewHomeUsericon)
 
-            setThemeProgress(it.category)
-            setBlock(it.block)
-            isReload.value = true
+                            setThemeProgress(it.data.category)
+                            setBlock(it.data.block)
+                            isReload.value = true
+
+                        }
+                        is ApiResult.Error -> {
+                            Toast.makeText(context,"잠시 후에 다시 시도해주세요!",Toast.LENGTH_SHORT).show()
+                        }
+                        else -> {}
+                    }
+                }
+            }
         }
+
     }
 
     override fun onClick(view: View) {
@@ -190,10 +215,4 @@ class HomeFragment : Fragment(), View.OnClickListener, ServerResponseHandler {
         _binding = null
     }
 
-    override fun onServerSuccess() {
-        binding.constraintHome.visibility = View.VISIBLE
-    }
-
-    override fun onServerFailure() {
-    }
 }
