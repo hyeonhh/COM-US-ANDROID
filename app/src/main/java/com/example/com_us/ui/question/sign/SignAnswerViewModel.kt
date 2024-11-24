@@ -25,7 +25,7 @@ class SignAnswerViewModel @Inject constructor(
     private val _signIndex = MutableStateFlow<Int>(0)
     val signIndex  = _signIndex.asStateFlow()
 
-    private val _uiState = MutableStateFlow<UiState<ResponseAnswerDetailWithDateDto>>(UiState.Initial)
+    private val _uiState = MutableStateFlow<UiState<ResponseAnswerDetailWithDateDto>>(UiState.Loading)
     val uiState=   _uiState.asStateFlow()
     private val _resultData = MutableLiveData<ResponseAnswerDetailWithDateDto>()
     val resultData: LiveData<ResponseAnswerDetailWithDateDto> = _resultData

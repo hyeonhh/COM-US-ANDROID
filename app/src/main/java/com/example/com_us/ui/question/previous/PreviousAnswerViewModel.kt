@@ -22,7 +22,7 @@ class PreviousAnswerViewModel @Inject constructor(
 ) : ViewModel(){
 
     // ui 상태 변수
-    private val _uiState = MutableStateFlow<UiState<ResponsePreviousAnswerDto>>(UiState.Initial)
+    private val _uiState = MutableStateFlow<UiState<ResponsePreviousAnswerDto>>(UiState.Loading)
     val uiState=  _uiState.asStateFlow()
 
     private val _answerPrevious = MutableLiveData<ResponsePreviousAnswerDto>()

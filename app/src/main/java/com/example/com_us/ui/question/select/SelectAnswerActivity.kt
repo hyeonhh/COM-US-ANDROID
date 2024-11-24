@@ -62,23 +62,27 @@ class SelectAnswerActivity : AppCompatActivity() {
     private fun setQuestionDetail() {
         lifecycleScope.launch {
             viewModel.uiState.collect {
-                       if (it is UiState.Success) {
-                            binding.constraintQuestionDetail.visibility = View.VISIBLE
-                            binding.textviewDetailQuestion.text = it.data.question.questionContent
-                            question = it.data.question.questionContent
-                            category = it.data.question.category
-                            setQuestionTypeCompose(it.data.question.answerType)
-                            setQuestionAnswerOptionCompose(it.data.answerList)
-                        }
+                when(it) {
+                    is UiState.Loading ->{}
+                    is UiState.Success -> {
+                        binding.constraintQuestionDetail.visibility = View.VISIBLE
+                        binding.textviewDetailQuestion.text = it.data.question.questionContent
+                        question = it.data.question.questionContent
+                        category = it.data.question.category
+                        setQuestionTypeCompose(it.data.question.answerType)
+                        setQuestionAnswerOptionCompose(it.data.answerList)
+                    }
 
-                        if  (it is UiState.Error) {
-                            Toast.makeText(
-                                this@SelectAnswerActivity,
-                                it.message,
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            finish()
-                        }
+                    is UiState.Error -> {
+                        Toast.makeText(
+                            this@SelectAnswerActivity,
+                            it.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        finish()
+                    }
+                }
+
                     }
 
             }

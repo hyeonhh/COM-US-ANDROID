@@ -27,7 +27,7 @@ class ThemeQuestionListViewModel @Inject constructor(
 
 
     // ui 상태 변수
-    private val _uiState = MutableStateFlow<UiState<List<ResponseQuestionDto>>>(UiState.Initial)
+    private val _uiState = MutableStateFlow<UiState<List<ResponseQuestionDto>>>(UiState.Loading)
     val uiState = _uiState.asStateFlow()
 
     // 선택한 테마의 id

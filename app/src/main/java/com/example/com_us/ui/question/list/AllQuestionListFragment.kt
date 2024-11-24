@@ -24,6 +24,7 @@ import com.example.com_us.ui.compose.QuestionListItem
 import com.example.com_us.ui.question.select.SelectAnswerActivity
 import com.example.com_us.util.ThemeType
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 // 바텀 네비게이션바에서 햄버거 버튼 클릭 시 이동하는 질문 리스트 화면
@@ -75,8 +76,12 @@ class AllQuestionListFragment : Fragment(), View.OnClickListener {
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.apiResult.collect {
                     when(it) {
+                        is UiState.Loading -> {
+                            binding.progress.visibility = View.VISIBLE
+                        }
                         is UiState.Success -> {
                             if (it.data.isNotEmpty()) {
+                                binding.progress.visibility = View.GONE
                                 setThemeSelected()
                                 binding.constraintQuestion.visibility = View.VISIBLE
                                 binding.textviewQuestionCount.text = String.format(
@@ -101,7 +106,7 @@ class AllQuestionListFragment : Fragment(), View.OnClickListener {
                             binding.constraintQuestion.visibility = View.GONE
                             Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
                         }
-                        else ->  {}
+
                     }
                 }
             }

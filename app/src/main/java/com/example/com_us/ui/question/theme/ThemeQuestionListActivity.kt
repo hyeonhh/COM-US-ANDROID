@@ -63,7 +63,7 @@ class ThemeQuestionListActivity : AppCompatActivity() {
                    is UiState.Error -> {
                        Toast.makeText(this@ThemeQuestionListActivity,it.toString(),Toast.LENGTH_SHORT).show()
                    }
-                    else -> {}
+                    is UiState.Loading -> {}
                 }
             }
         }

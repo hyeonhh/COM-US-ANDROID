@@ -20,7 +20,7 @@ class SelectAnswerViewModel @Inject constructor(
 ): ViewModel() {
 
     // ui 상태 변수
-    private val _uiState =  MutableStateFlow<UiState<ResponseQuestionDetailDto>>(UiState.Initial)
+    private val _uiState =  MutableStateFlow<UiState<ResponseQuestionDetailDto>>(UiState.Loading)
     val uiState: StateFlow<UiState<ResponseQuestionDetailDto>> = _uiState
 
     private val _questionDetail = MutableLiveData<ResponseQuestionDetailDto>()
