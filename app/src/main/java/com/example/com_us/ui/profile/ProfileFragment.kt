@@ -81,7 +81,7 @@ class ProfileFragment : Fragment() ,ServerResponseHandler{
                         Toast.makeText(context,"잠시 후에 다시 시도해주세요!",Toast.LENGTH_SHORT).show()
                     }
 
-                    else -> {}
+                    is UiState.Loading -> {}
                 }
 
             }
