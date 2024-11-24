@@ -16,7 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.com_us.data.response.question.ResponseQuestionDto
+import com.example.com_us.data.model.question.response.question.ResponseQuestionDto
 import com.example.com_us.util.ColorMatch
 import com.example.com_us.util.ColorType
 import com.example.com_us.ui.compose.theme.Gray200
@@ -27,7 +27,7 @@ import com.example.com_us.ui.compose.theme.Typography
 @Composable
 fun QuestionListItem(data: ResponseQuestionDto, onClick: () -> Unit) {
 
-    var color = ColorMatch.fromKor(data.answerType)?.colorType ?: ColorType.GRAY
+    val color = ColorMatch.fromKor(data.answerType)?.colorType ?: ColorType.GRAY
 
 
     Surface(

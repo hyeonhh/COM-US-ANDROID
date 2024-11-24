@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_questions"
-        android:name="com.example.com_us.ui.question.QuestionFragment"
+        android:name="com.example.com_us.ui.question.list.AllQuestionListFragment"
         android:label="@string/title_question"
         tools:layout="@layout/fragment_question" />
 

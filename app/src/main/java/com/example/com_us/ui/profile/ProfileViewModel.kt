@@ -1,32 +1,41 @@
 package com.example.com_us.ui.profile
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.com_us.base.data.NetworkError
 import com.example.com_us.data.repository.ProfileRepository
-import com.example.com_us.data.response.question.ResponseProfileDto
-import com.example.com_us.util.ServerResponseHandler
+import com.example.com_us.data.model.question.response.question.ResponseProfileDto
+import com.example.com_us.ui.base.UiState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ProfileViewModel(private val profileRepository: ProfileRepository) : ViewModel() {
+@HiltViewModel
+class ProfileViewModel @Inject constructor(private val profileRepository: ProfileRepository) : ViewModel() {
 
-    var serverResponseHandler: ServerResponseHandler? = null
+    private val _profileUiState = MutableStateFlow<UiState<ResponseProfileDto>>(UiState.Initial)
+    val profileUiState = _profileUiState.asStateFlow()
 
-    private val _profileData = MutableLiveData<ResponseProfileDto>()
-    val profileData: LiveData<ResponseProfileDto> = _profileData
 
-    fun loadProfileData(){
+
+
+    fun loadProfileData() {
         viewModelScope.launch {
             profileRepository.getProfileData()
                 .onSuccess {
-                    _profileData.value = it
-                    serverResponseHandler?.onServerSuccess()
+                    _profileUiState.value = UiState.Success(it)
                 }
                 .onFailure {
-                    Log.d("GET: [PROFILE DATA]", it.toString())
-                    serverResponseHandler?.onServerFailure()
+                    val errorMessage = when (it) {
+                        is NetworkError.NetworkException -> { it.message }
+                        is NetworkError.NullDataError -> { "데이터가 준비중이에요!" }
+                        else -> "알 수 없는 에러가 발생했습니다. 다시 시도해주세요!"
+                    }
+                    if (errorMessage != null) {
+                        _profileUiState.value = UiState.Error(errorMessage)
+                    }
                 }
         }
     }

@@ -1,6 +1,6 @@
 package com.example.com_us.util
 
-import com.example.com_us.data.response.question.ResponseAnswerDetailDto
+import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailDto
 
 object QuestionManager {
     var questionId: Long = -1

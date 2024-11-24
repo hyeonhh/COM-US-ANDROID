@@ -6,20 +6,31 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="25dp"
     android:backgroundTint="#88ffffff"
-    tools:context=".ui.question.QuestionFollowAlongDialog">
+    tools:context=".ui.question.sign.SignAnswerDialog">
+
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/linearProgressIndicator"
+        android:progress="50"
+        android:layout_width="160dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/question_follow_along_title_follow"
         android:textColor="@color/salmon_700"
         android:textFontWeight="700"
         android:textSize="18sp"
-        android:text="@string/question_follow_along_title_follow"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/linearProgressIndicator" />
 
     <TextView
         android:id="@+id/textview_followdialog_question"
@@ -95,16 +106,32 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button_answer_complete"
+        android:id="@+id/button_next_step"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:background="@drawable/shape_fill_rect10_orange700"
-        android:text="@string/question_follow_along_button_complete"
+        android:text="다음단계"
         android:textColor="@color/white"
         android:textFontWeight="700"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_follodialog_descrp" />
+
+    <Button
+        android:id="@+id/btn_complete_without_block"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/shape_fill_rect10_gray200"
+        android:text="완료하고 블럭받지 않기"
+        android:textColor="@color/gray_500"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_next_step" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,28 +3,35 @@ package com.example.com_us.ui.profile
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout.LayoutParams
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.com_us.R
 import com.example.com_us.databinding.FragmentProfileBinding
+import com.example.com_us.ui.base.UiState
 import com.example.com_us.util.ServerResponseHandler
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 
-class ProfileFragment : Fragment(), ServerResponseHandler {
+@AndroidEntryPoint
+class ProfileFragment : Fragment() ,ServerResponseHandler{
 
     private var _binding: FragmentProfileBinding? = null
-    private val profileViewModel: ProfileViewModel by viewModels { ProfileViewModelFactory(requireContext()) }
+    private val profileViewModel: ProfileViewModel by viewModels()
     private val binding get() = _binding!!
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -36,31 +43,53 @@ class ProfileFragment : Fragment(), ServerResponseHandler {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
 
         profileViewModel.loadProfileData()
-        profileViewModel.serverResponseHandler = this
-
-        setProfile()
 
         return binding.root
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setProfile()
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setProfile() {
-        profileViewModel.profileData.observe(viewLifecycleOwner) {
-            val themeGraphRatioList: List<Float> = listOf(
-                it.answerStatistic.dailyQuestionRatio.toFloat(),
-                it.answerStatistic.schoolQuestionRatio.toFloat(),
-                it.answerStatistic.friendQuestionRatio.toFloat(),
-                it.answerStatistic.familyQuestionRatio.toFloat(),
-                it.answerStatistic.hobbyQuestionRatio.toFloat(),
-            )
-            setProfile(it.userInfo.name, it.userInfo.imageUrl)
-            setStatic(it.userInfo.totalChatTime, it.userInfo.totalChatCount)
-            changeTypeGraph(it.answerStatistic.multipleChoiceRatio.toFloat(), it.answerStatistic.sentenceRatio.toFloat())
-            changeThemeGraph(themeGraphRatioList)
+        lifecycleScope.launch {
+            profileViewModel.profileUiState.collect {
+                when (it) {
+                    is UiState.Success -> {
+                        binding.constraintProfile.visibility = View.VISIBLE
+                        val themeGraphRatioList: List<Float> = listOf(
+                            it.data.answerStatistic.dailyQuestionRatio.toFloat(),
+                            it.data.answerStatistic.schoolQuestionRatio.toFloat(),
+                            it.data.answerStatistic.friendQuestionRatio.toFloat(),
+                            it.data.answerStatistic.familyQuestionRatio.toFloat(),
+                            it.data.answerStatistic.hobbyQuestionRatio.toFloat(),
+                        )
+
+                        setProfile(it.data.userInfo.name, it.data.userInfo.imageUrl)
+                        setStatic(it.data.userInfo.totalChatTime, it.data.userInfo.totalChatCount)
+                        changeTypeGraph(
+                            it.data.answerStatistic.multipleChoiceRatio.toFloat(),
+                            it.data.answerStatistic.sentenceRatio.toFloat()
+                        )
+                        changeThemeGraph(themeGraphRatioList)
+                    }
+
+                    is UiState.Error -> {
+                        Toast.makeText(context,"잠시 후에 다시 시도해주세요!",Toast.LENGTH_SHORT).show()
+                    }
+
+                    else -> {}
+                }
+
+            }
         }
     }
 
     private fun setProfile(username: String, profileImgUrl: String) {
+        Log.d("profile","setProfile")
         binding.textviewProfileNickname.text = String.format(resources.getString(R.string.profile_username), username)
         Glide.with(this)
             .load(profileImgUrl)
@@ -70,12 +99,14 @@ class ProfileFragment : Fragment(), ServerResponseHandler {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setStatic(totalChatTime: String, totalChatCount: Int) {
+        Log.d("profile","setStatic")
         val totalChatTime = stringToLocalTime(totalChatTime)
         binding.textviewTimeTaken.text = String.format(resources.getString(R.string.profile_time_taken_minute), totalChatTime.toSecondOfDay() / 60)
         binding.textviewConvCount.text = String.format(resources.getString(R.string.profile_conv_count_count), totalChatCount)
     }
 
     private fun changeTypeGraph(choiceRatio: Float, interactionRatio: Float) {
+        Log.d("profile","changeTypeGraph")
         changeGraphShape(R.drawable.shape_type_graph_fill_stroke_rect34_blue, choiceRatio, GraphPosition.LEFT)
         changeGraphShape(R.drawable.shape_type_graph_fill_stroke_rect34_pink, interactionRatio, GraphPosition.RIGHT)
 
@@ -87,6 +118,7 @@ class ProfileFragment : Fragment(), ServerResponseHandler {
     }
 
     private fun changeThemeGraph(themeGraphRatioList: List<Float>) {
+        Log.d("profile","changeThemeGraph")
         val themeGraphBg: List<Int> = listOf(
             R.drawable.shape_theme_graph_fill_rect_orange700,
             R.drawable.shape_theme_graph_fill_rect_blue700,
@@ -121,6 +153,7 @@ class ProfileFragment : Fragment(), ServerResponseHandler {
         changeGraphLayoutWeight(binding.viewProfileThemeGraphFamily, themeGraphRatioList[3])
         changeGraphLayoutWeight(binding.viewProfileThemeGraphInterest, themeGraphRatioList[4])
 
+        print(binding)
         binding.includeProfileGraphThemeDaily.textviewGraphPercent.text = String.format(resources.getString(R.string.percent), themeGraphRatioList[0].toInt())
         binding.includeProfileGraphThemeSchool.textviewGraphPercent.text = String.format(resources.getString(R.string.percent), themeGraphRatioList[1].toInt())
         binding.includeProfileGraphThemeFriend.textviewGraphPercent.text = String.format(resources.getString(R.string.percent), themeGraphRatioList[2].toInt())
@@ -129,6 +162,7 @@ class ProfileFragment : Fragment(), ServerResponseHandler {
     }
 
     private fun changeGraphLayoutWeight(view: View, ratio: Float) {
+        Log.d("profile","changeGraphLayoutWeight")
         val marginInDp = resources.getDimensionPixelSize(R.dimen.profile_graph_margin)
         view.layoutParams = LayoutParams(
             LayoutParams.WRAP_CONTENT,
@@ -140,6 +174,7 @@ class ProfileFragment : Fragment(), ServerResponseHandler {
     }
 
     private fun changeGraphShape(graphDrawableId: Int, ratio: Float, position: GraphPosition) {
+        Log.d("profile","changeGraphShape")
         val drawable = context?.let { ContextCompat.getDrawable(it, graphDrawableId) } as? GradientDrawable
         if(ratio >= 100.0) {
             drawable?.cornerRadius = 40f
@@ -158,6 +193,7 @@ class ProfileFragment : Fragment(), ServerResponseHandler {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun stringToLocalTime(timeString: String): LocalTime {
+        Log.d("profile","stringToLocalTime")
         val formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
 
         return LocalTime.parse(timeString, formatter)
@@ -172,10 +208,11 @@ class ProfileFragment : Fragment(), ServerResponseHandler {
         RIGHT, MIDDLE, LEFT
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onServerSuccess() {
-        binding.constraintProfile.visibility = View.VISIBLE
     }
 
     override fun onServerFailure() {
+        TODO("Not yet implemented")
     }
 }

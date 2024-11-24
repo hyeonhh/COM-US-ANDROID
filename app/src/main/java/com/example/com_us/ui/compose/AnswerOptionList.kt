@@ -7,10 +7,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.example.com_us.ui.question.QuestionViewModel
+import com.example.com_us.ui.question.select.SelectAnswerViewModel
 
 @Composable
-fun AnswerOptionList(answerList: List<String>, questionViewModel: QuestionViewModel) {
+fun AnswerOptionList(answerList: List<String>, questionViewModel: SelectAnswerViewModel) {
     var columCount = 2
     var selectedOption by remember { mutableIntStateOf(-1) } // 선택된 아이템의 ID를 저장하는 상태
 

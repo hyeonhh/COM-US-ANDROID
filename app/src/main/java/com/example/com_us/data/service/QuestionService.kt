@@ -1,12 +1,12 @@
 package com.example.com_us.data.service
 
-import com.example.com_us.data.request.question.RequestAnswerDto
-import com.example.com_us.data.response.BaseResponse
-import com.example.com_us.data.response.question.ResponseAnswerDetailDto
-import com.example.com_us.data.response.question.ResponseAnswerDetailWithDateDto
-import com.example.com_us.data.response.question.ResponsePreviousAnswerDto
-import com.example.com_us.data.response.question.ResponseQuestionDetailDto
-import com.example.com_us.data.response.question.ResponseQuestionDto
+import com.example.com_us.data.model.question.request.RequestAnswerRequest
+import com.example.com_us.base.data.BaseResponse
+import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailDto
+import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailWithDateDto
+import com.example.com_us.data.model.question.response.question.ResponsePreviousAnswerDto
+import com.example.com_us.data.model.question.response.question.ResponseQuestionDetailDto
+import com.example.com_us.data.model.question.response.question.ResponseQuestionDto
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -31,7 +31,7 @@ interface QuestionService {
 
     @POST("/api/answer")
     suspend fun postAnswer(
-        @Body body: RequestAnswerDto,
+        @Body body: RequestAnswerRequest,
     ): BaseResponse<ResponseAnswerDetailWithDateDto>
 
     @GET("/api/answer/{questionId}")

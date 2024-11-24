@@ -5,7 +5,7 @@
     android:id="@+id/constraint_result"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.question.QuestionResultActivity">
+    tools:context=".ui.question.result.ResultAfterSignActivity">
 
     <include
         android:id="@+id/include_result_toolbar"

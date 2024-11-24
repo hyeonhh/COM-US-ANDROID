@@ -297,10 +297,11 @@
                         android:layout_weight="1">
 
                         <View
+                            android:padding="3dp"
                             android:id="@+id/view_home_block00"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/shape_stroke_rect_bottomleft10_gray200" />
+                            android:background="@drawable/shape_stroke_rect_gray200" />
 
                         <View
                             android:id="@+id/view_home_block01"
@@ -318,7 +319,7 @@
                             android:id="@+id/view_home_block03"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/shape_stroke_rect_bottomright10_gray200" />
+                            android:background="@drawable/shape_stroke_rect_gray200" />
                     </TableRow>
                 </TableLayout>
 
