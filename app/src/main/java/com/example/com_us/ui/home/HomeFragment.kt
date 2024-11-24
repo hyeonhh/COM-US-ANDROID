@@ -20,10 +20,9 @@ import com.example.com_us.R
 import com.example.com_us.data.model.home.Block
 import com.example.com_us.data.model.home.Category
 import com.example.com_us.databinding.FragmentHomeBinding
-import com.example.com_us.ui.ApiResult
+import com.example.com_us.ui.base.UiState
 import com.example.com_us.ui.question.theme.ThemeQuestionListActivity
 import com.example.com_us.util.ColorMatch
-import com.example.com_us.util.ServerResponseHandler
 import com.example.com_us.util.ThemeType
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -98,7 +97,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeViewModel.homeUiState.collect {
                     when (it) {
-                        is ApiResult.Success -> {
+                        is UiState.Success -> {
                             binding.constraintHome.visibility = View.VISIBLE
                             val chatMinute = it.data.user.todayChatTime.substring(3, 5).toInt()
                             binding.textviewHomeGreeting.text = String.format(
@@ -120,7 +119,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
                             isReload.value = true
 
                         }
-                        is ApiResult.Error -> {
+                        is UiState.Error -> {
                             Toast.makeText(context,"잠시 후에 다시 시도해주세요!",Toast.LENGTH_SHORT).show()
                         }
                         else -> {}

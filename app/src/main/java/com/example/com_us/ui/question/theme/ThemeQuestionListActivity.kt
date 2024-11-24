@@ -11,7 +11,7 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.lifecycle.lifecycleScope
 import com.example.com_us.R
 import com.example.com_us.databinding.ActivityThemeQuestionListBinding
-import com.example.com_us.ui.ApiResult
+import com.example.com_us.ui.base.UiState
 import com.example.com_us.ui.question.select.SelectAnswerActivity
 import com.example.com_us.ui.compose.QuestionListItem
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,7 +45,7 @@ class ThemeQuestionListActivity : AppCompatActivity() {
         lifecycleScope.launch {
             viewModel.uiState.collect {
                 when (it) {
-                    is ApiResult.Success -> {
+                    is UiState.Success -> {
                         binding.composeviewTheme.apply {
                             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
                             setContent {
@@ -60,7 +60,7 @@ class ThemeQuestionListActivity : AppCompatActivity() {
                             }
                         }
                     }
-                   is ApiResult.Error -> {
+                   is UiState.Error -> {
                        Toast.makeText(this@ThemeQuestionListActivity,it.toString(),Toast.LENGTH_SHORT).show()
                    }
                     else -> {}

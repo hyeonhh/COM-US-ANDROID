@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.com_us.data.default_repository.NetworkError
+import com.example.com_us.base.data.NetworkError
 import com.example.com_us.data.repository.QuestionRepository
 import com.example.com_us.data.model.question.request.RequestAnswerRequest
 import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailWithDateDto
-import com.example.com_us.ui.ApiResult
+import com.example.com_us.ui.base.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,8 +25,8 @@ class SignAnswerViewModel @Inject constructor(
     private val _signIndex = MutableStateFlow<Int>(0)
     val signIndex  = _signIndex.asStateFlow()
 
-    private val _apiResult = MutableStateFlow<ApiResult<ResponseAnswerDetailWithDateDto>>(ApiResult.Initial)
-    val uiState=   _apiResult.asStateFlow()
+    private val _uiState = MutableStateFlow<UiState<ResponseAnswerDetailWithDateDto>>(UiState.Initial)
+    val uiState=   _uiState.asStateFlow()
     private val _resultData = MutableLiveData<ResponseAnswerDetailWithDateDto>()
     val resultData: LiveData<ResponseAnswerDetailWithDateDto> = _resultData
 
@@ -39,7 +39,7 @@ class SignAnswerViewModel @Inject constructor(
         viewModelScope.launch {
             questionRepository.postAnswer(body)
                 .onSuccess {
-                    _apiResult.value = ApiResult.Success(it)
+                    _uiState.value = UiState.Success(it)
                 }
                 .onFailure {
                    val errorMessage =  when(it) {
@@ -48,7 +48,7 @@ class SignAnswerViewModel @Inject constructor(
                        is NetworkError.NullDataError -> {"데이터를 준비하고 있어요!"}
                        else -> { "잠시 후에 다시 시도해주세요"}
                    }
-                    _apiResult.value = ApiResult.Error(errorMessage)
+                    _uiState.value = UiState.Error(errorMessage)
                 }
         }
     }

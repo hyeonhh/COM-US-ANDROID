@@ -13,17 +13,14 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.com_us.R
 import com.example.com_us.databinding.FragmentProfileBinding
-import com.example.com_us.ui.ApiResult
+import com.example.com_us.ui.base.UiState
 import com.example.com_us.util.ServerResponseHandler
-import com.google.android.material.datepicker.OnSelectionChangedListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.time.LocalTime
@@ -61,7 +58,7 @@ class ProfileFragment : Fragment() ,ServerResponseHandler{
         lifecycleScope.launch {
             profileViewModel.profileUiState.collect {
                 when (it) {
-                    is ApiResult.Success -> {
+                    is UiState.Success -> {
                         binding.constraintProfile.visibility = View.VISIBLE
                         val themeGraphRatioList: List<Float> = listOf(
                             it.data.answerStatistic.dailyQuestionRatio.toFloat(),
@@ -80,7 +77,7 @@ class ProfileFragment : Fragment() ,ServerResponseHandler{
                         changeThemeGraph(themeGraphRatioList)
                     }
 
-                    is ApiResult.Error -> {
+                    is UiState.Error -> {
                         Toast.makeText(context,"잠시 후에 다시 시도해주세요!",Toast.LENGTH_SHORT).show()
                     }
 

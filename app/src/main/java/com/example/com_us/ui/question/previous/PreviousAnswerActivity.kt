@@ -15,7 +15,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.com_us.R
 import com.example.com_us.data.model.question.response.question.Answer
 import com.example.com_us.databinding.ActivityQuestionPreviousAnswerBinding
-import com.example.com_us.ui.ApiResult
+import com.example.com_us.ui.base.UiState
 import com.example.com_us.ui.compose.AnswerHistoryItem
 import com.example.com_us.ui.compose.AnswerTypeTag
 import com.example.com_us.util.ColorMatch
@@ -48,7 +48,7 @@ class PreviousAnswerActivity : AppCompatActivity() {
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.uiState.collect{
                     when(it){
-                        is ApiResult.Success -> {
+                        is UiState.Success -> {
                             setQuestion(it.data.question.questionCount, it.data.question.questionContent)
                             setQuestionTypeCompose(it.data.question.category, it.data.question.answerType)
                             setComposeList(it.data.answerList)

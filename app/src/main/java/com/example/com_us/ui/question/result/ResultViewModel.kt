@@ -1,14 +1,11 @@
 package com.example.com_us.ui.question.result
 
 import android.util.Log
-import androidx.compose.runtime.MutableState
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailDto
 import com.example.com_us.data.repository.QuestionRepository
-import com.example.com_us.ui.ApiResult
+import com.example.com_us.ui.base.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,7 +17,7 @@ class ResultViewModel  @Inject constructor(
     private val questionRepository : QuestionRepository
 ) : ViewModel() {
 
-    private val _answerDetail = MutableStateFlow<ApiResult<List<ResponseAnswerDetailDto>>>(ApiResult.Initial)
+    private val _answerDetail = MutableStateFlow<UiState<List<ResponseAnswerDetailDto>>>(UiState.Initial)
     val answerDetail =_answerDetail.asStateFlow()
 
 
@@ -28,7 +25,7 @@ class ResultViewModel  @Inject constructor(
         viewModelScope.launch {
             questionRepository.getAnswerDetail(answer)
                 .onSuccess {
-                    _answerDetail.value = ApiResult.Success(it)
+                    _answerDetail.value = UiState.Success(it)
                 }
                 .onFailure {
                     Log.d("GET: [ANSWER DETAIL]", it.toString())

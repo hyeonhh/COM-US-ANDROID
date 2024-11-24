@@ -14,7 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.com_us.R
 import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailDto
 import com.example.com_us.databinding.ActivityQuestionCheckAnswerBinding
-import com.example.com_us.ui.ApiResult
+import com.example.com_us.ui.base.UiState
 import com.example.com_us.ui.question.sign.SignAnswerDialog
 import com.example.com_us.util.QuestionManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,7 +42,7 @@ class ResultBeforeSignActivity : AppCompatActivity(){
         question = intent.getStringExtra("question").toString()
         category = intent.getStringExtra("category").toString()
 
-        if (!answer.isNullOrEmpty()) {
+        if (answer.isNotEmpty()) {
             QuestionManager.question = question
             viewModel.loadAnswerDetail(answer)
         }
@@ -56,7 +56,7 @@ class ResultBeforeSignActivity : AppCompatActivity(){
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.answerDetail.collect {
                     when (it) {
-                        is ApiResult.Success -> {
+                        is UiState.Success -> {
                             QuestionManager.signLanguageInfo = it.data
                             signData = it.data
                             setAnswerDetail()
@@ -65,7 +65,7 @@ class ResultBeforeSignActivity : AppCompatActivity(){
                             }
                         }
 
-                        is ApiResult.Error -> {
+                        is UiState.Error -> {
                             Toast.makeText(this@ResultBeforeSignActivity, it.toString(), Toast.LENGTH_SHORT).show()
                         }
                         else -> {}
@@ -129,7 +129,7 @@ class ResultBeforeSignActivity : AppCompatActivity(){
         viewModel.answerDetail.value
         viewModel.answerDetail.value.let {
             when(it) {
-                is ApiResult.Success -> {
+                is UiState.Success -> {
                     val dialog =
                     SignAnswerDialog.newInstance(question, answer, category,
                         it.data

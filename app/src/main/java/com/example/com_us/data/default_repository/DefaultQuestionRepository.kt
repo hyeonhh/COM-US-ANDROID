@@ -1,5 +1,6 @@
 package com.example.com_us.data.default_repository
 
+import com.example.com_us.base.data.NetworkError
 import com.example.com_us.data.model.question.request.RequestAnswerRequest
 import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailDto
 import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailWithDateDto
@@ -8,7 +9,7 @@ import com.example.com_us.data.model.question.response.question.ResponseQuestion
 import com.example.com_us.data.model.question.response.question.ResponseQuestionDto
 import com.example.com_us.data.repository.QuestionRepository
 import com.example.com_us.data.default_source.DefaultQuestionDataSource
-import com.example.com_us.data.model.toResult
+import com.example.com_us.base.data.toResult
 import javax.inject.Inject
 
 class DefaultQuestionRepository @Inject constructor(

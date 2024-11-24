@@ -19,7 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.com_us.R
 import com.example.com_us.databinding.FragmentQuestionBinding
-import com.example.com_us.ui.ApiResult
+import com.example.com_us.ui.base.UiState
 import com.example.com_us.ui.compose.QuestionListItem
 import com.example.com_us.ui.question.select.SelectAnswerActivity
 import com.example.com_us.util.ThemeType
@@ -75,7 +75,7 @@ class AllQuestionListFragment : Fragment(), View.OnClickListener {
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.apiResult.collect {
                     when(it) {
-                        is ApiResult.Success -> {
+                        is UiState.Success -> {
                             if (it.data.isNotEmpty()) {
                                 setThemeSelected()
                                 binding.constraintQuestion.visibility = View.VISIBLE
@@ -97,7 +97,7 @@ class AllQuestionListFragment : Fragment(), View.OnClickListener {
                                 }
                             }
                         }
-                        is ApiResult.Error -> {
+                        is UiState.Error -> {
                             binding.constraintQuestion.visibility = View.GONE
                             Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
                         }
