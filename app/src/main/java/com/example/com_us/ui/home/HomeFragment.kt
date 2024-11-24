@@ -78,7 +78,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 binding.swiperefreshHome.isRefreshing = false
             }
         }
-
         binding.scrollviewHome.viewTreeObserver.addOnScrollChangedListener(scrollChangedListener)
     }
 
@@ -187,8 +186,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
         for(data in blockData) {
             color = ColorMatch.findColorFromKor(data.category)
             if(color != null){
+                // todo : 색 변경 방식 변경 필요
                 blockList[data.blockRow][data.blockColumn].setBackgroundResource(color)
-
             }
         }
     }
