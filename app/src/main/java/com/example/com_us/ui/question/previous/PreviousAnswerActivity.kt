@@ -13,6 +13,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.com_us.R
+import com.example.com_us.base.activity.BaseActivity
 import com.example.com_us.data.model.question.response.question.Answer
 import com.example.com_us.databinding.ActivityQuestionPreviousAnswerBinding
 import com.example.com_us.ui.base.UiState
@@ -24,19 +25,17 @@ import kotlinx.coroutines.launch
 
 // 이전 답변을 보여주는 화면
 @AndroidEntryPoint
-class PreviousAnswerActivity : AppCompatActivity() {
+class PreviousAnswerActivity : BaseActivity<ActivityQuestionPreviousAnswerBinding,PreviousAnswerViewModel>(
+    ActivityQuestionPreviousAnswerBinding::inflate,
+) {
 
-    private lateinit var binding: ActivityQuestionPreviousAnswerBinding
 
-    private val viewModel: PreviousAnswerViewModel by viewModels()
+   override  val viewModel: PreviousAnswerViewModel by viewModels()
     private var questionId: Long = -1
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-        binding = ActivityQuestionPreviousAnswerBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
+    override fun onBindLayout() {
+        super.onBindLayout()
         setActionBar()
 
         questionId = intent.getLongExtra("questionId", -1)
@@ -54,15 +53,15 @@ class PreviousAnswerActivity : AppCompatActivity() {
                             setQuestionTypeCompose(it.data.question.category, it.data.question.answerType)
                             setComposeList(it.data.answerList)
                         }
-                       is UiState.Error ->
+                        is UiState.Error ->
                             Toast.makeText(this@PreviousAnswerActivity, it.toString(), Toast.LENGTH_SHORT).show()
-                        }
                     }
-
                 }
-            }
-    }
 
+            }
+        }
+
+    }
     private fun setActionBar() {
         setSupportActionBar(binding.includePreviousToolbar.toolbar)
 

@@ -18,6 +18,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.com_us.R
+import com.example.com_us.base.fragment.BaseFragment
 import com.example.com_us.databinding.FragmentQuestionBinding
 import com.example.com_us.ui.base.UiState
 import com.example.com_us.ui.compose.QuestionListItem
@@ -29,34 +30,27 @@ import kotlinx.coroutines.launch
 
 // 바텀 네비게이션바에서 햄버거 버튼 클릭 시 이동하는 질문 리스트 화면
 @AndroidEntryPoint
-class AllQuestionListFragment : Fragment(), View.OnClickListener {
+class AllQuestionListFragment : BaseFragment<FragmentQuestionBinding,AllQuestionListViewModel>(
+    FragmentQuestionBinding::inflate
+),View.OnClickListener {
 
-    private var _binding: FragmentQuestionBinding? = null
-    private val binding get() = _binding!!
-    private val viewModel: AllQuestionListViewModel by viewModels()
+    override val viewModel: AllQuestionListViewModel by viewModels()
     private var lastSelectedView: TextView? = null
     private lateinit var selectedView:TextView
     private lateinit var themeKor:String
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentQuestionBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        return root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onBindLayout() {
+        super.onBindLayout()
+
         val themeAllView = binding.includeThemeAll
         viewModel.updateSelectedThemeId(themeAllView.textviewTheme.id)
 
         setThemeList()
         setComposeList()
         setThemeClickListener()
-
     }
+
 
     // 선택한 카테고리에 맞는 질문 리스트 얻기
     private fun setThemeList() {
@@ -132,7 +126,7 @@ class AllQuestionListFragment : Fragment(), View.OnClickListener {
             view.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray_500))  // 기본 텍스트 색상으로 변경
         }
 
-        selectedView?.let { view ->
+        selectedView.let { view ->
             view.setBackgroundResource(R.drawable.shape_fill_rect5_gray700)
             view.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
         }
@@ -148,11 +142,7 @@ class AllQuestionListFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(view: View) {
         viewModel.updateSelectedThemeId(view.id)
-    }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
 }

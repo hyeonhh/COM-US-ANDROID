@@ -3,6 +3,7 @@ package com.example.com_us.ui.profile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.com_us.base.data.NetworkError
+import com.example.com_us.base.viewmodel.BaseViewModel
 import com.example.com_us.data.repository.ProfileRepository
 import com.example.com_us.data.model.question.response.question.ResponseProfileDto
 import com.example.com_us.ui.base.UiState
@@ -13,15 +14,16 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(private val profileRepository: ProfileRepository) : ViewModel() {
+class ProfileViewModel @Inject constructor(private val profileRepository: ProfileRepository) : BaseViewModel() {
 
     private val _profileUiState = MutableStateFlow<UiState<ResponseProfileDto>>(UiState.Loading)
     val profileUiState = _profileUiState.asStateFlow()
 
+    init {
+        loadProfileData()
+    }
 
-
-
-    fun loadProfileData() {
+    private fun loadProfileData() {
         viewModelScope.launch {
             profileRepository.getProfileData()
                 .onSuccess {

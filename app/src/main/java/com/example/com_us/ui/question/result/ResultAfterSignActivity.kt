@@ -10,7 +10,6 @@ import com.example.com_us.MainActivity
 import com.example.com_us.R
 import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailDto
 import com.example.com_us.databinding.ActivityQuestionResultBinding
-import com.example.com_us.ui.question.block.CollectBlockActivity
 import com.example.com_us.util.QuestionManager
 import dagger.hilt.android.AndroidEntryPoint
 
