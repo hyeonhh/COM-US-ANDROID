@@ -189,6 +189,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 // todo : 색 변경 방식 변경 필요
                 blockList[data.blockRow][data.blockColumn].setBackgroundResource(color)
             }
+
         }
     }
     private fun setNoBlockBackground(setBg: Boolean) {

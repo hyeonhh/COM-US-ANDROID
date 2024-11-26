@@ -211,6 +211,7 @@
                     app:layout_constraintTop_toTopOf="@+id/textview_home_step" />
 
                 <TableLayout
+                    android:clipToOutline="true"
                     android:id="@+id/tableLayout3"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -227,6 +228,7 @@
                         android:layout_weight="1">
 
                         <View
+                            android:clipToOutline="true"
                             android:id="@+id/view_home_block30"
                             android:layout_width="0dp"
                             android:layout_margin="0.5dp"

@@ -21,6 +21,8 @@ class ResultViewModel  @Inject constructor(
     val answerDetail =_answerDetail.asStateFlow()
 
 
+
+
     fun loadAnswerDetail(answer: String){
         viewModelScope.launch {
             questionRepository.getAnswerDetail(answer)
