@@ -24,6 +24,15 @@
                 android:layout_marginBottom="50dp"
                 tools:context=".ui.home.HomeFragment">
 
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:indeterminate="true"
+                    android:visibility="gone"
+                    android:id="@+id/progress_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
                 <ImageView
                     android:id="@+id/imageview_home_usericon"
                     android:layout_width="80dp"
@@ -181,16 +190,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="1단계"
+                    android:text="1"
                     android:textColor="@color/green_700"
                     android:textFontWeight="600"
+                    app:layout_constraintEnd_toStartOf="@id/txt_step"
                     android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1"
                     app:layout_constraintStart_toEndOf="@+id/textView2"
                     app:layout_constraintTop_toBottomOf="@+id/constraint_home_topbox" />
 
+                <TextView
+                    android:id="@+id/txt_step"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="단계"
+                    android:textColor="@color/green_700"
+                    android:textFontWeight="600"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textview_home_step"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textview_home_step" />
+
                 <TableLayout
+                    android:clipToOutline="true"
                     android:id="@+id/tableLayout3"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -207,8 +228,10 @@
                         android:layout_weight="1">
 
                         <View
+                            android:clipToOutline="true"
                             android:id="@+id/view_home_block30"
                             android:layout_width="0dp"
+                            android:layout_margin="0.5dp"
                             android:layout_height="wrap_content"
                             android:background="@drawable/shape_stroke_rect_topleft10_gray200" />
 
@@ -216,18 +239,21 @@
                             android:id="@+id/view_home_block31"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_margin="0.5dp"
                             android:background="@drawable/shape_stroke_rect_gray200" />
 
                         <View
                             android:id="@+id/view_home_block32"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_margin="0.5dp"
                             android:background="@drawable/shape_stroke_rect_gray200" />
 
                         <View
                             android:id="@+id/view_home_block33"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_margin="0.5dp"
                             android:background="@drawable/shape_stroke_rect_topright10_gray200" />
                     </TableRow>
 
@@ -240,24 +266,28 @@
                             android:id="@+id/view_home_block20"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_margin="0.5dp"
                             android:background="@drawable/shape_stroke_rect_gray200" />
 
                         <View
                             android:id="@+id/view_home_block21"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_margin="0.5dp"
                             android:background="@drawable/shape_stroke_rect_gray200" />
 
                         <View
                             android:id="@+id/view_home_block22"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_margin="0.5dp"
                             android:background="@drawable/shape_stroke_rect_gray200" />
 
                         <View
                             android:id="@+id/view_home_block23"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_margin="0.5dp"
                             android:background="@drawable/shape_stroke_rect_gray200" />
                     </TableRow>
 
@@ -270,24 +300,28 @@
                             android:id="@+id/view_home_block10"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_margin="0.5dp"
                             android:background="@drawable/shape_stroke_rect_gray200" />
 
                         <View
                             android:id="@+id/view_home_block11"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_margin="0.5dp"
                             android:background="@drawable/shape_stroke_rect_gray200" />
 
                         <View
                             android:id="@+id/view_home_block12"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_margin="0.5dp"
                             android:background="@drawable/shape_stroke_rect_gray200" />
 
                         <View
                             android:id="@+id/view_home_block13"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_margin="0.5dp"
                             android:background="@drawable/shape_stroke_rect_gray200" />
                     </TableRow>
 
@@ -301,25 +335,29 @@
                             android:id="@+id/view_home_block00"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/shape_stroke_rect_gray200" />
+                            android:layout_margin="0.5dp"
+                            android:background="@drawable/shape_stroke_rect_bottomleft10_gray200" />
 
                         <View
                             android:id="@+id/view_home_block01"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_margin="0.5dp"
                             android:background="@drawable/shape_stroke_rect_gray200" />
 
                         <View
                             android:id="@+id/view_home_block02"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_margin="0.5dp"
                             android:background="@drawable/shape_stroke_rect_gray200" />
 
                         <View
                             android:id="@+id/view_home_block03"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/shape_stroke_rect_gray200" />
+                            android:layout_margin="0.5dp"
+                            android:background="@drawable/shape_stroke_rect_bottomright10_gray200" />
                     </TableRow>
                 </TableLayout>
 

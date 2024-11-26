@@ -68,7 +68,7 @@ class ResultBeforeSignActivity : AppCompatActivity(){
                         is UiState.Error -> {
                             Toast.makeText(this@ResultBeforeSignActivity, it.toString(), Toast.LENGTH_SHORT).show()
                         }
-                        else -> {}
+                        is UiState.Loading -> {}
                     }
                 }
             }

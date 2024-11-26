@@ -25,7 +25,7 @@ class SignAnswerViewModel @Inject constructor(
     private val _signIndex = MutableStateFlow<Int>(0)
     val signIndex  = _signIndex.asStateFlow()
 
-    private val _uiState = MutableStateFlow<UiState<ResponseAnswerDetailWithDateDto>>(UiState.Initial)
+    private val _uiState = MutableStateFlow<UiState<ResponseAnswerDetailWithDateDto>>(UiState.Loading)
     val uiState=   _uiState.asStateFlow()
     private val _resultData = MutableLiveData<ResponseAnswerDetailWithDateDto>()
     val resultData: LiveData<ResponseAnswerDetailWithDateDto> = _resultData
@@ -33,7 +33,7 @@ class SignAnswerViewModel @Inject constructor(
     fun setSignIndex(index : Int ) {
         _signIndex.value = index
     }
-// todo : 이 함수의 역할은 뭐야?
+// todo : 이 함수의 역할은 뭐야? : 답변을 저장하는 함수
     fun postAnswer(questionId: Long, answerContent: String){
         val body = RequestAnswerRequest(questionId, answerContent)
         viewModelScope.launch {

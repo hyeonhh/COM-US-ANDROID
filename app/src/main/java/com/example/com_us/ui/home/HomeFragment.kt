@@ -78,17 +78,19 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 binding.swiperefreshHome.isRefreshing = false
             }
         }
-
         binding.scrollviewHome.viewTreeObserver.addOnScrollChangedListener(scrollChangedListener)
     }
 
     private fun setThemeClickListener() {
-        binding.includeHomeDaily.constraint.setOnClickListener(this)
-        binding.includeHomeSchool.constraint.setOnClickListener(this)
-        binding.includeHomeFriend.constraint.setOnClickListener(this)
-        binding.includeHomeFamily.constraint.setOnClickListener(this)
-        binding.includeHomeHobby.constraint.setOnClickListener(this)
-        binding.includeHomeRandom.constraint.setOnClickListener(this)
+        with(binding){
+            includeHomeDaily.constraint.setOnClickListener(this@HomeFragment)
+            includeHomeSchool.constraint.setOnClickListener(this@HomeFragment)
+            includeHomeFriend.constraint.setOnClickListener(this@HomeFragment)
+            includeHomeFamily.constraint.setOnClickListener(this@HomeFragment)
+            includeHomeHobby.constraint.setOnClickListener(this@HomeFragment)
+            includeHomeRandom.constraint.setOnClickListener(this@HomeFragment)
+        }
+
     }
 
     private fun setHomeData() {
@@ -98,6 +100,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 homeViewModel.homeUiState.collect {
                     when (it) {
                         is UiState.Success -> {
+                            binding.progressBar.visibility = View.GONE
                             binding.constraintHome.visibility = View.VISIBLE
                             val chatMinute = it.data.user.todayChatTime.substring(3, 5).toInt()
                             binding.textviewHomeGreeting.text = String.format(
@@ -122,7 +125,9 @@ class HomeFragment : Fragment(), View.OnClickListener {
                         is UiState.Error -> {
                             Toast.makeText(context,"잠시 후에 다시 시도해주세요!",Toast.LENGTH_SHORT).show()
                         }
-                        else -> {}
+                        is UiState.Loading -> {
+                            binding.progressBar.visibility = View.VISIBLE
+                        }
                     }
                 }
             }
@@ -181,9 +186,10 @@ class HomeFragment : Fragment(), View.OnClickListener {
         for(data in blockData) {
             color = ColorMatch.findColorFromKor(data.category)
             if(color != null){
+                // todo : 색 변경 방식 변경 필요
                 blockList[data.blockRow][data.blockColumn].setBackgroundResource(color)
-
             }
+
         }
     }
     private fun setNoBlockBackground(setBg: Boolean) {

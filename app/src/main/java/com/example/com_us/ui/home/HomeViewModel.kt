@@ -11,12 +11,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import okhttp3.Response
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val homeRepository: HomeRepository) : ViewModel() {
-    private val _homeUiState= MutableStateFlow<UiState<ResponseHomeDataDto>>(UiState.Initial)
+    private val _homeUiState= MutableStateFlow<UiState<ResponseHomeDataDto>>(UiState.Loading)
     val homeUiState = _homeUiState.asStateFlow()
 
     var serverResponseHandler: ServerResponseHandler? = null

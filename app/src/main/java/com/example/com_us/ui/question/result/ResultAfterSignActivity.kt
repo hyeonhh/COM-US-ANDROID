@@ -29,12 +29,12 @@ class ResultAfterSignActivity : AppCompatActivity() {
         binding = ActivityQuestionResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if(!QuestionManager.signLanguageInfo.isNullOrEmpty()){
+        if(QuestionManager.signLanguageInfo.isNotEmpty()){
             signData = QuestionManager.signLanguageInfo
             setAnswerDetail()
         }
 
-        if(!QuestionManager.answerDate.isNullOrEmpty()) {
+        if(QuestionManager.answerDate.isNotEmpty()) {
             binding.textviewResultDate.text = QuestionManager.answerDate
         }
         category = intent.getStringExtra("category").toString()

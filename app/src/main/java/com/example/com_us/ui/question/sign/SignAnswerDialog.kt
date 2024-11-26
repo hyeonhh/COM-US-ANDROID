@@ -56,6 +56,7 @@ class SignAnswerDialog(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setSignDetail(0)
 
+
         binding.btnCompleteWithoutBlock.setOnClickListener {
             val intent = Intent(context,ResultAfterSignActivity::class.java)
             startActivity(intent)

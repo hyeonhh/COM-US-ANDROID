@@ -48,14 +48,14 @@ class PreviousAnswerActivity : AppCompatActivity() {
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.uiState.collect{
                     when(it){
+                        is UiState.Loading -> {}
                         is UiState.Success -> {
                             setQuestion(it.data.question.questionCount, it.data.question.questionContent)
                             setQuestionTypeCompose(it.data.question.category, it.data.question.answerType)
                             setComposeList(it.data.answerList)
                         }
-                       else ->
+                       is UiState.Error ->
                             Toast.makeText(this@PreviousAnswerActivity, it.toString(), Toast.LENGTH_SHORT).show()
-
                         }
                     }
 

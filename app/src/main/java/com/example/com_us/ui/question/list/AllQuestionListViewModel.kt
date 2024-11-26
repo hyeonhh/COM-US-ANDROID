@@ -31,7 +31,7 @@ class AllQuestionListViewModel @Inject constructor(
 
 
     // ui 상태 변수
-    private val _uiState = MutableStateFlow<UiState<List<ResponseQuestionDto>>>(UiState.Initial)
+    private val _uiState = MutableStateFlow<UiState<List<ResponseQuestionDto>>>(UiState.Loading)
     val apiResult  = _uiState.asStateFlow()
 
 

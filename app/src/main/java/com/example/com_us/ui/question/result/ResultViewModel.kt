@@ -17,8 +17,10 @@ class ResultViewModel  @Inject constructor(
     private val questionRepository : QuestionRepository
 ) : ViewModel() {
 
-    private val _answerDetail = MutableStateFlow<UiState<List<ResponseAnswerDetailDto>>>(UiState.Initial)
+    private val _answerDetail = MutableStateFlow<UiState<List<ResponseAnswerDetailDto>>>(UiState.Loading)
     val answerDetail =_answerDetail.asStateFlow()
+
+
 
 
     fun loadAnswerDetail(answer: String){
