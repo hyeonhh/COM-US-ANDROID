@@ -120,8 +120,11 @@ class SelectAnswerActivity : BaseActivity<ActivityQuestionDetailBinding,SelectAn
             )
         )
         binding.buttonDetailComplete.setBackgroundResource(R.drawable.shape_fill_rect10_orange700)
+
+        // 완료 버튼 클릭
         binding.buttonDetailComplete.setOnClickListener{
             if(answerOptionId > -1) {
+                // 답변 저장
                 moveToQuestionAnswer(answerOptionId)
             }
         }
@@ -130,6 +133,7 @@ class SelectAnswerActivity : BaseActivity<ActivityQuestionDetailBinding,SelectAn
     private fun setPreviousAnswerButton() {
         binding.buttonDetailAnswerbefore.setOnClickListener {
             val intent = Intent(this, PreviousAnswerActivity::class.java)
+            QuestionManager.questionId = questionId
             intent.putExtra("questionId", questionId)
             startActivity(intent)
         }

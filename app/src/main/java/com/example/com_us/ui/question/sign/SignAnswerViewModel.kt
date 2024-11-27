@@ -1,10 +1,12 @@
 package com.example.com_us.ui.question.sign
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.com_us.base.data.NetworkError
+import com.example.com_us.base.viewmodel.BaseViewModel
 import com.example.com_us.data.repository.QuestionRepository
 import com.example.com_us.data.model.question.request.RequestAnswerRequest
 import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailWithDateDto
@@ -19,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SignAnswerViewModel @Inject constructor(
     private val questionRepository: QuestionRepository,
-) : ViewModel() {
+) : BaseViewModel() {
 
 
     private val _signIndex = MutableStateFlow<Int>(0)
@@ -30,27 +32,23 @@ class SignAnswerViewModel @Inject constructor(
     private val _resultData = MutableLiveData<ResponseAnswerDetailWithDateDto>()
     val resultData: LiveData<ResponseAnswerDetailWithDateDto> = _resultData
 
-    fun setSignIndex(index : Int ) {
-        _signIndex.value = index
-    }
-// todo : 이 함수의 역할은 뭐야? : 답변을 저장하는 함수
+    // todo : 이 함수의 역할은 뭐야? : 답변을 저장하는 함수
     fun postAnswer(questionId: Long, answerContent: String){
         val body = RequestAnswerRequest(questionId, answerContent)
         viewModelScope.launch {
             questionRepository.postAnswer(body)
                 .onSuccess {
-                    _uiState.value = UiState.Success(it)
+                    Log.d("success","success to save answer to server")
                 }
                 .onFailure {
-                   val errorMessage =  when(it) {
-                       is NetworkError.NetworkException -> { "네트워크 에러가 발생했어요! 잠시 후에 다시 시도해주세에요"}
-                       is NetworkError.ApiError ->{it.message}
-                       is NetworkError.NullDataError -> {"데이터를 준비하고 있어요!"}
-                       else -> { "잠시 후에 다시 시도해주세요"}
-                   }
-                    _uiState.value = UiState.Error(errorMessage)
+                    Log.e("failed","failed to save answer to server")
                 }
         }
+    }
+
+
+    fun setSignIndex(index : Int ) {
+        _signIndex.value = index
     }
 
 

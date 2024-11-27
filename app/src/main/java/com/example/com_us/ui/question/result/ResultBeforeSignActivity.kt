@@ -123,8 +123,6 @@ class ResultBeforeSignActivity : BaseActivity<ActivityQuestionCheckAnswerBinding
     }
     private fun moveToFollowAlongDialog() {
         videoPlayCount.value = -1
-
-        viewModel.answerDetail.value
         viewModel.answerDetail.value.let {
             when(it) {
                 is UiState.Success -> {
@@ -132,9 +130,8 @@ class ResultBeforeSignActivity : BaseActivity<ActivityQuestionCheckAnswerBinding
                     SignAnswerDialog.newInstance(question, answer, category,
                         it.data
                     )
-                       dialog.isCancelable = false
-                        dialog.show(supportFragmentManager, "FollowAlongDialog")
-
+                    dialog.isCancelable = false
+                    dialog.show(supportFragmentManager, "FollowAlongDialog")
                 }
                 else -> {
                     Toast.makeText(this , "잠시 후에 다시 시도해주세요",Toast.LENGTH_SHORT).show()
@@ -142,7 +139,6 @@ class ResultBeforeSignActivity : BaseActivity<ActivityQuestionCheckAnswerBinding
             }
         }
 
-        print(viewModel.answerDetail.value)
 
         // 다이얼로그가 뜨면 아래 내용 질문만 희미하게 보이게 하기
         binding.textView8.visibility = View.GONE

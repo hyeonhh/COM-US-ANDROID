@@ -6,8 +6,12 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -28,7 +32,6 @@ import kotlinx.coroutines.launch
 class PreviousAnswerActivity : BaseActivity<ActivityQuestionPreviousAnswerBinding,PreviousAnswerViewModel>(
     ActivityQuestionPreviousAnswerBinding::inflate,
 ) {
-
 
    override  val viewModel: PreviousAnswerViewModel by viewModels()
     private var questionId: Long = -1
@@ -98,15 +101,17 @@ class PreviousAnswerActivity : BaseActivity<ActivityQuestionPreviousAnswerBindin
 
     private fun setComposeList(answerList: List<Answer>) {
         binding.textviewPreviousAnswerCount.text = String.format(resources.getString(R.string.question_previous_answer_count), answerList.size)
+
+        // 이전 답변 리스트
         binding.composePreviousAnswerlist.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                var columCount = 2
+                val columCount = 2
                 LazyVerticalGrid(
-                    columns = GridCells.Fixed(columCount)
-                ) {
+                    columns = GridCells.Fixed(columCount),
+                    ) {
                     items(answerList.size) { i ->
-                        var idx = answerList.size - (i+1)
+                        val idx = answerList.size - (i+1)
                         AnswerHistoryItem(
                             date = answerList[idx].createdAt,
                             answer = answerList[idx].answerContent,
