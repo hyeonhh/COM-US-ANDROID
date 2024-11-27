@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.com_us.R
+import com.example.com_us.base.fragment.BaseFragment
 import com.example.com_us.data.model.home.Block
 import com.example.com_us.data.model.home.Category
 import com.example.com_us.databinding.FragmentHomeBinding
@@ -28,31 +29,22 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(), View.OnClickListener {
+class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>(FragmentHomeBinding::inflate),View.OnClickListener {
 
+    override val viewModel : HomeViewModel by viewModels()
     private lateinit var blockList: List<List<View>>
-
-    private var _binding: FragmentHomeBinding? = null
     private var isReload: MutableLiveData<Boolean> = MutableLiveData(false)
-    private val binding get() = _binding!!
 
     private val homeViewModel: HomeViewModel by viewModels()
 
     private val scrollChangedListener = ViewTreeObserver.OnScrollChangedListener {
-        _binding?.let {
+        binding.let {
             it.swiperefreshHome.isEnabled = (it.scrollviewHome.scrollY == 0)
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
+    override fun onBindLayout() {
+        super.onBindLayout()
         blockList = listOf(
             listOf(binding.viewHomeBlock00, binding.viewHomeBlock01, binding.viewHomeBlock02, binding.viewHomeBlock03),
             listOf(binding.viewHomeBlock10, binding.viewHomeBlock11, binding.viewHomeBlock12, binding.viewHomeBlock13),
@@ -60,11 +52,9 @@ class HomeFragment : Fragment(), View.OnClickListener {
             listOf(binding.viewHomeBlock30, binding.viewHomeBlock31, binding.viewHomeBlock32, binding.viewHomeBlock33),
         )
 
-        setSwipeRefresh()
         setThemeClickListener()
+        setSwipeRefresh()
         setHomeData()
-
-        return root
     }
 
     private fun setSwipeRefresh() {
@@ -217,7 +207,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
     override fun onDestroyView() {
         binding.scrollviewHome.viewTreeObserver?.removeOnScrollChangedListener(scrollChangedListener)
         super.onDestroyView()
-        _binding = null
     }
 
 }

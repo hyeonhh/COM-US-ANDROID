@@ -6,13 +6,18 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.com_us.R
+import com.example.com_us.base.activity.BaseActivity
 import com.example.com_us.data.model.question.response.question.Answer
 import com.example.com_us.databinding.ActivityQuestionPreviousAnswerBinding
 import com.example.com_us.ui.base.UiState
@@ -24,19 +29,16 @@ import kotlinx.coroutines.launch
 
 // 이전 답변을 보여주는 화면
 @AndroidEntryPoint
-class PreviousAnswerActivity : AppCompatActivity() {
+class PreviousAnswerActivity : BaseActivity<ActivityQuestionPreviousAnswerBinding,PreviousAnswerViewModel>(
+    ActivityQuestionPreviousAnswerBinding::inflate,
+) {
 
-    private lateinit var binding: ActivityQuestionPreviousAnswerBinding
-
-    private val viewModel: PreviousAnswerViewModel by viewModels()
+   override  val viewModel: PreviousAnswerViewModel by viewModels()
     private var questionId: Long = -1
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-        binding = ActivityQuestionPreviousAnswerBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
+    override fun onBindLayout() {
+        super.onBindLayout()
         setActionBar()
 
         questionId = intent.getLongExtra("questionId", -1)
@@ -54,15 +56,15 @@ class PreviousAnswerActivity : AppCompatActivity() {
                             setQuestionTypeCompose(it.data.question.category, it.data.question.answerType)
                             setComposeList(it.data.answerList)
                         }
-                       is UiState.Error ->
+                        is UiState.Error ->
                             Toast.makeText(this@PreviousAnswerActivity, it.toString(), Toast.LENGTH_SHORT).show()
-                        }
                     }
-
                 }
-            }
-    }
 
+            }
+        }
+
+    }
     private fun setActionBar() {
         setSupportActionBar(binding.includePreviousToolbar.toolbar)
 
@@ -99,15 +101,17 @@ class PreviousAnswerActivity : AppCompatActivity() {
 
     private fun setComposeList(answerList: List<Answer>) {
         binding.textviewPreviousAnswerCount.text = String.format(resources.getString(R.string.question_previous_answer_count), answerList.size)
+
+        // 이전 답변 리스트
         binding.composePreviousAnswerlist.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                var columCount = 2
+                val columCount = 2
                 LazyVerticalGrid(
-                    columns = GridCells.Fixed(columCount)
-                ) {
+                    columns = GridCells.Fixed(columCount),
+                    ) {
                     items(answerList.size) { i ->
-                        var idx = answerList.size - (i+1)
+                        val idx = answerList.size - (i+1)
                         AnswerHistoryItem(
                             date = answerList[idx].createdAt,
                             answer = answerList[idx].answerContent,

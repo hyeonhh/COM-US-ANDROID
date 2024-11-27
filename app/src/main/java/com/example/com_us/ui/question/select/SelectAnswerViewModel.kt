@@ -1,10 +1,13 @@
 package com.example.com_us.ui.question.select
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.com_us.base.data.NetworkError
+import com.example.com_us.base.viewmodel.BaseViewModel
+import com.example.com_us.data.model.question.request.RequestAnswerRequest
 import com.example.com_us.data.model.question.response.question.ResponseQuestionDetailDto
 import com.example.com_us.data.repository.QuestionRepository
 import com.example.com_us.ui.base.UiState
@@ -17,14 +20,11 @@ import javax.inject.Inject
 @HiltViewModel
 class SelectAnswerViewModel @Inject constructor(
     private val questionRepository: QuestionRepository
-): ViewModel() {
+): BaseViewModel() {
 
     // ui 상태 변수
     private val _uiState =  MutableStateFlow<UiState<ResponseQuestionDetailDto>>(UiState.Loading)
     val uiState: StateFlow<UiState<ResponseQuestionDetailDto>> = _uiState
-
-    private val _questionDetail = MutableLiveData<ResponseQuestionDetailDto>()
-    val questionDetail: LiveData<ResponseQuestionDetailDto> = _questionDetail
 
     private val _selectedAnswerOptionId = MutableLiveData(-1)
     val selectedAnswerOptionId: LiveData<Int> = _selectedAnswerOptionId
@@ -32,6 +32,9 @@ class SelectAnswerViewModel @Inject constructor(
     fun updateSelectedAnswerOptionId(newOptionId: Int) {
         _selectedAnswerOptionId.value = newOptionId
     }
+
+
+
 
     // 질문 클릭 시 상세 내용 가져오는 함수
     fun loadQuestionDetail(questionId: Long){

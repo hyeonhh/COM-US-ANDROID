@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.com_us.R
 import com.example.com_us.base.data.NetworkError
+import com.example.com_us.base.viewmodel.BaseViewModel
 import com.example.com_us.data.model.question.response.question.ResponseQuestionDto
 import com.example.com_us.data.repository.QuestionRepository
 import com.example.com_us.ui.base.UiState
@@ -20,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ThemeQuestionListViewModel @Inject constructor(
     private val questionRepository: QuestionRepository
-) : ViewModel() {
+) : BaseViewModel() {
     // 질문 리스트
     private val _questionListByCate = MutableLiveData<List<ResponseQuestionDto>>()
     val questionListByCate: LiveData<List<ResponseQuestionDto>> = _questionListByCate

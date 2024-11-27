@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.com_us.R
+import com.example.com_us.base.activity.BaseActivity
 import com.example.com_us.databinding.ActivityQuestionDetailBinding
 import com.example.com_us.ui.base.UiState
 import com.example.com_us.util.ColorMatch
@@ -24,22 +25,20 @@ import kotlinx.coroutines.launch
 
 // 질문에 대한 답변을 선택하는 화면
 @AndroidEntryPoint
-class SelectAnswerActivity : AppCompatActivity() {
+class SelectAnswerActivity : BaseActivity<ActivityQuestionDetailBinding,SelectAnswerViewModel>(
+    ActivityQuestionDetailBinding::inflate
+) {
 
-    private lateinit var binding: ActivityQuestionDetailBinding
     private lateinit var answerList: List<String>
     private lateinit var question: String
     private lateinit var category: String
 
     private var questionId: Long = -1
     private var answerOptionId: Int = -1
-    private val viewModel: SelectAnswerViewModel by viewModels()
+    override val viewModel: SelectAnswerViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityQuestionDetailBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
+    override fun onBindLayout() {
+        super.onBindLayout()
 
         questionId = intent.getLongExtra("questionId", 0L)
 
@@ -57,6 +56,7 @@ class SelectAnswerActivity : AppCompatActivity() {
                 answerOptionId = it
             }
         }
+
     }
 
     private fun setQuestionDetail() {
@@ -120,8 +120,11 @@ class SelectAnswerActivity : AppCompatActivity() {
             )
         )
         binding.buttonDetailComplete.setBackgroundResource(R.drawable.shape_fill_rect10_orange700)
+
+        // 완료 버튼 클릭
         binding.buttonDetailComplete.setOnClickListener{
             if(answerOptionId > -1) {
+                // 답변 저장
                 moveToQuestionAnswer(answerOptionId)
             }
         }
@@ -130,6 +133,7 @@ class SelectAnswerActivity : AppCompatActivity() {
     private fun setPreviousAnswerButton() {
         binding.buttonDetailAnswerbefore.setOnClickListener {
             val intent = Intent(this, PreviousAnswerActivity::class.java)
+            QuestionManager.questionId = questionId
             intent.putExtra("questionId", questionId)
             startActivity(intent)
         }
@@ -143,13 +147,4 @@ class SelectAnswerActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-
-//    override fun onServerSuccess() {
-//        binding.constraintQuestionDetail.visibility = View.VISIBLE
-//    }
-//
-//    override fun onServerFailure() {
-//        Toast.makeText(this, getString(R.string.question_detail_msg_when_server_failure), Toast.LENGTH_SHORT).show()
-//        finish()
-//    }
 }

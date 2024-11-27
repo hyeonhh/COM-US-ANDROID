@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.lifecycle.lifecycleScope
 import com.example.com_us.R
+import com.example.com_us.base.activity.BaseActivity
 import com.example.com_us.databinding.ActivityThemeQuestionListBinding
 import com.example.com_us.ui.base.UiState
 import com.example.com_us.ui.question.select.SelectAnswerActivity
@@ -18,27 +19,25 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ThemeQuestionListActivity : AppCompatActivity() {
+class ThemeQuestionListActivity : BaseActivity<ActivityThemeQuestionListBinding,ThemeQuestionListViewModel>(
+    ActivityThemeQuestionListBinding::inflate
+) {
 
-    private lateinit var binding: ActivityThemeQuestionListBinding
-    private val viewModel: ThemeQuestionListViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override val viewModel: ThemeQuestionListViewModel by viewModels()
 
-        binding = ActivityThemeQuestionListBinding.inflate(layoutInflater)
-        val theme = intent.getStringExtra("theme").toString()
-        viewModel.loadQuestionListByCate(theme)
+    override fun onBindLayout() {
+        super.onBindLayout()
+        val theme = intent.getStringExtra("theme")
+        theme?.let{
+            viewModel.loadQuestionListByCate(theme)
+        }
 
-        setContentView(binding.root)
-    }
-
-    override fun onStart() {
-        super.onStart()
         val themeKor = intent.getStringExtra("themeKor")
         binding.textviewTitle.text = String.format(resources.getString(R.string.theme_question_list_title), themeKor)
         setActionBar()
         setComposeList()
+
     }
 
     private fun setComposeList() {

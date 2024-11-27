@@ -3,6 +3,7 @@ package com.example.com_us.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.com_us.base.data.NetworkError
+import com.example.com_us.base.viewmodel.BaseViewModel
 import com.example.com_us.data.repository.HomeRepository
 import com.example.com_us.data.model.home.ResponseHomeDataDto
 import com.example.com_us.ui.base.UiState
@@ -14,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val homeRepository: HomeRepository) : ViewModel() {
+class HomeViewModel @Inject constructor(private val homeRepository: HomeRepository) : BaseViewModel() {
     private val _homeUiState= MutableStateFlow<UiState<ResponseHomeDataDto>>(UiState.Loading)
     val homeUiState = _homeUiState.asStateFlow()
 

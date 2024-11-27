@@ -18,6 +18,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.com_us.R
+import com.example.com_us.base.fragment.BaseFragment
+import com.example.com_us.data.repository.ProfileRepository
 import com.example.com_us.databinding.FragmentProfileBinding
 import com.example.com_us.ui.base.UiState
 import com.example.com_us.util.ServerResponseHandler
@@ -28,35 +30,23 @@ import java.time.format.DateTimeFormatter
 
 
 @AndroidEntryPoint
-class ProfileFragment : Fragment() ,ServerResponseHandler{
+class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>(
+    FragmentProfileBinding::inflate
+){
 
-    private var _binding: FragmentProfileBinding? = null
-    private val profileViewModel: ProfileViewModel by viewModels()
-    private val binding get() = _binding!!
+    override val viewModel : ProfileViewModel by viewModels()
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-        profileViewModel.loadProfileData()
 
-        return binding.root
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onBindLayout() {
+        super.onBindLayout()
         setProfile()
-        super.onViewCreated(view, savedInstanceState)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setProfile() {
         lifecycleScope.launch {
-            profileViewModel.profileUiState.collect {
+            viewModel.profileUiState.collect {
                 when (it) {
                     is UiState.Success -> {
                         binding.constraintProfile.visibility = View.VISIBLE
@@ -199,20 +189,8 @@ class ProfileFragment : Fragment() ,ServerResponseHandler{
         return LocalTime.parse(timeString, formatter)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     enum class GraphPosition {
         RIGHT, MIDDLE, LEFT
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    override fun onServerSuccess() {
-    }
-
-    override fun onServerFailure() {
-        TODO("Not yet implemented")
-    }
 }

@@ -112,6 +112,8 @@ class SignAnswerDialog(
         if (viewModel.signIndex.value == signData.lastIndex) {
             binding.buttonNextStep.text = "완료하기"
             binding.btnCompleteWithoutBlock.visibility = View.GONE
+
+            viewModel.postAnswer(QuestionManager.questionId, answer)
         }
         binding.textviewFollowdialogAnswer.text = signData[signIdx].signLanguageName
         binding.videoviewFollowdialogSign.setVideoURI(Uri.parse(signData[signIdx].signLanguageVideoUrl))

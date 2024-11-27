@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.com_us.base.data.NetworkError
+import com.example.com_us.base.viewmodel.BaseViewModel
 import com.example.com_us.data.model.question.response.question.ResponsePreviousAnswerDto
 import com.example.com_us.data.repository.QuestionRepository
 import com.example.com_us.ui.base.UiState
@@ -19,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PreviousAnswerViewModel @Inject constructor(
     private val questionRepository: QuestionRepository
-) : ViewModel(){
+) : BaseViewModel(){
 
     // ui 상태 변수
     private val _uiState = MutableStateFlow<UiState<ResponsePreviousAnswerDto>>(UiState.Loading)
