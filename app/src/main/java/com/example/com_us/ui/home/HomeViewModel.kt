@@ -19,8 +19,6 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
     private val _homeUiState= MutableStateFlow<UiState<ResponseHomeDataDto>>(UiState.Loading)
     val homeUiState = _homeUiState.asStateFlow()
 
-    var serverResponseHandler: ServerResponseHandler? = null
-
     init {
         loadHomeData()
     }
@@ -28,12 +26,12 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
     fun loadHomeData(){
         viewModelScope.launch {
             homeRepository.getHomeData()
-                .onSuccess {
+            .onSuccess {
                     _homeUiState.value = UiState.Success(it)
                 }
                 .onFailure {
                     val errorMessage = when(it) {
-                        is NetworkError.NetworkException -> { it.message }
+                        is NetworkError.NetworkException -> { "연결된 네트워크 확인 후 다시 시도해주세요!" }
                         is NetworkError.NullDataError -> { "데이터가 준비중이에요!" }
                         else -> "알 수 없는 에러가 발생했습니다. 다시 시도해주세요!"
                     }
