@@ -41,14 +41,14 @@ class SelectAnswerViewModel @Inject constructor(
         viewModelScope.launch {
             questionRepository.getQuestionDetail(questionId)
                 .onSuccess {
-                    _uiState.value = UiState.Success(it)
+                        _uiState.value = UiState.Success(it)
                 }
                 .onFailure {
-                    println(it)
                     val errorMessage = when(it) {
                         is NetworkError.ApiError -> { it.message }
-                        is NetworkError.NullDataError -> { "데이터가 없어요" }
-                        is NetworkError.NetworkException -> { "잠시 후에 다시 시도해주세요" }
+                        is NetworkError.NullDataError -> {"질문 데이터를 준비 중이에요"}
+                        is NetworkError.NetworkException
+                        -> { "질문 데이터를 준비 중이에요 :)" }
                         else -> "알 수 없는 에러가 발생했어요. 다시 시도해주세요!"
                     }
                     _uiState.value = UiState.Error(errorMessage)

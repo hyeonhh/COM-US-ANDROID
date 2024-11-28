@@ -1,5 +1,5 @@
 <resources>
-    <string name="baseUrl">"http://15.165.140.141:8080"</string>
+    <string name="baseUrl">"https://comus.site/"</string>
     <string name="app_name">com-us</string>
     <string name="title_home">Home</string>
     <string name="title_cntdesc_home">홈</string>
