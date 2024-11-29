@@ -16,7 +16,7 @@ class DefaultHomeRepository @Inject constructor(
         return try {
             defaultHomeDataSource.getHomeData().toResult()
         } catch (e: Exception) {
-            Result.failure(NetworkError.NetworkException(e))
+            Result.failure(NetworkError.HttpException(e.message.toString()))
         }
     }
 }

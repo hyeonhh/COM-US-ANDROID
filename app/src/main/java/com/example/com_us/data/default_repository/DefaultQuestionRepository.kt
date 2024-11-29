@@ -19,35 +19,35 @@ class DefaultQuestionRepository @Inject constructor(
         return try{
             defaultQuestionDataSource.getQuestionListByCate(category).toResult()
         } catch (e: Exception) {
-            Result.failure(NetworkError.NetworkException(e))
+            Result.failure(NetworkError.HttpException(e.message.toString()))
         }
     }
    override suspend fun getQuestionDetail(questionId: Long): Result<ResponseQuestionDetailDto> {
        return try{
            defaultQuestionDataSource.getQuestionDetail(questionId).toResult()
        } catch (e: Exception) {
-           Result.failure(NetworkError.NetworkException(e))
+           Result.failure(NetworkError.HttpException(e.message.toString()))
        }
     }
     override suspend fun getAnswerDetail(answer: String): Result<List<ResponseAnswerDetailDto>> {
         return try{
             defaultQuestionDataSource.getAnswerDetail(answer).toResult()
         } catch (e: Exception) {
-            Result.failure(NetworkError.NetworkException(e))
+            Result.failure(NetworkError.HttpException(e.message.toString()))
         }
     }
    override suspend fun postAnswer(body: RequestAnswerRequest): Result<ResponseAnswerDetailWithDateDto> {
        return try{
            defaultQuestionDataSource.postAnswer(body).toResult()
        } catch (e: Exception) {
-           Result.failure(NetworkError.NetworkException(e))
+           Result.failure(NetworkError.HttpException(e.message.toString()))
        }
     }
    override suspend fun getPreviousAnswer(questionId: Long ): Result<ResponsePreviousAnswerDto> {
        return try{
            defaultQuestionDataSource.getPreviousAnswer(questionId).toResult()
        } catch (e: Exception) {
-           Result.failure(NetworkError.NetworkException(e))
+           Result.failure(NetworkError.HttpException(e.message.toString()))
        }
     }
 }
