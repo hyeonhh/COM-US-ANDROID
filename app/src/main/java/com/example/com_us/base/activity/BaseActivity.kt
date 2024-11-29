@@ -10,6 +10,10 @@ abstract class BaseActivity<B : ViewBinding, VM : BaseViewModel>(
     private val inflate : (LayoutInflater) -> B,
 ): AppCompatActivity(){
 
+    protected inline val TAG: String
+        get() = this::class.java.simpleName
+
+
     protected lateinit var binding: B
         private set
 

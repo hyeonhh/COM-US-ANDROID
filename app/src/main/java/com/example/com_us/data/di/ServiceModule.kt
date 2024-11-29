@@ -1,5 +1,6 @@
 package com.example.com_us.data.di
 
+import com.example.com_us.data.service.AuthService
 import com.example.com_us.data.service.HomeService
 import com.example.com_us.data.service.ProfileService
 import com.example.com_us.data.service.QuestionService
@@ -28,5 +29,9 @@ object ServiceModule {
     @Singleton
     fun provideQuestionService(retrofit: Retrofit): QuestionService =
         retrofit.create(QuestionService::class.java)
+    @Provides
+    @Singleton
 
+    fun provideAuthService(retrofit: Retrofit): AuthService =
+        retrofit.create(AuthService::class.java)
 }

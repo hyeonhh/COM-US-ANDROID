@@ -1,5 +1,6 @@
 <resources>
-    <string name="baseUrl">"https://comus.site/"</string>
+    <string name="googleClientApi">619024085235-lq8dpqnjdq78du83dbop7fpgqhmd2sp1.apps.googleusercontent.com</string>
+    <string name="baseUrl">"http://comus.site/"</string>
     <string name="app_name">com-us</string>
     <string name="title_home">Home</string>
     <string name="title_cntdesc_home">홈</string>

@@ -1,6 +1,5 @@
 package com.example.com_us.ui.profile
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.com_us.base.data.NetworkError
 import com.example.com_us.base.viewmodel.BaseViewModel
@@ -31,7 +30,7 @@ class ProfileViewModel @Inject constructor(private val profileRepository: Profil
                 }
                 .onFailure {
                     val errorMessage = when (it) {
-                        is NetworkError.NetworkException -> { it.message }
+                        is NetworkError.IOException -> { it.message }
                         is NetworkError.NullDataError -> { "데이터가 준비중이에요!" }
                         else -> "알 수 없는 에러가 발생했습니다. 다시 시도해주세요!"
                     }

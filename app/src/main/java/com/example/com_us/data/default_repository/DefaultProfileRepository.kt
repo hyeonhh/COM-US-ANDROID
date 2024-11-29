@@ -14,7 +14,7 @@ class DefaultProfileRepository @Inject constructor(
         return try {
             profileRemoteDataSource.getProfileData().toResult()
         }catch (e: Exception){
-            Result.failure(NetworkError.NetworkException(e))
+            Result.failure(NetworkError.HttpException(e.message.toString()))
         }
    }
 }
