@@ -1,8 +1,10 @@
 package com.example.com_us.data.di
 
+import com.example.com_us.data.default_source.DefaultAuthDataSource
 import com.example.com_us.data.default_source.DefaultHomeDataSource
 import com.example.com_us.data.default_source.DefaultProfileDataSource
 import com.example.com_us.data.default_source.DefaultQuestionDataSource
+import com.example.com_us.data.source.AuthDataSource
 import com.example.com_us.data.source.HomeDataSource
 import com.example.com_us.data.source.ProfileDataSource
 import com.example.com_us.data.source.QuestionDataSource
@@ -23,6 +25,9 @@ interface DatasourceModule {
 
     @Binds
     fun provideQuestionDataSource(defaultDataSource : DefaultQuestionDataSource) : QuestionDataSource
+
+    @Binds
+    fun provideAuthDataSource(defaultDataSource : DefaultAuthDataSource) : AuthDataSource
 
 
 }

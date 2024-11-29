@@ -1,8 +1,10 @@
 package com.example.com_us.data.di
 
+import com.example.com_us.data.default_repository.DefaultAuthRepository
 import com.example.com_us.data.default_repository.DefaultHomeRepository
 import com.example.com_us.data.default_repository.DefaultProfileRepository
 import com.example.com_us.data.default_repository.DefaultQuestionRepository
+import com.example.com_us.data.repository.AuthRepository
 import com.example.com_us.data.repository.HomeRepository
 import com.example.com_us.data.repository.ProfileRepository
 import com.example.com_us.data.repository.QuestionRepository
@@ -25,5 +27,8 @@ interface RepositoryModule {
 
     @Binds
     fun provideQuestionRepository(defaultRepository : DefaultQuestionRepository) : QuestionRepository
+
+    @Binds
+    fun provideAuthRepository(defaultRepository : DefaultAuthRepository) : AuthRepository
 
 }
