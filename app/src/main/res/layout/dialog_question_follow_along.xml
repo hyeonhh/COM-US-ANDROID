@@ -10,6 +10,7 @@
 
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
+        app:indicatorColor="@color/orange_700"
         android:id="@+id/linearProgressIndicator"
         android:progress="50"
         android:layout_width="160dp"

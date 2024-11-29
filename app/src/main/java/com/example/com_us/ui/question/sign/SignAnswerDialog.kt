@@ -1,30 +1,25 @@
 package com.example.com_us.ui.question.sign
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.util.Printer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailDto
 import com.example.com_us.databinding.DialogQuestionFollowAlongBinding
 import com.example.com_us.ui.question.block.CollectBlockActivity
 import com.example.com_us.ui.question.result.ResultAfterSignActivity
 import com.example.com_us.util.QuestionManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.math.sign
 
 // 수형 따라해보기 화면
 @AndroidEntryPoint
@@ -74,7 +69,15 @@ class SignAnswerDialog(
             }
 
         }
-        binding.linearProgressIndicator.progress = 50
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.signIndex.collect{
+                    binding.linearProgressIndicator.progress = (100 / signData.size) * (it + 1)
+                }
+            }
+        }
+
         binding.textviewFollowdialogQuestion.text = question
     }
 
@@ -112,7 +115,6 @@ class SignAnswerDialog(
         if (viewModel.signIndex.value == signData.lastIndex) {
             binding.buttonNextStep.text = "완료하기"
             binding.btnCompleteWithoutBlock.visibility = View.GONE
-
             viewModel.postAnswer(QuestionManager.questionId, answer)
         }
         binding.textviewFollowdialogAnswer.text = signData[signIdx].signLanguageName
