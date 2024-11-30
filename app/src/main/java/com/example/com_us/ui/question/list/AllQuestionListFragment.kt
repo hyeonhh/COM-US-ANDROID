@@ -26,6 +26,7 @@ import com.example.com_us.ui.question.select.SelectAnswerActivity
 import com.example.com_us.util.ThemeType
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 // 바텀 네비게이션바에서 햄버거 버튼 클릭 시 이동하는 질문 리스트 화면
@@ -45,22 +46,27 @@ class AllQuestionListFragment : BaseFragment<FragmentQuestionBinding,AllQuestion
 
         val themeAllView = binding.includeThemeAll
         viewModel.updateSelectedThemeId(themeAllView.textviewTheme.id)
-
+        setThemeClickListener()
         setThemeList()
         setComposeList()
-        setThemeClickListener()
     }
 
 
     // 선택한 카테고리에 맞는 질문 리스트 얻기
     private fun setThemeList() {
-        viewModel.selectedThemeId.observe(viewLifecycleOwner) {
-            selectedView = binding.root.findViewById(it)
-            themeKor = selectedView.text.toString()
-            var category = ThemeType.fromKor(themeKor).toString()
-            if(category == ThemeType.ALL.toString()) category = ""
-            viewModel.loadQuestionListByCate(category)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.selectedThemeId.collect {
+                    selectedView = binding.root.findViewById(it)
+                    themeKor = selectedView.text.toString()
+                    var category = ThemeType.fromKor(themeKor).toString()
+                    if(category == ThemeType.ALL.toString()) category = ""
+                    if (category == "null") return@collect
+                    viewModel.loadQuestionListByCate(category)
+                }
+            }
         }
+
     }
 
     // 각 질문을 담을 아이템
@@ -68,7 +74,7 @@ class AllQuestionListFragment : BaseFragment<FragmentQuestionBinding,AllQuestion
         // 데이터 리스트
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.apiResult.collect {
+                viewModel.apiResult.collectLatest {
                     when(it) {
                         is UiState.Loading -> {
                             binding.progress.visibility = View.VISIBLE
@@ -142,7 +148,6 @@ class AllQuestionListFragment : BaseFragment<FragmentQuestionBinding,AllQuestion
 
     override fun onClick(view: View) {
         viewModel.updateSelectedThemeId(view.id)
-
     }
 
 }

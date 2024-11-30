@@ -36,10 +36,8 @@ class AllQuestionListViewModel @Inject constructor(
 
 
     // 선택한 테마의 id
-    private val _selectedThemeId = MutableLiveData<Int>().apply {
-        value = R.id.include_theme_all
-    }
-    val selectedThemeId: LiveData<Int> = _selectedThemeId
+    private val _selectedThemeId = MutableStateFlow(R.id.include_theme_all)
+    val selectedThemeId  = _selectedThemeId.asStateFlow()
 
 
 
@@ -59,7 +57,8 @@ class AllQuestionListViewModel @Inject constructor(
                     val errorMessage = when(it){
                         is NetworkError.IOException -> {it.message}
                         is NetworkError.NullDataError -> {"아직 데이터를 준비중이에요!"}
-                        else -> "알 수 없는 에러가 발생했습니다. 다시 시도해주세요!"
+                        is NetworkError.HttpException -> {it.message}
+                        else -> {it.message}
                     }
                     if (errorMessage != null) {
                         _uiState.value = UiState.Error(errorMessage)

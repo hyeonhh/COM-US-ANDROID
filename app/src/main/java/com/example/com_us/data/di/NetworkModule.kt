@@ -34,7 +34,7 @@ object NetworkModule {
     fun provideInterceptor(
     ) : AppInterceptor {
         return AppInterceptor(
-            accessToken =  "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNzMxOTI3NDI0LCJleHAiOjE3MzQ1MTk0MjR9.jU6s6drHXR09SBvFMbd5w_rbkxG3wYHYHwTzy403ifY"
+            accessToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNzMyOTUzMjg5LCJleHAiOjE3MzU1NDUyODl9.tVP_wB7sSwLsRf3_sCoquhujnOMgO5yBgPkbpye3ciA"
         )
     }
 

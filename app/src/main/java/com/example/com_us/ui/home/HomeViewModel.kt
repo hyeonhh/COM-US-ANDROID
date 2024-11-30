@@ -8,6 +8,7 @@ import com.example.com_us.data.repository.HomeRepository
 import com.example.com_us.data.model.home.ResponseHomeDataDto
 import com.example.com_us.ui.base.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -23,7 +24,7 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
     }
 
     fun loadHomeData(){
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             homeRepository.getHomeData()
             .onSuccess {
                     _homeUiState.value = UiState.Success(it)
