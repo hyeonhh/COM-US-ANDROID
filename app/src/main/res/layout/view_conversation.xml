@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/home_title_our_block"
+        android:textColor="@color/text_black"
+        android:textFontWeight="700"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/textview_home_step"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textview_home_step"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textColor="@color/green_700"
+        android:textFontWeight="600"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@id/txt_step"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_step"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="단계"
+        android:textColor="@color/green_700"
+        android:textFontWeight="600"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textview_home_step"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textview_home_step" />
+
+    <TableLayout
+        android:id="@+id/tableLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/shape_stroke_rect10_gray200"
+        android:clipToOutline="true"
+        android:stretchColumns="*"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:layout_editor_absoluteX="25dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <View
+                android:id="@+id/view_home_block30"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0.5dp"
+                android:background="@drawable/shape_stroke_rect_topleft10_gray200" />
+
+            <View
+                android:id="@+id/view_home_block31"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0.5dp"
+                android:background="@drawable/shape_stroke_rect_gray200" />
+
+            <View
+                android:id="@+id/view_home_block32"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0.5dp"
+                android:background="@drawable/shape_stroke_rect_gray200" />
+
+            <View
+                android:id="@+id/view_home_block33"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0.5dp"
+                android:background="@drawable/shape_stroke_rect_topright10_gray200" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <View
+                android:id="@+id/view_home_block20"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0.5dp"
+                android:background="@drawable/shape_stroke_rect_gray200" />
+
+            <View
+                android:id="@+id/view_home_block21"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0.5dp"
+                android:background="@drawable/shape_stroke_rect_gray200" />
+
+            <View
+                android:id="@+id/view_home_block22"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0.5dp"
+                android:background="@drawable/shape_stroke_rect_gray200" />
+
+            <View
+                android:id="@+id/view_home_block23"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0.5dp"
+                android:background="@drawable/shape_stroke_rect_gray200" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <View
+                android:id="@+id/view_home_block10"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0.5dp"
+                android:background="@drawable/shape_stroke_rect_gray200" />
+
+            <View
+                android:id="@+id/view_home_block11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0.5dp"
+                android:background="@drawable/shape_stroke_rect_gray200" />
+
+            <View
+                android:id="@+id/view_home_block12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0.5dp"
+                android:background="@drawable/shape_stroke_rect_gray200" />
+
+            <View
+                android:id="@+id/view_home_block13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0.5dp"
+                android:background="@drawable/shape_stroke_rect_gray200" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <View
+                android:id="@+id/view_home_block00"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0.5dp"
+                android:background="@drawable/shape_stroke_rect_bottomleft10_gray200"
+                android:padding="3dp" />
+
+            <View
+                android:id="@+id/view_home_block01"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0.5dp"
+                android:background="@drawable/shape_stroke_rect_gray200" />
+
+            <View
+                android:id="@+id/view_home_block02"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0.5dp"
+                android:background="@drawable/shape_stroke_rect_gray200" />
+
+            <View
+                android:id="@+id/view_home_block03"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0.5dp"
+                android:background="@drawable/shape_stroke_rect_bottomright10_gray200" />
+        </TableRow>
+    </TableLayout>
+
+    <ImageView
+        android:id="@+id/imageview_home_noblock"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/home_cntdesc_tempimage"
+        android:src="@drawable/img_no_block"
+        app:layout_constraintBottom_toTopOf="@+id/textview_home_noblock"
+        app:layout_constraintEnd_toEndOf="@+id/tableLayout3"
+        app:layout_constraintStart_toStartOf="@+id/tableLayout3"
+        app:layout_constraintTop_toTopOf="@+id/tableLayout3"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+
+    <TextView
+        android:id="@+id/textview_home_noblock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/home_title_no_block"
+        android:textColor="@color/gray_500"
+        android:textFontWeight="700"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tableLayout3"
+        app:layout_constraintEnd_toEndOf="@+id/tableLayout3"
+        app:layout_constraintStart_toStartOf="@+id/tableLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/imageview_home_noblock" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/home_title_check_progress"
+        android:textColor="@color/text_black"
+        android:textFontWeight="700"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout3" />
+
+    <include
+        android:id="@+id/include_home_daily"
+        layout="@layout/item_theme_progress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="5dp"
+        app:background="@{@drawable/shape_fill_stroke_rect10_orange}"
+        app:backgroundIcon="@{@drawable/ic_background_home}"
+        app:isRandom="@{false}"
+        app:layout_constraintEnd_toStartOf="@+id/include_home_school"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:percentColor="@{@color/orange_700}"
+        app:progressBackground="@{@drawable/custom_progress_bar_orange}"
+        app:title="@{@string/theme_daily}" />
+
+    <include
+        android:id="@+id/include_home_school"
+        layout="@layout/item_theme_progress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        app:background="@{@drawable/shape_fill_stroke_rect10_blue}"
+        app:backgroundIcon="@{@drawable/ic_background_school}"
+        app:isRandom="@{false}"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/include_home_daily"
+        app:layout_constraintTop_toBottomOf="@id/textView3"
+        app:percentColor="@{@color/blue_700}"
+        app:progressBackground="@{@drawable/custom_progress_bar_blue}"
+        app:title="@{@string/theme_school}" />
+
+    <include
+        android:id="@+id/include_home_friend"
+        layout="@layout/item_theme_progress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="5dp"
+        app:background="@{@drawable/shape_fill_stroke_rect10_green}"
+        app:backgroundIcon="@{@drawable/ic_background_friend}"
+        app:isRandom="@{false}"
+        app:layout_constraintEnd_toStartOf="@+id/include_home_family"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include_home_daily"
+        app:percentColor="@{@color/green_700}"
+        app:progressBackground="@{@drawable/custom_progress_bar_green}"
+        app:title="@{@string/theme_friend}" />
+
+    <include
+        android:id="@+id/include_home_family"
+        layout="@layout/item_theme_progress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        app:background="@{@drawable/shape_fill_stroke_rect10_purple}"
+        app:backgroundIcon="@{@drawable/ic_background_family}"
+        app:isRandom="@{false}"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/include_home_friend"
+        app:layout_constraintTop_toBottomOf="@id/include_home_daily"
+        app:percentColor="@{@color/purple_700}"
+        app:progressBackground="@{@drawable/custom_progress_bar_purple}"
+        app:title="@{@string/theme_family}" />
+
+    <include
+        android:id="@+id/include_home_hobby"
+        layout="@layout/item_theme_progress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="5dp"
+        app:background="@{@drawable/shape_fill_stroke_rect10_pink}"
+        app:backgroundIcon="@{@drawable/ic_background_interest}"
+        app:isRandom="@{false}"
+        app:layout_constraintEnd_toStartOf="@+id/include_home_random"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include_home_friend"
+        app:percentColor="@{@color/pink_700}"
+        app:progressBackground="@{@drawable/custom_progress_bar_pink}"
+        app:title="@{@string/theme_interest}" />
+
+    <include
+        android:id="@+id/include_home_random"
+        layout="@layout/item_theme_progress"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        app:background="@{@drawable/shape_fill_stroke_rect10_salmon}"
+        app:backgroundIcon="@{@drawable/ic_background_random}"
+        app:isRandom="@{true}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/include_home_hobby"
+        app:layout_constraintTop_toBottomOf="@id/include_home_friend"
+        app:title="@{@string/theme_random_question}" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

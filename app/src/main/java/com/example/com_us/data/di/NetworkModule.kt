@@ -28,22 +28,20 @@ import javax.net.ssl.X509TrustManager
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-
     @Provides
     @Singleton
-    fun provideInterceptor(
-    ) : AppInterceptor {
-        return AppInterceptor(
-            accessToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNzMyOTUzMjg5LCJleHAiOjE3MzU1NDUyODl9.tVP_wB7sSwLsRf3_sCoquhujnOMgO5yBgPkbpye3ciA"
+    fun provideInterceptor(): AppInterceptor =
+        AppInterceptor(
+            accessToken = @Suppress("ktlint:standard:max-line-length")
+            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNzM2Mzg5MjcyLCJleHAiOjE3Mzg5ODEyNzJ9.80ih-3x8q2mjz9dCRVOu-TGoOc4LA0LIHcU41DmJOy4",
         )
-    }
 
     @Provides
     @Singleton
     fun provideOkHttpClient(
         @ApplicationContext context: Context,
-        interceptor: AppInterceptor
-    ) : OkHttpClient {
+        interceptor: AppInterceptor,
+    ): OkHttpClient {
         val okHttpClient = OkHttpClient.Builder()
         try {
             val cf = CertificateFactory.getInstance("X.509")
@@ -58,7 +56,7 @@ object NetworkModule {
             } finally {
                 caInput.close()
             }
-            if(ca != null) {
+            if (ca != null) {
                 val keyStoreType = KeyStore.getDefaultType()
                 val keyStore = KeyStore.getInstance(keyStoreType)
                 keyStore.load(null, null)
@@ -79,11 +77,13 @@ object NetworkModule {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        return okHttpClient.addInterceptor(interceptor)
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
-            .connectTimeout(200, TimeUnit.SECONDS)
+        return okHttpClient
+            .addInterceptor(interceptor)
+            .addInterceptor(
+                HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                },
+            ).connectTimeout(200, TimeUnit.SECONDS)
             .readTimeout(200, TimeUnit.SECONDS)
             .writeTimeout(200, TimeUnit.SECONDS)
             .build()
@@ -92,13 +92,13 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideRetrofit(
-        @BaseUrl baseUrl : String,
-        okHttpClient: OkHttpClient) : Retrofit {
-        return Retrofit.Builder()
+        @BaseUrl baseUrl: String,
+        okHttpClient: OkHttpClient,
+    ): Retrofit =
+        Retrofit
+            .Builder()
             .baseUrl(baseUrl)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-    }
-
 }
