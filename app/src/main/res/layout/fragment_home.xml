@@ -13,17 +13,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="50dp">
-
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint_home"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="50dp"
-                android:background="@color/gray_100"
-                android:paddingHorizontal="@dimen/activity_horizontal_whitespace"
-                android:paddingVertical="@dimen/activity_vertical_whitespace"
-                android:visibility="visible"
-                tools:context=".ui.home.HomeFragment">
+                android:layout_height="wrap_content">
 
                 <com.google.android.material.progressindicator.LinearProgressIndicator
                     android:id="@+id/progress_bar"
@@ -35,53 +27,70 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_app_logo"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:background="@drawable/ic_notification"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <include
-                    android:id="@+id/view_user_conversation_info_box"
-                    layout="@layout/view_user_conversation_info_box"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    app:layout_constraintBottom_toTopOf="@id/random_question_box"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/imageView5" />
-
-                <com.example.com_us.util.RandomQuestionBox
-                    android:id="@+id/random_question_box"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:elevation="2dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_user_conversation_info_box" />
-
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_home"
+                    app:layout_constraintBottom_toTopOf="@+id/constraint_conversion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:background="@color/gray_100"
+                    android:paddingHorizontal="@dimen/activity_horizontal_whitespace"
+                    android:paddingVertical="@dimen/activity_vertical_whitespace"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:context=".ui.home.HomeFragment">
+
+
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_app_logo"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/button2"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@drawable/ic_notification"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <include
+                        android:id="@+id/view_user_conversation_info_box"
+                        layout="@layout/view_user_conversation_info_box"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        app:layout_constraintBottom_toTopOf="@id/random_question_box"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/imageView5" />
+
+                    <com.example.com_us.util.RandomQuestionBox
+                        android:id="@+id/random_question_box"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view_user_conversation_info_box" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_conversion"
                     android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/random_question_box">
+                    app:layout_constraintTop_toBottomOf="@id/constraint_home">
 
                     <include
                         android:id="@+id/view_conversation"
@@ -95,8 +104,6 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
         </androidx.core.widget.NestedScrollView>
