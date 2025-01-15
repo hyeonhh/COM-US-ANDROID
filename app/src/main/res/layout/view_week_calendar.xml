@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/txt_week_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="12월 4주차"
+        android:textColor="@color/gray_700"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/materialButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="달력보기"
+        android:textColor="@color/gray_500"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_week_title"
+        app:layout_constraintEnd_toStartOf="@id/btn_calendar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_calendar"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/ic_calendar"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_week_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+
+        android:layout_marginTop="10dp"
+        android:stretchColumns="*"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_week_title">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:gravity="center_horizontal"
+                android:text="월"
+                android:textColor="@color/blue_700"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:gravity="center_horizontal"
+                android:text="화"
+                android:textColor="@color/blue_700"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:gravity="center_horizontal"
+                android:text="수"
+                android:textColor="@color/blue_700"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:gravity="center_horizontal"
+                android:text="목"
+                android:textColor="@color/blue_700"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:gravity="center_horizontal"
+                android:text="금"
+                android:textColor="@color/blue_700"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:gravity="center_horizontal"
+                android:text="토"
+                android:textColor="@color/blue_700"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:gravity="center_horizontal"
+                android:text="일"
+                android:textColor="@color/blue_700"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_margin="2dp"
+                android:id="@+id/monday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintDimensionRatio="1:1"
+                android:src="@drawable/ic_blank_week" />
+
+            <ImageView
+                android:layout_margin="2dp"
+                android:id="@+id/tuesday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintDimensionRatio="1:1"
+                android:src="@drawable/ic_blank_week" />
+
+            <ImageView
+                android:layout_margin="2dp"
+                android:id="@+id/wednesday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintDimensionRatio="1:1"
+                android:src="@drawable/ic_blank_week" />
+
+            <ImageView
+                android:layout_margin="2dp"
+                android:id="@+id/thursday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintDimensionRatio="1:1"
+                android:src="@drawable/ic_blank_week" />
+
+            <ImageView
+                android:layout_margin="2dp"
+                android:id="@+id/friday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintDimensionRatio="1:1"
+                android:src="@drawable/ic_blank_week" />
+
+            <ImageView
+                android:layout_margin="2dp"
+                android:id="@+id/saturday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintDimensionRatio="1:1"
+                android:src="@drawable/ic_blank_week" />
+
+            <ImageView
+                android:layout_margin="2dp"
+                android:id="@+id/sunday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintDimensionRatio="1:1"
+                android:src="@drawable/ic_blank_week" />
+        </TableRow>
+
+
+    </TableLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

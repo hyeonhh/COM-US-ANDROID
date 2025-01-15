@@ -1,13 +1,9 @@
 package com.example.com_us.ui.home
 
 import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
@@ -29,28 +25,51 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>(FragmentHomeBinding::inflate),View.OnClickListener {
-
-    override val viewModel : HomeViewModel by viewModels()
+class HomeFragment :
+    BaseFragment<FragmentHomeBinding, HomeViewModel>(FragmentHomeBinding::inflate),
+    View.OnClickListener {
+    override val viewModel: HomeViewModel by viewModels()
     private lateinit var blockList: List<List<View>>
     private var isReload: MutableLiveData<Boolean> = MutableLiveData(false)
 
     private val homeViewModel: HomeViewModel by viewModels()
 
-    private val scrollChangedListener = ViewTreeObserver.OnScrollChangedListener {
-        binding.let {
-            it.swiperefreshHome.isEnabled = (it.scrollviewHome.scrollY == 0)
+    private val scrollChangedListener =
+        ViewTreeObserver.OnScrollChangedListener {
+            binding.let {
+                it.swiperefreshHome.isEnabled = (it.scrollviewHome.scrollY == 0)
+            }
         }
-    }
 
     override fun onBindLayout() {
         super.onBindLayout()
-        blockList = listOf(
-            listOf(binding.viewHomeBlock00, binding.viewHomeBlock01, binding.viewHomeBlock02, binding.viewHomeBlock03),
-            listOf(binding.viewHomeBlock10, binding.viewHomeBlock11, binding.viewHomeBlock12, binding.viewHomeBlock13),
-            listOf(binding.viewHomeBlock20, binding.viewHomeBlock21, binding.viewHomeBlock22, binding.viewHomeBlock23),
-            listOf(binding.viewHomeBlock30, binding.viewHomeBlock31, binding.viewHomeBlock32, binding.viewHomeBlock33),
-        )
+        blockList =
+            listOf(
+                listOf(
+                    binding.viewConversation.viewHomeBlock00,
+                    binding.viewConversation.viewHomeBlock01,
+                    binding.viewConversation.viewHomeBlock02,
+                    binding.viewConversation.viewHomeBlock03,
+                ),
+                listOf(
+                    binding.viewConversation.viewHomeBlock10,
+                    binding.viewConversation.viewHomeBlock11,
+                    binding.viewConversation.viewHomeBlock12,
+                    binding.viewConversation.viewHomeBlock13,
+                ),
+                listOf(
+                    binding.viewConversation.viewHomeBlock20,
+                    binding.viewConversation.viewHomeBlock21,
+                    binding.viewConversation.viewHomeBlock22,
+                    binding.viewConversation.viewHomeBlock23,
+                ),
+                listOf(
+                    binding.viewConversation.viewHomeBlock30,
+                    binding.viewConversation.viewHomeBlock31,
+                    binding.viewConversation.viewHomeBlock32,
+                    binding.viewConversation.viewHomeBlock33,
+                ),
+            )
 
         setThemeClickListener()
         setSwipeRefresh()
@@ -63,7 +82,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>(FragmentHom
         }
 
         isReload.observe(viewLifecycleOwner) {
-            if(it){
+            if (it) {
                 isReload.value = false
                 binding.swiperefreshHome.isRefreshing = false
             }
@@ -72,15 +91,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>(FragmentHom
     }
 
     private fun setThemeClickListener() {
-        with(binding){
-            includeHomeDaily.constraint.setOnClickListener(this@HomeFragment)
-            includeHomeSchool.constraint.setOnClickListener(this@HomeFragment)
-            includeHomeFriend.constraint.setOnClickListener(this@HomeFragment)
-            includeHomeFamily.constraint.setOnClickListener(this@HomeFragment)
-            includeHomeHobby.constraint.setOnClickListener(this@HomeFragment)
-            includeHomeRandom.constraint.setOnClickListener(this@HomeFragment)
+        with(binding) {
+            viewConversation.includeHomeDaily.constraint.setOnClickListener(this@HomeFragment)
+            viewConversation.includeHomeSchool.constraint.setOnClickListener(this@HomeFragment)
+            viewConversation.includeHomeFriend.constraint.setOnClickListener(this@HomeFragment)
+            viewConversation.includeHomeFamily.constraint.setOnClickListener(this@HomeFragment)
+            viewConversation.includeHomeHobby.constraint.setOnClickListener(this@HomeFragment)
+            viewConversation.includeHomeRandom.constraint.setOnClickListener(this@HomeFragment)
         }
-
     }
 
     private fun setHomeData() {
@@ -92,28 +110,29 @@ class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>(FragmentHom
                         is UiState.Success -> {
                             binding.progressBar.visibility = View.GONE
                             binding.constraintHome.visibility = View.VISIBLE
-                            val chatMinute = it.data.user.todayChatTime.substring(3, 5).toInt()
-                            binding.textviewHomeGreeting.text = String.format(
-                                resources.getString(R.string.home_title_greeting_user_hi),
-                                it.data.user.name,
-                                emojiText
-                            )
-                            binding.textviewHomeMinute.text = String.format(
-                                resources.getString(R.string.home_sub_today_conversation_minute),
-                                chatMinute
-                            )
-                            Glide.with(this@HomeFragment)
+                            val chatMinute =
+                                it.data.user.todayChatTime
+                                    .substring(3, 5)
+                                    .toInt()
+                            binding.viewUserConversationInfoBox.textviewHomeGreeting.text =
+                                String.format(
+                                    resources.getString(R.string.home_title_greeting_user_hi),
+                                    it.data.user.name,
+                                    emojiText,
+                                )
+
+                            Glide
+                                .with(this@HomeFragment)
                                 .load(it.data.user.imageUrl)
                                 .apply(RequestOptions().transform(RoundedCorners(300)))
-                                .into(binding.imageviewHomeUsericon)
+                                .into(binding.viewUserConversationInfoBox.imageviewHomeUsericon)
 
                             setThemeProgress(it.data.category)
                             setBlock(it.data.block)
                             isReload.value = true
-
                         }
                         is UiState.Error -> {
-                            Toast.makeText(context,"잠시 후에 다시 시도해주세요!",Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "잠시 후에 다시 시도해주세요!", Toast.LENGTH_SHORT).show()
                         }
                         is UiState.Loading -> {
                             binding.progressBar.visibility = View.VISIBLE
@@ -122,7 +141,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>(FragmentHom
                 }
             }
         }
-
     }
 
     override fun onClick(view: View) {
@@ -149,45 +167,59 @@ class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>(FragmentHom
     }
 
     private fun setThemeProgress(categoryData: Category) {
-        binding.includeHomeDaily.textviewThemeFraction.text = String.format(resources.getString(R.string.home_theme_fraction), categoryData.DailyCount, categoryData.DailyTotalCount)
-        binding.includeHomeDaily.textviewThemePercent.text = String.format(resources.getString(R.string.home_theme_percent), categoryData.DailyPercent)
-        binding.includeHomeDaily.progressbarTheme.progress = categoryData.DailyPercent.toInt()
+        binding.viewConversation.includeHomeDaily.textviewThemeFraction.text =
+            String.format(resources.getString(R.string.home_theme_fraction), categoryData.DailyCount, categoryData.DailyTotalCount)
+        binding.viewConversation.includeHomeDaily.textviewThemePercent.text =
+            String.format(resources.getString(R.string.home_theme_percent), categoryData.DailyPercent)
+        binding.viewConversation.includeHomeDaily.progressbarTheme.progress = categoryData.DailyPercent.toInt()
 
-        binding.includeHomeSchool.textviewThemeFraction.text = String.format(resources.getString(R.string.home_theme_fraction), categoryData.SchoolCount, categoryData.SchoolTotalCount)
-        binding.includeHomeSchool.textviewThemePercent.text = String.format(resources.getString(R.string.home_theme_percent), categoryData.SchoolPercent)
-        binding.includeHomeSchool.progressbarTheme.progress = categoryData.SchoolPercent.toInt()
+        binding.viewConversation.includeHomeSchool.textviewThemeFraction.text =
+            String.format(resources.getString(R.string.home_theme_fraction), categoryData.SchoolCount, categoryData.SchoolTotalCount)
+        binding.viewConversation.includeHomeSchool.textviewThemePercent.text =
+            String.format(resources.getString(R.string.home_theme_percent), categoryData.SchoolPercent)
+        binding.viewConversation.includeHomeSchool.progressbarTheme.progress = categoryData.SchoolPercent.toInt()
 
-        binding.includeHomeFriend.textviewThemeFraction.text = String.format(resources.getString(R.string.home_theme_fraction), categoryData.FriendCount, categoryData.FriendTotalCount)
-        binding.includeHomeFriend.textviewThemePercent.text = String.format(resources.getString(R.string.home_theme_percent), categoryData.FriendPercent)
-        binding.includeHomeFriend.progressbarTheme.progress = categoryData.FriendPercent.toInt()
+        binding.viewConversation.includeHomeFriend.textviewThemeFraction.text =
+            String.format(resources.getString(R.string.home_theme_fraction), categoryData.FriendCount, categoryData.FriendTotalCount)
+        binding.viewConversation.includeHomeFriend.textviewThemePercent.text =
+            String.format(resources.getString(R.string.home_theme_percent), categoryData.FriendPercent)
+        binding.viewConversation.includeHomeFriend.progressbarTheme.progress = categoryData.FriendPercent.toInt()
 
-        binding.includeHomeFamily.textviewThemeFraction.text = String.format(resources.getString(R.string.home_theme_fraction), categoryData.FamilyCount, categoryData.FamilyTotalCount)
-        binding.includeHomeFamily.textviewThemePercent.text = String.format(resources.getString(R.string.home_theme_percent), categoryData.FamilyPercent)
-        binding.includeHomeFamily.progressbarTheme.progress = categoryData.FamilyPercent.toInt()
+        binding.viewConversation.includeHomeFamily.textviewThemeFraction.text =
+            String.format(resources.getString(R.string.home_theme_fraction), categoryData.FamilyCount, categoryData.FamilyTotalCount)
+        binding.viewConversation.includeHomeFamily.textviewThemePercent.text =
+            String.format(resources.getString(R.string.home_theme_percent), categoryData.FamilyPercent)
+        binding.viewConversation.includeHomeFamily.progressbarTheme.progress = categoryData.FamilyPercent.toInt()
 
-        binding.includeHomeHobby.textviewThemeFraction.text = String.format(resources.getString(R.string.home_theme_fraction), categoryData.HobbyCount, categoryData.HobbyTotalCount)
-        binding.includeHomeHobby.textviewThemePercent.text = String.format(resources.getString(R.string.home_theme_percent), categoryData.HobbyPercent)
-        binding.includeHomeHobby.progressbarTheme.progress = categoryData.HobbyPercent.toInt()
+        binding.viewConversation.includeHomeHobby.textviewThemeFraction.text =
+            String.format(resources.getString(R.string.home_theme_fraction), categoryData.HobbyCount, categoryData.HobbyTotalCount)
+        binding.viewConversation.includeHomeHobby.textviewThemePercent.text =
+            String.format(resources.getString(R.string.home_theme_percent), categoryData.HobbyPercent)
+        binding.viewConversation.includeHomeHobby.progressbarTheme.progress = categoryData.HobbyPercent.toInt()
     }
 
-    private fun setBlock(blockData: List<Block>){
-        if(blockData.isNotEmpty()) setNoBlockBackground(false) else setNoBlockBackground(true)
+    private fun setBlock(blockData: List<Block>) {
+        if (blockData.isNotEmpty()) setNoBlockBackground(false) else setNoBlockBackground(true)
         var color: Int?
-        for(data in blockData) {
+        for (data in blockData) {
             color = ColorMatch.findColorFromKor(data.category)
-            if(color != null){
+            if (color != null) {
                 // todo : 색 변경 방식 변경 필요
                 blockList[data.blockRow][data.blockColumn].setBackgroundResource(color)
             }
-
         }
     }
+
     private fun setNoBlockBackground(setBg: Boolean) {
-        val visibility = if(setBg) View.VISIBLE else View.INVISIBLE
-        binding.imageviewHomeNoblock.visibility = visibility
-        binding.textviewHomeNoblock.visibility = visibility
+        val visibility = if (setBg) View.VISIBLE else View.INVISIBLE
+        binding.viewConversation.imageviewHomeNoblock.visibility = visibility
+        binding.viewConversation.textviewHomeNoblock.visibility = visibility
     }
-    private fun moveToQuestionList(theme: String, themeKor: String) {
+
+    private fun moveToQuestionList(
+        theme: String,
+        themeKor: String,
+    ) {
         val intent = Intent(context, ThemeQuestionListActivity::class.java)
         intent.putExtra("theme", theme)
         intent.putExtra("themeKor", themeKor)
@@ -208,5 +240,4 @@ class HomeFragment : BaseFragment<FragmentHomeBinding,HomeViewModel>(FragmentHom
         binding.scrollviewHome.viewTreeObserver?.removeOnScrollChangedListener(scrollChangedListener)
         super.onDestroyView()
     }
-
 }

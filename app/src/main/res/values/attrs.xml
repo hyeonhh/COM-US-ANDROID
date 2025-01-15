@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- <attr>을 묶어 한번에 관리하기 위한 태그 -->
+    <declare-styleable name="InfoCountBox">
+        <!-- attr 태그 하나가 속성 하나를 정의 -->
+        <!-- name은 레이아웃 XML에서 사용하고자 하는 속성명, format은 속성값의 타입 -->
+        <attr name="customTitleTextView" format="string" />
+        <attr name="customCountTextView" format="string"/>
+        <attr name="customTitleTextColor" format="color" />
+        <attr name="customCountTextColor" format="color" />
+        <attr name="customCountIcon" format="reference" />
+    </declare-styleable>
+
+</resources>
