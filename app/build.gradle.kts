@@ -56,6 +56,10 @@ android {
 
 dependencies {
 
+    implementation ("com.jcraft:jsch:0.1.55")
+    implementation("org.bouncycastle:bcprov-jdk15on:1.69")
+    implementation("org.bouncycastle:bcpkix-jdk15on:1.69")
+
     implementation("com.google.android.gms:play-services-auth:21.2.0")
     implementation("androidx.credentials:credentials:1.3.0")
     implementation("androidx.credentials:credentials-play-services-auth:1.3.0")

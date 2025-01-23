@@ -2,6 +2,8 @@ package com.example.com_us.data.di
 
 import android.content.Context
 import android.util.Log
+import androidx.compose.runtime.key
+import com.example.com_us.R
 import com.example.com_us.base.AppInterceptor
 import dagger.Module
 import dagger.Provides
@@ -12,7 +14,13 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
+import java.io.InputStream
+import java.security.KeyManagementException
 import java.security.KeyStore
+import java.security.KeyStoreException
+import java.security.NoSuchAlgorithmException
+import java.security.SecureRandom
 import java.security.cert.Certificate
 import java.security.cert.CertificateException
 import java.security.cert.CertificateFactory
@@ -33,7 +41,7 @@ object NetworkModule {
     fun provideInterceptor(): AppInterceptor =
         AppInterceptor(
             accessToken = @Suppress("ktlint:standard:max-line-length")
-            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNzM2Mzg5MjcyLCJleHAiOjE3Mzg5ODEyNzJ9.80ih-3x8q2mjz9dCRVOu-TGoOc4LA0LIHcU41DmJOy4",
+            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNzM3MDMxOTA1LCJleHAiOjE3Mzk2MjM5MDV9.V03UdOY0sMB-fKBKyesydcpwDQTT9nNOtsqJfNCflvY",
         )
 
     @Provides
@@ -45,13 +53,14 @@ object NetworkModule {
         val okHttpClient = OkHttpClient.Builder()
         try {
             val cf = CertificateFactory.getInstance("X.509")
-            val rawFileId = context.resources.getIdentifier("songhayeon", "raw", context.packageName)
-            val caInput = context.resources.openRawResource(rawFileId)
+           // val rawFileId = context.resources.getIdentifier("songhayeon", "raw", context.packageName)
+            val caInput = context.resources.openRawResource(R.raw.comus)
+
             var ca: Certificate? = null
             try {
                 ca = cf.generateCertificate(caInput)
-                Log.d("[HTTP]", "ca=" + (ca as X509Certificate?)!!.subjectDN)
             } catch (e: CertificateException) {
+                Log.e("certificationException",e.message.toString())
                 e.printStackTrace()
             } finally {
                 caInput.close()
@@ -74,7 +83,20 @@ object NetworkModule {
                     okHttpClient.hostnameVerifier { _, _ -> true }
                 }
             }
-        } catch (e: Exception) {
+        } catch (e: KeyStoreException) {
+            Log.e("network error",e.message.toString())
+            e.printStackTrace()
+        }
+        catch (e: CertificateException) {
+            e.printStackTrace()
+        }
+        catch (e: NoSuchAlgorithmException) {
+            e.printStackTrace()
+        }
+        catch (e: KeyManagementException){
+            e.printStackTrace()
+        }
+        catch (e : IOException){
             e.printStackTrace()
         }
         return okHttpClient

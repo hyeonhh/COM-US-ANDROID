@@ -29,6 +29,7 @@ import com.example.com_us.ui.compose.theme.Purple700
 import com.example.com_us.ui.compose.theme.Salmon200
 import com.example.com_us.ui.compose.theme.Salmon500
 import com.example.com_us.ui.compose.theme.Salmon700
+import com.example.com_us.ui.compose.theme.Typography
 import com.example.com_us.util.ColorType
 
 @Composable
@@ -38,13 +39,14 @@ fun AnswerTypeTag(colorType: ColorType, text: String) {
 
     Box(
         Modifier
-            .padding(5.dp, 0.dp)
+            .padding(3.dp, 0.dp)
             .border(width = 1.dp, color = colorPalette.border, shape = RoundedCornerShape(4.dp))
             .background(color = colorPalette.background)
     ) {
         Text(text = text,
             softWrap = false,
-            modifier = Modifier.padding(10.dp, 5.dp),
+            style = Typography.labelSmall,
+            modifier = Modifier.padding(8.dp,5.dp),
             color = colorPalette.text)
     }
 }
