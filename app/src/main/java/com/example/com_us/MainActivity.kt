@@ -39,20 +39,19 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        navView.setOnNavigationItemSelectedListener { item ->
+        navView.itemIconTintList = null
+
+        navView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
-                    changeNavItemColor(R.color.color_selector_nav_blue)
                     navController.navigate(R.id.navigation_home)
                     true
                 }
                 R.id.navigation_questions -> {
-                    changeNavItemColor(R.color.color_selector_nav_orange)
                     navController.navigate(R.id.navigation_questions)
                     true
                 }
                 R.id.navigation_profile -> {
-                    changeNavItemColor(R.color.color_selector_nav_salmon)
                     navController.navigate(R.id.navigation_profile)
                     true
                 }
@@ -64,4 +63,5 @@ class MainActivity : AppCompatActivity() {
     private fun changeNavItemColor(colorResId: Int) {
         binding.navView.itemIconTintList = ContextCompat.getColorStateList(this, colorResId)
     }
+
 }
