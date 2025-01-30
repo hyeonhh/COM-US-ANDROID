@@ -7,15 +7,19 @@
         android:id="@+id/swiperefresh_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.core.widget.NestedScrollView
+
+        <ScrollView
             android:id="@+id/scrollview_home"
-            android:scrollIndicators="none"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="50dp">
+            android:paddingBottom="50dp"
+            android:scrollIndicators="none"
+            android:visibility="visible">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="visible">
 
                 <com.google.android.material.progressindicator.LinearProgressIndicator
                     android:id="@+id/progress_bar"
@@ -30,18 +34,17 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraint_home"
-                    app:layout_constraintBottom_toTopOf="@+id/constraint_conversion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/gray_100"
                     android:paddingHorizontal="@dimen/activity_horizontal_whitespace"
                     android:paddingVertical="@dimen/activity_vertical_whitespace"
-                    android:visibility="visible"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toTopOf="@+id/constraint_conversion"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:context=".ui.home.HomeFragment">
-
 
 
                     <ImageView
@@ -84,9 +87,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraint_conversion"
-                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -106,6 +109,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

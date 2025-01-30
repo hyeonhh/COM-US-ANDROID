@@ -34,12 +34,12 @@ class HomeFragment :
 
     private val homeViewModel: HomeViewModel by viewModels()
 
-    private val scrollChangedListener =
-        ViewTreeObserver.OnScrollChangedListener {
-            binding.let {
-                it.swiperefreshHome.isEnabled = (it.scrollviewHome.scrollY == 0)
-            }
-        }
+//    private val scrollChangedListener =
+//        ViewTreeObserver.OnScrollChangedListener {
+//            binding.let {
+//                it.swiperefreshHome.isEnabled = (it.scrollviewHome.scrollY == 0)
+//            }
+//        }
 
     override fun onBindLayout() {
         super.onBindLayout()
@@ -87,7 +87,7 @@ class HomeFragment :
                 binding.swiperefreshHome.isRefreshing = false
             }
         }
-        binding.scrollviewHome.viewTreeObserver.addOnScrollChangedListener(scrollChangedListener)
+//        binding.scrollviewHome.viewTreeObserver.addOnScrollChangedListener(scrollChangedListener)
     }
 
     private fun setThemeClickListener() {
@@ -108,12 +108,10 @@ class HomeFragment :
                 homeViewModel.homeUiState.collect {
                     when (it) {
                         is UiState.Success -> {
+                            binding.swiperefreshHome.isRefreshing = false
                             binding.progressBar.visibility = View.GONE
                             binding.constraintHome.visibility = View.VISIBLE
-                            val chatMinute =
-                                it.data.user.todayChatTime
-                                    .substring(3, 5)
-                                    .toInt()
+
                             binding.viewUserConversationInfoBox.textviewHomeGreeting.text =
                                 String.format(
                                     resources.getString(R.string.home_title_greeting_user_hi),
@@ -226,18 +224,18 @@ class HomeFragment :
         startActivity(intent)
     }
 
-    override fun onResume() {
-        super.onResume()
-        binding.scrollviewHome.viewTreeObserver.addOnScrollChangedListener(scrollChangedListener)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        binding.scrollviewHome.viewTreeObserver?.removeOnScrollChangedListener(scrollChangedListener)
-    }
-
-    override fun onDestroyView() {
-        binding.scrollviewHome.viewTreeObserver?.removeOnScrollChangedListener(scrollChangedListener)
-        super.onDestroyView()
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        binding.scrollviewHome.viewTreeObserver.addOnScrollChangedListener(scrollChangedListener)
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        binding.scrollviewHome.viewTreeObserver?.removeOnScrollChangedListener(scrollChangedListener)
+//    }
+//
+//    override fun onDestroyView() {
+//        binding.scrollviewHome.viewTreeObserver?.removeOnScrollChangedListener(scrollChangedListener)
+//        super.onDestroyView()
+//    }
 }
