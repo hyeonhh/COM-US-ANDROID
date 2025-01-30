@@ -7,18 +7,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import com.example.com_us.data.model.home.Category
 import com.example.com_us.ui.question.select.SelectAnswerViewModel
 
 @Composable
-fun AnswerOptionList(answerList: List<String>, questionViewModel: SelectAnswerViewModel) {
+fun AnswerOptionList(answerList: List<String>, questionViewModel: SelectAnswerViewModel,category: String) {
     var columCount = 2
-    var selectedOption by remember { mutableIntStateOf(-1) } // 선택된 아이템의 ID를 저장하는 상태
+    var selectedOption by remember { mutableIntStateOf(-1) }  // 선택된 아이템의 ID를 저장하는 상태
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(columCount)
     ) {
         items(answerList.size) { item ->
             AnswerOptionItem(
+                category = category,
                 optionId = item,
                 text = answerList[item],
                 isSelected = selectedOption == item,

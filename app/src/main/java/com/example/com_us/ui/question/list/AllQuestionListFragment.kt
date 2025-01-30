@@ -1,10 +1,7 @@
 package com.example.com_us.ui.question.list
 
 import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,7 +9,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -25,7 +21,6 @@ import com.example.com_us.ui.compose.QuestionListItem
 import com.example.com_us.ui.question.select.SelectAnswerActivity
 import com.example.com_us.util.ThemeType
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -95,7 +90,9 @@ class AllQuestionListFragment : BaseFragment<FragmentQuestionBinding,AllQuestion
                                             items(it.data.size) { idx ->
                                                 QuestionListItem(
                                                     data = it.data[idx],
-                                                    onClick = { movieToSelectAnswer(it.data[idx].id) })
+                                                    onClick = {
+                                                        moveToSelectAnswer(it.data[idx].id, it.data[idx].category)
+                                                    })
                                             }
                                         }
                                     }
@@ -140,8 +137,9 @@ class AllQuestionListFragment : BaseFragment<FragmentQuestionBinding,AllQuestion
         lastSelectedView = selectedView
     }
 
-    private fun movieToSelectAnswer(questionId: Long) {
+    private fun moveToSelectAnswer(questionId: Long,type : String) {
         val intent = Intent(activity, SelectAnswerActivity::class.java)
+        intent.putExtra("type",type)
         intent.putExtra("questionId", questionId)
         startActivity(intent)
     }
