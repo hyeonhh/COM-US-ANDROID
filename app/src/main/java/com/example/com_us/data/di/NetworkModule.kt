@@ -53,14 +53,13 @@ object NetworkModule {
         val okHttpClient = OkHttpClient.Builder()
         try {
             val cf = CertificateFactory.getInstance("X.509")
-           // val rawFileId = context.resources.getIdentifier("songhayeon", "raw", context.packageName)
+            val rawFileId = context.resources.getIdentifier("songhayeon", "raw", context.packageName)
             val caInput = context.resources.openRawResource(R.raw.comus)
 
             var ca: Certificate? = null
             try {
                 ca = cf.generateCertificate(caInput)
             } catch (e: CertificateException) {
-                Log.e("certificationException",e.message.toString())
                 e.printStackTrace()
             } finally {
                 caInput.close()
