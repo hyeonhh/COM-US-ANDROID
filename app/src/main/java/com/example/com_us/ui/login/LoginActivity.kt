@@ -91,7 +91,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(
                                     imageUrl = user.kakaoAccount?.profile?.thumbnailImageUrl ?: "",
                                     socialId = user.id.toString(),
                                 )
-                              //  viewModel.onKakaoLogin(request)
+                                viewModel.onKakaoLogin(request)
                             }
                             Timber.i("success to login with kakaotalk :${token.accessToken}")
 
@@ -123,7 +123,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(
                                         socialId = user.id.toString(),
                                     )
                                     viewModel.onKakaoLogin(request)
-                                    Timber.i("사용자 정보 요청 성 \n회원번호: ${user.id} \n \n닉네임: ${user.kakaoAccount?.profile?.nickname} \n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}") }
+                                }
                             }
                             val intent = Intent(this@LoginActivity, MainActivity::class.java)
                             startActivity(intent)

@@ -24,11 +24,12 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             authRepository.login(request)
                 .onSuccess {
-                    Timber.e("success to login :${it}")
+                    //todo : 토큰 처리
+                    Timber.d("success to login :${it}")
 
                 }
                 .onFailure {
-                    Timber.e("failed to login :${it.message}")
+                    Timber.d("failed to login :${it.message}")
                 }
         }
     }

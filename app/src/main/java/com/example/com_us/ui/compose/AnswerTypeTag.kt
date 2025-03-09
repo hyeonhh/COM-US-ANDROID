@@ -35,6 +35,7 @@ import com.example.com_us.util.ColorType
 @Composable
 fun AnswerTypeTag(colorType: ColorType, text: String) {
 
+
     val colorPalette = getColor(colorType)
 
     Box(
@@ -43,7 +44,7 @@ fun AnswerTypeTag(colorType: ColorType, text: String) {
             .border(width = 1.dp, color = colorPalette.border, shape = RoundedCornerShape(4.dp))
             .background(color = colorPalette.background)
     ) {
-        Text(text = text,
+        Text(text = if (text =="MULTIPLE_CHOICE") "대화형" else "선택형",
             softWrap = false,
             style = Typography.labelSmall,
             modifier = Modifier.padding(8.dp,5.dp),
