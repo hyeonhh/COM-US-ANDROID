@@ -56,6 +56,11 @@ android {
 
 dependencies {
 
+    // kakao login
+    implementation( "com.kakao.sdk:v2-user:2.20.6" )// 카카오 로그인 API 모듈
+
+    //Timber
+    implementation("com.jakewharton.timber:timber:4.7.1")
     implementation ("com.jcraft:jsch:0.1.55")
     implementation("org.bouncycastle:bcprov-jdk15on:1.69")
     implementation("org.bouncycastle:bcpkix-jdk15on:1.69")

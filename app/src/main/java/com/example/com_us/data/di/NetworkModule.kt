@@ -41,7 +41,7 @@ object NetworkModule {
     fun provideInterceptor(): AppInterceptor =
         AppInterceptor(
             accessToken = @Suppress("ktlint:standard:max-line-length")
-            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNzM3MDMxOTA1LCJleHAiOjE3Mzk2MjM5MDV9.V03UdOY0sMB-fKBKyesydcpwDQTT9nNOtsqJfNCflvY",
+            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNzQwMjA5OTA5LCJleHAiOjE3NDI4MDE5MDl9.XeCNUAuiNFQmzbP-3brLB7P55v0D9AIhbySjh3n8isE",
         )
 
     @Provides
