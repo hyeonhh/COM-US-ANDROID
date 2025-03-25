@@ -41,12 +41,21 @@ import com.example.com_us.ui.compose.theme.Gray200
 import com.example.com_us.ui.compose.theme.Gray400
 import com.example.com_us.ui.compose.theme.TextBlack
 import com.example.com_us.ui.compose.theme.Typography
+import com.example.com_us.ui.question.list.AllQuestionListViewModel
+import com.example.com_us.ui.question.theme.ThemeQuestionListViewModel
+import timber.log.Timber
 
 @Composable
-fun QuestionListItem(data: ResponseQuestionDto, onClick: () -> Unit) {
-    var isLiked  = data.isLiked
+fun QuestionListItem(
+    viewmodel : AllQuestionListViewModel? = null,
+    viewModel2 : ThemeQuestionListViewModel?= null,
+    data: ResponseQuestionDto, onClick: () -> Unit) {
+    var isLiked  = remember {
+        mutableStateOf(data.isLiked)
+    }
     val answerType = if (data.answerType == "MULTIPLE_CHOICE") "대화형" else "선택형"
     val color = ColorMatch.fromKor(answerType)?.colorType ?: ColorType.GRAY
+
 
     Surface(
         color = Color.White,
@@ -79,50 +88,63 @@ fun QuestionListItem(data: ResponseQuestionDto, onClick: () -> Unit) {
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
-                        text = when(data.category) {
+                        text = when (data.category) {
                             "DAILY" -> "일상"
                             "SCHOOL" -> "학교"
-                            "FRIEND"->"친구"
+                            "FRIEND" -> "친구"
                             "FAMILY" -> "가족"
                             "HOBBY" -> "관심사"
-                            else ->"일상"
+                            else -> ""
                         },
                         style = Typography.headlineMedium,
                         color = ColorMatch.fromKor(data.category)?.color ?: Color.LightGray,
                         modifier = Modifier.padding(end = 4.dp)
                     )
-                    Text(text = "대화 ${data.answerCount}회 완료",
+                    Text(
+                        text = "대화 ${data.answerCount}회 완료",
                         style = Typography.labelMedium,
-                        color = Color.Gray)
+                        color = Color.Gray
+                    )
                     AnswerTypeTag(
                         colorType = color,
-                        text = data.answerType)
-                }
-
-                    Text(
-                        text = data.questionContent,
-                        style = Typography.bodyMedium,
-                        color = TextBlack,
-                        softWrap = true,
-                        modifier = Modifier.padding(top = 4.dp, end = 10.dp)
+                        text = data.answerType,
+                        category = data.category
                     )
+
+                }
+                Text(
+                    text = data.questionContent,
+                    style = Typography.bodyMedium,
+                    color = TextBlack,
+                    softWrap = true,
+                    modifier = Modifier.padding(top = 4.dp, end = 10.dp)
+                )
+
             }
 
-           IconButton(
+            IconButton(
                 onClick = {
-                    isLiked = !isLiked
-                }
-            ) {
+                    Timber.d("좋아요 클릭 여부 :$isLiked")
+                    isLiked.value = !isLiked.value
+                    if (isLiked.value) {
+                        //  찜 등록
+                        viewmodel?.setLike(data.id.toString())
+                        viewModel2?.setLike(data.id.toString())
+                    } else {
+                        // 찜 취소
+                        viewmodel?.setUnLike(data.id.toString())
+                        viewModel2?.setLike(data.id.toString())
+                    }
+                }) {
+
                 Icon(
                     modifier = Modifier.width(50.dp),
-                    imageVector = if (isLiked )Icons.Filled.Favorite
-                    else Icons.Outlined.FavoriteBorder,
+                    imageVector = if (isLiked.value) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
                     contentDescription = "heart",
-                    tint = if (isLiked) colorResource(R.color.orange_700)
-                    else   colorResource(R.color.gray_200)
+                    tint = if (isLiked.value) colorResource(R.color.orange_700) else colorResource(R.color.gray_200)
 
                 )
             }
         }
     }
-}
+    }
