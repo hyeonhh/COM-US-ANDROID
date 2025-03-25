@@ -1,10 +1,11 @@
-package com.example.com_us.data.di
+package com.example.com_us.data.network.interceptor.di
 
 import android.content.Context
 import android.util.Log
-import androidx.compose.runtime.key
 import com.example.com_us.R
 import com.example.com_us.base.AppInterceptor
+import com.example.com_us.data.di.BaseUrl
+import com.example.com_us.data.repository.UserTokenRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,17 +16,15 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
-import java.io.InputStream
 import java.security.KeyManagementException
 import java.security.KeyStore
 import java.security.KeyStoreException
 import java.security.NoSuchAlgorithmException
-import java.security.SecureRandom
 import java.security.cert.Certificate
 import java.security.cert.CertificateException
 import java.security.cert.CertificateFactory
-import java.security.cert.X509Certificate
 import java.util.concurrent.TimeUnit
+import javax.inject.Provider
 import javax.inject.Singleton
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManagerFactory
@@ -36,22 +35,19 @@ import javax.net.ssl.X509TrustManager
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-    @Provides
-    @Singleton
-    fun provideInterceptor(): AppInterceptor =
-        AppInterceptor(
-            accessToken = @Suppress("ktlint:standard:max-line-length")
-            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNzM3MDMxOTA1LCJleHAiOjE3Mzk2MjM5MDV9.V03UdOY0sMB-fKBKyesydcpwDQTT9nNOtsqJfNCflvY",
-        )
 
     @Provides
     @Singleton
     fun provideOkHttpClient(
         @ApplicationContext context: Context,
         interceptor: AppInterceptor,
-    ): OkHttpClient {
+
+        ): OkHttpClient {
         val okHttpClient = OkHttpClient.Builder()
         try {
+            // Flow에서 최신 토큰을 관찰하고 인터셉터에 설정
+
+
             val cf = CertificateFactory.getInstance("X.509")
             val rawFileId = context.resources.getIdentifier("songhayeon", "raw", context.packageName)
             val caInput = context.resources.openRawResource(R.raw.comus)
@@ -98,6 +94,8 @@ object NetworkModule {
         catch (e : IOException){
             e.printStackTrace()
         }
+
+
         return okHttpClient
             .addInterceptor(interceptor)
             .addInterceptor(

@@ -42,11 +42,11 @@ import com.example.com_us.ui.compose.theme.Gray400
 import com.example.com_us.ui.compose.theme.TextBlack
 import com.example.com_us.ui.compose.theme.Typography
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun QuestionListItem(data: ResponseQuestionDto, onClick: () -> Unit) {
-    var isLiked by remember { mutableStateOf(false) }
-    val color = ColorMatch.fromKor(data.answerType)?.colorType ?: ColorType.GRAY
+    var isLiked  = data.isLiked
+    val answerType = if (data.answerType == "MULTIPLE_CHOICE") "대화형" else "선택형"
+    val color = ColorMatch.fromKor(answerType)?.colorType ?: ColorType.GRAY
 
     Surface(
         color = Color.White,
@@ -79,12 +79,19 @@ fun QuestionListItem(data: ResponseQuestionDto, onClick: () -> Unit) {
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
-                        text = data.category,
+                        text = when(data.category) {
+                            "DAILY" -> "일상"
+                            "SCHOOL" -> "학교"
+                            "FRIEND"->"친구"
+                            "FAMILY" -> "가족"
+                            "HOBBY" -> "관심사"
+                            else ->"일상"
+                        },
                         style = Typography.headlineMedium,
                         color = ColorMatch.fromKor(data.category)?.color ?: Color.LightGray,
                         modifier = Modifier.padding(end = 4.dp)
                     )
-                    Text(text = "대화 ${data.questionCount}회 완료",
+                    Text(text = "대화 ${data.answerCount}회 완료",
                         style = Typography.labelMedium,
                         color = Color.Gray)
                     AnswerTypeTag(
