@@ -62,6 +62,7 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
         }
         binding.warnText.visibility = View.INVISIBLE
         blockView[row][col].setBackgroundColor(resources.getColor(R.color.orange_700))
+        onComplete()
         currentType = null
     }
 
@@ -80,6 +81,7 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
             block[row+1][col]=1
             blockView[row][col].setBackgroundColor(resources.getColor(R.color.interest_block))
             blockView[row+1][col].setBackgroundColor(resources.getColor(R.color.interest_block))
+            onComplete()
             currentType = null
         }
         if (selectedDegree==-90 || selectedDegree==-270){
@@ -96,6 +98,7 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
             blockView[row][col].setBackgroundColor(resources.getColor(R.color.interest_block))
             blockView[row][col+1].setBackgroundColor(resources.getColor(R.color.interest_block))
             currentType = null
+            onComplete()
         }
     }
     private fun setFamilyBlock(row :Int, col : Int, selectedDegree: Int){
@@ -118,6 +121,7 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
             blockView[row][col+1].setBackgroundColor(resources.getColor(R.color.purple_700))
             blockView[row][col+2].setBackgroundColor(resources.getColor(R.color.purple_700))
             blockView[row+1][col+1].setBackgroundColor(resources.getColor(R.color.purple_700))
+            onComplete()
 
             currentType = null
         }
@@ -140,6 +144,7 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
             blockView[row+1][col].setBackgroundColor(resources.getColor(R.color.purple_700))
             blockView[row+2][col].setBackgroundColor(resources.getColor(R.color.purple_700))
             blockView[row+1][col+1].setBackgroundColor(resources.getColor(R.color.purple_700))
+            onComplete()
 
             currentType = null
         }
@@ -162,6 +167,7 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
             blockView[row-1][col+1].setBackgroundColor(resources.getColor(R.color.purple_700))
             blockView[row+1][col+1].setBackgroundColor(resources.getColor(R.color.purple_700))
             blockView[row+1][col+2].setBackgroundColor(resources.getColor(R.color.purple_700))
+            onComplete()
 
             currentType = null
         }
@@ -184,6 +190,7 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
             blockView[row-1][col+1].setBackgroundColor(resources.getColor(R.color.purple_700))
             blockView[row][col+1].setBackgroundColor(resources.getColor(R.color.purple_700))
             blockView[row+1][col+1].setBackgroundColor(resources.getColor(R.color.purple_700))
+            onComplete()
 
             currentType = null
         }
@@ -197,6 +204,11 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
         binding.ivBlockRotate.rotation = selectedDegree.toFloat()
         binding.rotateToLeft.visibility = View.VISIBLE
         binding.rotateToRight.visibility = View.VISIBLE
+    }
+
+    private fun onComplete(){
+        binding.btnComplete.setBackgroundDrawable(resources.getDrawable(R.drawable.button_block_complete))
+        binding.btnComplete.setTextColor(resources.getColor(R.color.white))
     }
 
     private fun setFriendBlock(row :Int, col : Int, degree: Int){
@@ -219,6 +231,9 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
             blockView[row+1][col].setBackgroundColor(resources.getColor(R.color.green_700))
             blockView[row+1][col+1].setBackgroundColor(resources.getColor(R.color.green_700))
             blockView[row+2][col+1].setBackgroundColor(resources.getColor(R.color.green_700))
+            onComplete()
+
+
             currentType=null
         }
 
@@ -241,6 +256,7 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
             blockView[row][col+1].setBackgroundColor(resources.getColor(R.color.green_700))
             blockView[row-1][col+1].setBackgroundColor(resources.getColor(R.color.green_700))
             blockView[row-1][col+2].setBackgroundColor(resources.getColor(R.color.green_700))
+            onComplete()
             currentType=null
 
         }
@@ -263,7 +279,8 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
             blockView[row+1][col].setBackgroundColor(resources.getColor(R.color.blue_700))
             blockView[row+1][col+1].setBackgroundColor(resources.getColor(R.color.blue_700))
             currentType = null
-            selectedDegree=0
+            onComplete()
+
         }
         if (degree == -90) {
             if (row >=4 || row <0 || col>=4 || col<0 || col+1 >=4 || row-1<0) {
@@ -283,7 +300,8 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
             blockView[row-1][col+1].setBackgroundColor(resources.getColor(R.color.blue_700))
             blockView[row][col+1].setBackgroundColor(resources.getColor(R.color.blue_700))
             currentType = null
-            selectedDegree=0
+            onComplete()
+
         }
         if(degree==-180) {
             if (row >=4 || row <0 || col>=4 || col<0 || row+1 >=4 || col+1 >=4) {
@@ -303,7 +321,8 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
             blockView[row][col+1].setBackgroundColor(resources.getColor(R.color.blue_700))
             blockView[row+1][col+1].setBackgroundColor(resources.getColor(R.color.blue_700))
             currentType = null
-            selectedDegree=0
+            onComplete()
+
         }
         if (degree==-270){
             if (row >=4 || row <0 || col>=4 || col<0 || row+1 >=4 || col+1 >=4) {
@@ -324,7 +343,7 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
             blockView[row+1][col].setBackgroundColor(resources.getColor(R.color.blue_700))
 
             currentType = null
-            selectedDegree=0
+            onComplete()
         }
 
     }
