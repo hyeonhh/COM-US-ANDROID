@@ -15,6 +15,12 @@
         android:title="@string/title_question"/>
 
     <item
+        android:id="@+id/navigation_block"
+        android:icon="@drawable/ic_block"
+        android:contentDescription="블럭"
+        android:title="블럭"/>
+
+    <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_user"
         android:contentDescription="@string/title_cntdesc_profile"

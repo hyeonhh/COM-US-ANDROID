@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.com_us.R
 import com.example.com_us.base.data.NetworkError
 import com.example.com_us.base.viewmodel.BaseViewModel
+import com.example.com_us.data.repository.impl.LikeRepository
 import com.example.com_us.data.model.question.response.question.ResponseQuestionDto
 import com.example.com_us.data.repository.QuestionRepository
 import com.example.com_us.ui.base.UiState
@@ -13,12 +14,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 
 @HiltViewModel
 class AllQuestionListViewModel @Inject constructor(
-    private val questionRepository: QuestionRepository
+    private val questionRepository: QuestionRepository,
+    private val likeRepository: LikeRepository,
 ) : BaseViewModel() {
 
     init {
@@ -40,6 +43,31 @@ class AllQuestionListViewModel @Inject constructor(
     val selectedThemeId  = _selectedThemeId.asStateFlow()
 
 
+    // 좋아요 등록
+    fun setLike(questionId : String){
+        viewModelScope.launch {
+            likeRepository.setLike(questionId).apply {
+                if(this.status == 201){
+                    Timber.d("success to like")
+                }
+                else {
+                    Timber.d("failed to like")
+                }
+            }
+        }
+    }
+
+    // 좋아요 취소
+    fun setUnLike(questionId : String){
+        viewModelScope.launch {
+            likeRepository.setUnlike(questionId).apply {
+                if(this.status == 201){
+                    Timber.d("success to unlike")
+                } else Timber.d("failed to like")
+
+            }
+        }
+    }
 
     fun updateSelectedThemeId(newId: Int) {
         _selectedThemeId.value = newId

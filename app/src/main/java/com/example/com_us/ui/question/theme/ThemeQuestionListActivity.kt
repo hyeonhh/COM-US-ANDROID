@@ -52,6 +52,7 @@ class ThemeQuestionListActivity : BaseActivity<ActivityThemeQuestionListBinding,
                                     println(it.data)
                                     items(it.data.size) { idx ->
                                         QuestionListItem(
+                                            viewModel2 = viewModel,
                                             data = it.data[idx],
                                             onClick = { moveToQuestionDetail(it.data[idx].id) })
                                     }

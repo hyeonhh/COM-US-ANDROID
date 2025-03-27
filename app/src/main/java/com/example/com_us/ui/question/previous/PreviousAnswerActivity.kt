@@ -92,8 +92,10 @@ class PreviousAnswerActivity : BaseActivity<ActivityQuestionPreviousAnswerBindin
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 Row {
-                    ColorMatch.fromKor(category)?.let { AnswerTypeTag(it.colorType, category) }
-                    ColorMatch.fromKor(answerType)?.let { AnswerTypeTag(it.colorType, answerType) }
+                    val colorType = ColorMatch.fromKor(category)
+                    if (colorType != null && ColorMatch.fromKor(answerType) != null) {
+                        AnswerTypeTag(colorType.colorType, answerType, category)
+                   }
                 }
             }
         }

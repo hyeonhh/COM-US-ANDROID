@@ -1,4 +1,4 @@
-package com.example.com_us.data.default_repository
+package com.example.com_us.data.repository.impl
 
 import com.example.com_us.base.data.NetworkError
 import com.example.com_us.data.model.question.request.RequestAnswerRequest
@@ -12,7 +12,7 @@ import com.example.com_us.data.default_source.DefaultQuestionDataSource
 import com.example.com_us.base.data.toResult
 import javax.inject.Inject
 
-class DefaultQuestionRepository @Inject constructor(
+class QuestionRepositoryImpl @Inject constructor(
     private val defaultQuestionDataSource: DefaultQuestionDataSource
 )  : QuestionRepository {
    override suspend fun getQuestionListByCate(category: String): Result<List<ResponseQuestionDto>> {

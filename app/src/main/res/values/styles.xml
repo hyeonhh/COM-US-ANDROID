@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BlockButtonStyle" parent="ShapeAppearanceOverlay.Material3.Button">
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/block_button</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="BlockButtonStyle_UnActive" parent="ShapeAppearanceOverlay.Material3.Button">
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/block_button_unactive</item>
+        <item name="android:textColor">@color/unactive_block_text_color</item>
+    </style>
+
+</resources>

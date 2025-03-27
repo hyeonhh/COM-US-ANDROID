@@ -124,7 +124,6 @@ fun QuestionListItem(
 
             IconButton(
                 onClick = {
-                    Timber.d("좋아요 클릭 여부 :$isLiked")
                     isLiked.value = !isLiked.value
                     if (isLiked.value) {
                         //  찜 등록

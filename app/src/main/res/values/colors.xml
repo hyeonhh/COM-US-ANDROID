@@ -10,9 +10,15 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="text_black">#FF333333</color>
+    <color name="empty_block_color">#B5B5B5</color>
+    <color name="unactive_block_text_color">#BBBBBB</color>
+    <color name="unactive_block_background">#EFEFEF</color>
+
+    <color name="block_modify_text">#AEAEAE</color>
 
     <color name="gray_700">#FF777777</color>
     <color name="gray_500">#FF878787</color>
+    <color name="gray_300">#F6F6F6</color>
     <color name="gray_200">#FFD8D8D8</color>
     <color name="gray_100">#FFF5F5F5</color>
     <color name="gray_80">#FFD2D2D2</color>
@@ -41,4 +47,6 @@
     <color name="green_700">#00BE08</color>
     <color name="green_500">#9DD39F</color>
     <color name="green_200">#E8FFE9</color>
+
+    <color name="interest_block">#FF7474</color>
 </resources>

@@ -7,9 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.com_us.base.viewmodel.BaseViewModel
 import com.example.com_us.data.model.auth.LoginRequest
 import com.example.com_us.data.repository.AuthRepository
+import com.example.com_us.data.repository.UserTokenRepository
+import com.example.com_us.data.repository.impl.UserTokenRepositoryImpl
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -17,21 +20,25 @@ import javax.inject.Inject
 // 구글 로그인 처리
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val userTokenRepository: UserTokenRepository
 ) : BaseViewModel() {
 
-    fun onKakaoLogin(request : LoginRequest){
-        viewModelScope.launch {
+    suspend fun onKakaoLogin(request : LoginRequest){
+        viewModelScope.async {
             authRepository.login(request)
                 .onSuccess {
                     //todo : 토큰 처리
+                    // access token , refresh token 저장하기
                     Timber.d("success to login :${it}")
+                    userTokenRepository.saveAccessToken(it.accessToken)
+                    userTokenRepository.saveRefreshToken(it.refreshToken)
 
                 }
                 .onFailure {
                     Timber.d("failed to login :${it.message}")
                 }
-        }
+        }.await()
     }
     fun handleSignIn(result : GetCredentialResponse) {
         when(val credential = result.credential) {

@@ -56,6 +56,9 @@ android {
 
 dependencies {
 
+    // preferences datastore
+    implementation ("androidx.datastore:datastore-preferences:1.0.0")
+
     // kakao login
     implementation( "com.kakao.sdk:v2-user:2.20.6" )// 카카오 로그인 API 모듈
 

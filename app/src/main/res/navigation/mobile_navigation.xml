@@ -9,7 +9,17 @@
         android:id="@+id/navigation_home"
         android:name="com.example.com_us.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_blockFragment"
+            app:destination="@id/blockFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_questions"
+            app:destination="@id/navigation_questions" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_questions"
@@ -22,4 +32,20 @@
         android:name="com.example.com_us.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        tools:layout="@layout/fragment_block_basic"
+        android:id="@+id/blockFragment"
+        android:name="com.example.com_us.ui.block.basic.BlockFragment"
+        android:label="BlockFragment" >
+        <action
+            android:id="@+id/action_blockFragment_to_blockModifyFragment"
+            app:destination="@id/blockModifyFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_block_modify"
+        android:id="@+id/blockModifyFragment"
+        android:name="com.example.com_us.ui.block.modify.BlockModifyFragment"
+        android:label="BlockModifyFragment" />
+
+
 </navigation>

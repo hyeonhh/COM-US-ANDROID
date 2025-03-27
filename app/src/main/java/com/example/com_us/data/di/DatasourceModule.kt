@@ -4,8 +4,10 @@ import com.example.com_us.data.default_source.DefaultAuthDataSource
 import com.example.com_us.data.default_source.DefaultHomeDataSource
 import com.example.com_us.data.default_source.DefaultProfileDataSource
 import com.example.com_us.data.default_source.DefaultQuestionDataSource
+import com.example.com_us.data.default_source.LikeDataSourceImpl
 import com.example.com_us.data.source.AuthDataSource
 import com.example.com_us.data.source.HomeDataSource
+import com.example.com_us.data.source.LikeDataSource
 import com.example.com_us.data.source.ProfileDataSource
 import com.example.com_us.data.source.QuestionDataSource
 import dagger.Binds
@@ -29,5 +31,6 @@ interface DatasourceModule {
     @Binds
     fun provideAuthDataSource(defaultDataSource : DefaultAuthDataSource) : AuthDataSource
 
-
+    @Binds
+    fun provideLikeDataSource(defaultDataSource : LikeDataSourceImpl) : LikeDataSource
 }

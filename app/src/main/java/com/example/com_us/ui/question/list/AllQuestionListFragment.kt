@@ -89,6 +89,7 @@ class AllQuestionListFragment : BaseFragment<FragmentQuestionBinding,AllQuestion
                                         LazyColumn(modifier = Modifier.fillMaxSize()) {
                                             items(it.data.size) { idx ->
                                                 QuestionListItem(
+                                                    viewModel ,
                                                     data = it.data[idx],
                                                     onClick = {
                                                         moveToSelectAnswer(it.data[idx].id, it.data[idx].category)

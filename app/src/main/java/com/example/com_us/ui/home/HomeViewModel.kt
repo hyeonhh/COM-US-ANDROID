@@ -19,9 +19,6 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
     private val _homeUiState= MutableStateFlow<UiState<ResponseHomeDataDto>>(UiState.Loading)
     val homeUiState = _homeUiState.asStateFlow()
 
-    init {
-        loadHomeData()
-    }
 
     fun loadHomeData(){
         viewModelScope.launch(Dispatchers.IO) {

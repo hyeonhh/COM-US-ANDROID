@@ -1,4 +1,4 @@
-package com.example.com_us.data.default_repository
+package com.example.com_us.data.repository.impl
 
 import com.example.com_us.base.data.NetworkError
 import com.example.com_us.data.model.question.response.question.ResponseProfileDto
@@ -7,7 +7,7 @@ import com.example.com_us.data.default_source.DefaultProfileDataSource
 import com.example.com_us.base.data.toResult
 import javax.inject.Inject
 
-class DefaultProfileRepository @Inject constructor(
+class ProfileRepositoryImpl @Inject constructor(
     private val profileRemoteDataSource: DefaultProfileDataSource
 )  : ProfileRepository {
    override suspend fun getProfileData(): Result<ResponseProfileDto> {

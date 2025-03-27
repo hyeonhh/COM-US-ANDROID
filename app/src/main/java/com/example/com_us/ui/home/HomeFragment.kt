@@ -34,40 +34,37 @@ class HomeFragment :
 
     private val homeViewModel: HomeViewModel by viewModels()
 
-//    private val scrollChangedListener =
-//        ViewTreeObserver.OnScrollChangedListener {
-//            binding.let {
-//                it.swiperefreshHome.isEnabled = (it.scrollviewHome.scrollY == 0)
-//            }
-//        }
 
     override fun onBindLayout() {
         super.onBindLayout()
+        lifecycleScope.launch {
+            viewModel.loadHomeData()
+        }
         blockList =
             listOf(
                 listOf(
-                    binding.viewConversation.viewHomeBlock00,
-                    binding.viewConversation.viewHomeBlock01,
-                    binding.viewConversation.viewHomeBlock02,
-                    binding.viewConversation.viewHomeBlock03,
+                    binding.viewConversation.block16,
+                    binding.viewConversation.block15,
+                    binding.viewConversation.block14,
+                    binding.viewConversation.block13,
                 ),
                 listOf(
-                    binding.viewConversation.viewHomeBlock10,
-                    binding.viewConversation.viewHomeBlock11,
-                    binding.viewConversation.viewHomeBlock12,
-                    binding.viewConversation.viewHomeBlock13,
+                    binding.viewConversation.block12,
+                    binding.viewConversation.block11,
+                    binding.viewConversation.block10,
+                    binding.viewConversation.block9,
                 ),
                 listOf(
-                    binding.viewConversation.viewHomeBlock20,
-                    binding.viewConversation.viewHomeBlock21,
-                    binding.viewConversation.viewHomeBlock22,
-                    binding.viewConversation.viewHomeBlock23,
+                    binding.viewConversation.block8,
+                    binding.viewConversation.block7 ,
+                    binding.viewConversation.block6,
+                    binding.viewConversation.block5,
                 ),
                 listOf(
-                    binding.viewConversation.viewHomeBlock30,
-                    binding.viewConversation.viewHomeBlock31,
-                    binding.viewConversation.viewHomeBlock32,
-                    binding.viewConversation.viewHomeBlock33,
+                    binding.viewConversation.block4,
+                    binding.viewConversation.block3,
+                    binding.viewConversation.block2,
+                    binding.viewConversation.block1,
                 ),
             )
 

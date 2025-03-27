@@ -55,6 +55,10 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.navigation_profile)
                     true
                 }
+                R.id.navigation_block -> {
+                    navController.navigate(R.id.blockFragment)
+                    true
+                }
                 else -> false
             }
         }

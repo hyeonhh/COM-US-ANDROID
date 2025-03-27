@@ -65,28 +65,28 @@
             android:layout_weight="1">
 
             <View
-                android:id="@+id/view_home_block30"
+                android:id="@+id/block1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="0.5dp"
                 android:background="@drawable/shape_stroke_rect_topleft10_gray200" />
 
             <View
-                android:id="@+id/view_home_block31"
+                android:id="@+id/block2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="0.5dp"
                 android:background="@drawable/shape_stroke_rect_gray200" />
 
             <View
-                android:id="@+id/view_home_block32"
+                android:id="@+id/block3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="0.5dp"
                 android:background="@drawable/shape_stroke_rect_gray200" />
 
             <View
-                android:id="@+id/view_home_block33"
+                android:id="@+id/block4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="0.5dp"
@@ -99,62 +99,28 @@
             android:layout_weight="1">
 
             <View
-                android:id="@+id/view_home_block20"
+                android:id="@+id/block5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="0.5dp"
                 android:background="@drawable/shape_stroke_rect_gray200" />
 
             <View
-                android:id="@+id/view_home_block21"
+                android:id="@+id/block6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="0.5dp"
                 android:background="@drawable/shape_stroke_rect_gray200" />
 
             <View
-                android:id="@+id/view_home_block22"
+                android:id="@+id/block7"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="0.5dp"
                 android:background="@drawable/shape_stroke_rect_gray200" />
 
             <View
-                android:id="@+id/view_home_block23"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="0.5dp"
-                android:background="@drawable/shape_stroke_rect_gray200" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <View
-                android:id="@+id/view_home_block10"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="0.5dp"
-                android:background="@drawable/shape_stroke_rect_gray200" />
-
-            <View
-                android:id="@+id/view_home_block11"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="0.5dp"
-                android:background="@drawable/shape_stroke_rect_gray200" />
-
-            <View
-                android:id="@+id/view_home_block12"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="0.5dp"
-                android:background="@drawable/shape_stroke_rect_gray200" />
-
-            <View
-                android:id="@+id/view_home_block13"
+                android:id="@+id/block8"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="0.5dp"
@@ -167,7 +133,41 @@
             android:layout_weight="1">
 
             <View
-                android:id="@+id/view_home_block00"
+                android:id="@+id/block9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0.5dp"
+                android:background="@drawable/shape_stroke_rect_gray200" />
+
+            <View
+                android:id="@+id/block10"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0.5dp"
+                android:background="@drawable/shape_stroke_rect_gray200" />
+
+            <View
+                android:id="@+id/block11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0.5dp"
+                android:background="@drawable/shape_stroke_rect_gray200" />
+
+            <View
+                android:id="@+id/block12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="0.5dp"
+                android:background="@drawable/shape_stroke_rect_gray200" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <View
+                android:id="@+id/block13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="0.5dp"
@@ -175,21 +175,21 @@
                 android:padding="3dp" />
 
             <View
-                android:id="@+id/view_home_block01"
+                android:id="@+id/block14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="0.5dp"
                 android:background="@drawable/shape_stroke_rect_gray200" />
 
             <View
-                android:id="@+id/view_home_block02"
+                android:id="@+id/block15"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="0.5dp"
                 android:background="@drawable/shape_stroke_rect_gray200" />
 
             <View
-                android:id="@+id/view_home_block03"
+                android:id="@+id/block16"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="0.5dp"

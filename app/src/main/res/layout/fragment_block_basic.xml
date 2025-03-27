@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:paddingHorizontal="25dp"
+    android:layout_height="match_parent">
+
+    <include
+    android:id="@+id/include_block_info"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    layout="@layout/layout_block_info"/>
+
+    <include
+        android:id="@+id/include_block"
+        app:layout_constraintTop_toBottomOf="@id/include_block_info"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/item_block"/>
+
+    <ImageView
+        android:id="@+id/imageview_home_noblock"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/home_cntdesc_tempimage"
+        android:src="@drawable/img_no_block"
+        app:layout_constraintEnd_toEndOf="@+id/include_block"
+        app:layout_constraintStart_toStartOf="@+id/include_block"
+        app:layout_constraintTop_toTopOf="@+id/include_block"
+        app:layout_constraintBottom_toBottomOf="@id/include_block" />
+
+
+    <TextView
+        android:id="@+id/textview_home_noblock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/home_title_no_block"
+        android:textColor="@color/gray_500"
+        android:textFontWeight="700"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/include_block"
+        app:layout_constraintEnd_toEndOf="@+id/include_block"
+        app:layout_constraintStart_toStartOf="@+id/include_block"
+        app:layout_constraintTop_toBottomOf="@+id/imageview_home_noblock" />
+
+
+    <Button
+        android:id="@+id/btn_go_to_modify"
+        style="@style/BlockButtonStyle"
+        app:layout_constraintTop_toBottomOf="@id/include_block"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="블럭 판 채우기"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="20dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

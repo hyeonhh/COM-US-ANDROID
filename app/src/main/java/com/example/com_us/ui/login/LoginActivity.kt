@@ -91,7 +91,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(
                                     imageUrl = user.kakaoAccount?.profile?.thumbnailImageUrl ?: "",
                                     socialId = user.id.toString(),
                                 )
-                                viewModel.onKakaoLogin(request)
+                                lifecycleScope.launch {
+                                    viewModel.onKakaoLogin(request)
+                                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                                    startActivity(intent)
+                                }
                             }
                             Timber.i("success to login with kakaotalk :${token.accessToken}")
 
@@ -122,11 +126,15 @@ class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(
                                         imageUrl = user.kakaoAccount?.profile?.thumbnailImageUrl ?: "",
                                         socialId = user.id.toString(),
                                     )
-                                    viewModel.onKakaoLogin(request)
+                                    lifecycleScope.launch {
+                                        viewModel.onKakaoLogin(request)
+                                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                                        startActivity(intent)
+                                    }
                                 }
                             }
-                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                            startActivity(intent)
+
+
                         }
                         else {
                             Timber.i("error to login :${token}")
