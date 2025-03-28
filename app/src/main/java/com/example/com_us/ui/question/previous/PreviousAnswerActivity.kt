@@ -94,7 +94,7 @@ class PreviousAnswerActivity : BaseActivity<ActivityQuestionPreviousAnswerBindin
                 Row {
                     val colorType = ColorMatch.fromKor(category)
                     if (colorType != null && ColorMatch.fromKor(answerType) != null) {
-                        AnswerTypeTag(colorType.colorType, answerType, category)
+                        AnswerTypeTag(colorType.colorType, answerType)
                    }
                 }
             }

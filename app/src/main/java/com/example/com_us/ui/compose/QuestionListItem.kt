@@ -50,12 +50,32 @@ fun QuestionListItem(
     viewmodel : AllQuestionListViewModel? = null,
     viewModel2 : ThemeQuestionListViewModel?= null,
     data: ResponseQuestionDto, onClick: () -> Unit) {
-    var isLiked  = remember {
+    val isLiked  = remember {
         mutableStateOf(data.isLiked)
     }
-    val answerType = if (data.answerType == "MULTIPLE_CHOICE") "대화형" else "선택형"
-    val color = ColorMatch.fromKor(answerType)?.colorType ?: ColorType.GRAY
+    var color1 : ColorType?=null
+    var color2 : ColorType? = null
 
+    Timber.d("data.answerType:${data.answerType}")
+    val answerType =
+        when (data.answerType) {
+            "MULTIPLE_CHOICE" -> {
+                listOf("선택형")
+            }
+            "BOTH" -> {
+                listOf("선택형", "대화형")
+            }
+            "SENTENCE" -> listOf("대화형")
+            else -> emptyList()
+        }
+
+    if (answerType.size==1) {
+        color1 = ColorMatch.fromKor(answerType[0])?.colorType ?: ColorType.GRAY
+    }
+    if (answerType.size==2){
+        color1 = ColorMatch.fromKor(answerType[0])?.colorType ?: ColorType.GRAY
+        color2 = ColorMatch.fromKor(answerType[1])?.colorType ?: ColorType.GRAY
+    }
 
     Surface(
         color = Color.White,
@@ -67,7 +87,7 @@ fun QuestionListItem(
                 drawLine(
                     color = Gray400,
                     start = Offset(8.dp.toPx(), size.height), // 시작점
-                    end = Offset(size.width-8.dp.toPx(), size.height), // 끝점
+                    end = Offset(size.width - 8.dp.toPx(), size.height), // 끝점
                     strokeWidth = 1.dp.toPx() // 두께
 
                 )
@@ -75,6 +95,7 @@ fun QuestionListItem(
         onClick = onClick,
         shape = RoundedCornerShape(10.dp)
     ) {
+
         Row(
             modifier = Modifier
                 .padding(start = 20.dp, top = 16.dp, end = 10.dp, bottom = 16.dp),
@@ -105,11 +126,19 @@ fun QuestionListItem(
                         style = Typography.labelMedium,
                         color = Color.Gray
                     )
-                    AnswerTypeTag(
-                        colorType = color,
-                        text = data.answerType,
-                        category = data.category
-                    )
+                    if (color1!=null) {
+                        AnswerTypeTag(
+                            colorType = color1,
+                            text = answerType[0],
+                        )
+                    }
+
+                    if (color2!= null){
+                        AnswerTypeTag(
+                            colorType = color2,
+                            text = answerType[1],
+                        )
+                    }
 
                 }
                 Text(

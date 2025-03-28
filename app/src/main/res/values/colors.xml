@@ -17,12 +17,15 @@
     <color name="block_modify_text">#AEAEAE</color>
 
     <color name="gray_700">#FF777777</color>
+    <color name="gray_600">#8F8F8F</color>
     <color name="gray_500">#FF878787</color>
+    <color name="gray_400">#BBBBBB</color>
     <color name="gray_300">#F6F6F6</color>
     <color name="gray_200">#FFD8D8D8</color>
     <color name="gray_100">#FFF5F5F5</color>
     <color name="gray_80">#FFD2D2D2</color>
     <color name="gray_50">#FFF4F4F4</color>
+
 
     <color name="graph_blue_light">#EDFFFF</color>
     <color name="graph_blue_border">#5ACEFF</color>

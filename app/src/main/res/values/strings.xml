@@ -102,5 +102,7 @@
 
     <string name="toolbar_back">뒤로 가기</string>
     <string name="random_question_title">랜덤 질문</string>
+    <string name="go_to_select_text"><u>선택해서 대답하기</u></string>
+    <string name="go_to_chat"><u>채팅으로 대답하기</u></string>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.example.com_us.data.repository
 
+import com.example.com_us.data.model.question.request.DetailQuestionRequest
 import com.example.com_us.data.model.question.request.RequestAnswerRequest
 import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailDto
 import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailWithDateDto
@@ -12,7 +13,7 @@ interface QuestionRepository {
     suspend fun getQuestionListByCate(category: String): Result<List<ResponseQuestionDto>>
 
     // 질문 상세 보기
-    suspend fun getQuestionDetail(questionId: Long): Result<ResponseQuestionDetailDto>
+    suspend fun getQuestionDetail(body: DetailQuestionRequest): Result<ResponseQuestionDetailDto>
 
     // 답변 상세 보기
     suspend fun getAnswerDetail(answer: String): Result<List<ResponseAnswerDetailDto>>

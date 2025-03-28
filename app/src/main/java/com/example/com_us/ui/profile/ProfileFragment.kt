@@ -38,6 +38,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>(
 
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindLayout() {
         super.onBindLayout()
         setProfile()

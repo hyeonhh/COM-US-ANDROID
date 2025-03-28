@@ -3,13 +3,20 @@ package com.example.com_us.ui.compose
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.com_us.ui.compose.theme.Blue200
 import com.example.com_us.ui.compose.theme.Blue500
 import com.example.com_us.ui.compose.theme.Blue700
@@ -34,7 +41,7 @@ import com.example.com_us.util.ColorMatch
 import com.example.com_us.util.ColorType
 
 @Composable
-fun AnswerTypeTag(colorType: ColorType, text: String, category : String) {
+fun AnswerTypeTag(colorType: ColorType, text: String) {
     val colorPalette = getColor(colorType)
 
     Box(
@@ -43,7 +50,8 @@ fun AnswerTypeTag(colorType: ColorType, text: String, category : String) {
             .border(width = 1.dp, color = colorPalette.border, shape = RoundedCornerShape(4.dp))
             .background(color = colorPalette.background)
     ) {
-        Text(text = if (text =="MULTIPLE_CHOICE") "선택형" else "대화형",
+        Text(
+            text = text,
             softWrap = false,
             style = Typography.labelSmall,
             modifier = Modifier.padding(8.dp,5.dp),
@@ -51,6 +59,36 @@ fun AnswerTypeTag(colorType: ColorType, text: String, category : String) {
 
     }
 }
+
+@Composable
+fun QuestionTypeTag(colorType: ColorType,category : String) {
+    val colorPalette = getColor(colorType)
+
+    Box(
+        Modifier
+            .padding(3.dp, 0.dp)
+            .border(width = 1.dp, color = colorPalette.border, shape = RoundedCornerShape(4.dp))
+            .background(color = colorPalette.background)
+    ) {
+        Text(text = when(category){
+            "SCHOOL" -> "학교"
+            "DAILY" ->"일상"
+            "INTEREST" -> "관심사"
+            "FAMILY" -> "가족"
+            "FRIEND" -> "친구"
+            else -> ""
+        },
+            softWrap = false,
+            style = Typography.labelSmall,
+            modifier = Modifier.padding(10.dp,5.dp),
+            color = colorPalette.text)
+
+    }
+}
+
+
+
+
 
 fun getColor(colorType: ColorType): ColorPalette {
     val colorPalettes = mapOf(

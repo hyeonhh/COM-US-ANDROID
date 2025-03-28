@@ -18,7 +18,8 @@ import com.example.com_us.base.fragment.BaseFragment
 import com.example.com_us.databinding.FragmentQuestionBinding
 import com.example.com_us.ui.base.UiState
 import com.example.com_us.ui.compose.QuestionListItem
-import com.example.com_us.ui.question.select.SelectAnswerActivity
+import com.example.com_us.ui.question.select.conversation.ConversationQuestionActivity
+import com.example.com_us.ui.question.select.selection.SelectAnswerActivity
 import com.example.com_us.util.ThemeType
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -92,7 +93,29 @@ class AllQuestionListFragment : BaseFragment<FragmentQuestionBinding,AllQuestion
                                                     viewModel ,
                                                     data = it.data[idx],
                                                     onClick = {
-                                                        moveToSelectAnswer(it.data[idx].id, it.data[idx].category)
+                                                        if (it.data[idx].answerType =="MULTIPLE_CHOICE") {
+                                                            moveToSelectAnswer(
+                                                               answerType =  it.data[idx].answerType,
+                                                                      questionId =   it.data[idx].id,
+                                                                type = it.data[idx].category
+                                                            )
+                                                        }
+                                                        if(it.data[idx].answerType =="SENTENCE") {
+                                                            moveToConversationAnswer(
+                                                                answerType =  it.data[idx].answerType,
+                                                                questionId =   it.data[idx].id,
+                                                                type = it.data[idx].category
+                                                            )
+                                                        }
+                                                        if(it.data[idx].answerType =="BOTH"){
+                                                            // Both
+                                                            moveToSelectAnswer(
+                                                                answerType =  it.data[idx].answerType,
+                                                                questionId =   it.data[idx].id,
+                                                                type = it.data[idx].category
+                                                            )
+
+                                                    }
                                                     })
                                             }
                                         }
@@ -138,8 +161,22 @@ class AllQuestionListFragment : BaseFragment<FragmentQuestionBinding,AllQuestion
         lastSelectedView = selectedView
     }
 
-    private fun moveToSelectAnswer(questionId: Long,type : String) {
+    private fun moveToSelectAnswer(questionId: Long,type : String,        answerType : String,
+    ) {
         val intent = Intent(activity, SelectAnswerActivity::class.java)
+        intent.putExtra("answerType", answerType)
+
+        intent.putExtra("type",type)
+        intent.putExtra("questionId", questionId)
+        startActivity(intent)
+    }
+
+    private fun moveToConversationAnswer(
+        answerType : String,
+        questionId: Long,
+        type : String) {
+        val intent = Intent(activity, ConversationQuestionActivity::class.java)
+        intent.putExtra("answerType", answerType)
         intent.putExtra("type",type)
         intent.putExtra("questionId", questionId)
         startActivity(intent)

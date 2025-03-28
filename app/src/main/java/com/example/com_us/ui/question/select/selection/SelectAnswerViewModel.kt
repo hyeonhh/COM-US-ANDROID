@@ -1,10 +1,11 @@
-package com.example.com_us.ui.question.select
+package com.example.com_us.ui.question.select.selection
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.com_us.base.data.NetworkError
 import com.example.com_us.base.viewmodel.BaseViewModel
+import com.example.com_us.data.model.question.request.DetailQuestionRequest
 import com.example.com_us.data.model.question.response.question.ResponseQuestionDetailDto
 import com.example.com_us.data.repository.QuestionRepository
 import com.example.com_us.ui.base.UiState
@@ -34,9 +35,9 @@ class SelectAnswerViewModel @Inject constructor(
 
 
     // 질문 클릭 시 상세 내용 가져오는 함수
-    fun loadQuestionDetail(questionId: Long){
+    fun loadQuestionDetail(body: DetailQuestionRequest){
         viewModelScope.launch {
-            questionRepository.getQuestionDetail(questionId)
+            questionRepository.getQuestionDetail(body)
                 .onSuccess {
                         _uiState.value = UiState.Success(it)
                 }

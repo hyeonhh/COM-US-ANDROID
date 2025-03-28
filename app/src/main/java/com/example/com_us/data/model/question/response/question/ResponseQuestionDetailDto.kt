@@ -6,14 +6,16 @@ import kotlinx.serialization.Serializable
 data class ResponseQuestionDetailDto(
     @SerialName("question")
     val question: Question,
-    @SerialName("answerList")
-    val answerList: List<String>
+    @SerialName("multipleChoice")
+    val multipleChoice: List<String>
 )
 
 @Serializable
 data class Question(
     @SerialName("id")
     val id: Long,
+    @SerialName("answerDate")
+    val answerDate : String,
     @SerialName("category")
     val category: String,
     @SerialName("answerType")

@@ -1,4 +1,7 @@
 package com.example.com_us.ui.qa
 
-class AnswerFragment {
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
+class AnswerActivity {
 }

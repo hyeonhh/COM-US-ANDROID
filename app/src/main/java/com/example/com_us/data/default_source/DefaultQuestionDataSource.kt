@@ -2,6 +2,7 @@ package com.example.com_us.data.default_source
 
 import com.example.com_us.data.model.question.request.RequestAnswerRequest
 import com.example.com_us.base.data.BaseResponse
+import com.example.com_us.data.model.question.request.DetailQuestionRequest
 import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailDto
 import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailWithDateDto
 import com.example.com_us.data.model.question.response.question.ResponsePreviousAnswerDto
@@ -16,8 +17,8 @@ class DefaultQuestionDataSource @Inject constructor(private val questionService 
     override suspend fun getQuestionListByCate(category: String): BaseResponse<List<ResponseQuestionDto>> {
         return questionService.getQuestionListByCate(category)
     }
-    override suspend fun getQuestionDetail(questionId: Long): BaseResponse<ResponseQuestionDetailDto> {
-        return questionService.getQuestionDetail(questionId)
+    override suspend fun getQuestionDetail(body: DetailQuestionRequest): BaseResponse<ResponseQuestionDetailDto> {
+        return questionService.getQuestionDetail(body)
     }
     override suspend fun getAnswerDetail(answer: String): BaseResponse<List<ResponseAnswerDetailDto>> {
         return questionService.getAnswerDetail(answer)

@@ -45,7 +45,11 @@
         tools:layout="@layout/fragment_block_modify"
         android:id="@+id/blockModifyFragment"
         android:name="com.example.com_us.ui.block.modify.BlockModifyFragment"
-        android:label="BlockModifyFragment" />
+        android:label="BlockModifyFragment" >
+        <action
+            android:id="@+id/action_blockModifyFragment_to_blockFragment"
+            app:destination="@id/blockFragment" />
+    </fragment>
 
 
 </navigation>

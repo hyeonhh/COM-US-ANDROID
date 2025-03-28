@@ -10,6 +10,7 @@ import com.example.com_us.data.model.question.response.question.ResponseQuestion
 import com.example.com_us.data.repository.QuestionRepository
 import com.example.com_us.data.default_source.DefaultQuestionDataSource
 import com.example.com_us.base.data.toResult
+import com.example.com_us.data.model.question.request.DetailQuestionRequest
 import javax.inject.Inject
 
 class QuestionRepositoryImpl @Inject constructor(
@@ -22,9 +23,9 @@ class QuestionRepositoryImpl @Inject constructor(
             Result.failure(NetworkError.HttpException(e.message.toString()))
         }
     }
-   override suspend fun getQuestionDetail(questionId: Long): Result<ResponseQuestionDetailDto> {
+   override suspend fun getQuestionDetail(body: DetailQuestionRequest): Result<ResponseQuestionDetailDto> {
        return try{
-           defaultQuestionDataSource.getQuestionDetail(questionId).toResult()
+           defaultQuestionDataSource.getQuestionDetail(body).toResult()
        } catch (e: Exception) {
            Result.failure(NetworkError.HttpException(e.message.toString()))
        }

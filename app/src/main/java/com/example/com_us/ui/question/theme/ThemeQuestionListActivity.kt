@@ -1,8 +1,6 @@
 package com.example.com_us.ui.question.theme
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -13,7 +11,7 @@ import com.example.com_us.R
 import com.example.com_us.base.activity.BaseActivity
 import com.example.com_us.databinding.ActivityThemeQuestionListBinding
 import com.example.com_us.ui.base.UiState
-import com.example.com_us.ui.question.select.SelectAnswerActivity
+import com.example.com_us.ui.question.select.selection.SelectAnswerActivity
 import com.example.com_us.ui.compose.QuestionListItem
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

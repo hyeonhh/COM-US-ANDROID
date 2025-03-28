@@ -2,6 +2,7 @@ package com.example.com_us.ui.block.modify
 
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.com_us.R
 import com.example.com_us.base.fragment.BaseFragment
 import com.example.com_us.databinding.FragmentBlockModifyBinding
@@ -363,6 +364,7 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
 
     override fun onBindLayout() {
         super.onBindLayout()
+
         blockView = listOf(
             listOf(binding.includeBlock.block1, binding.includeBlock.block2, binding.includeBlock.block3,binding.includeBlock.block4),
             listOf(binding.includeBlock.block5, binding.includeBlock.block6, binding.includeBlock.block7,binding.includeBlock.block8),
@@ -371,6 +373,9 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
         )
 
         with(binding) {
+            btnCancel.setOnClickListener {
+                findNavController().popBackStack()
+            }
 
             includeBlock.block1.setOnClickListener {
                 onSetBlock(currentType!!, selectedDegree, 0, 0)

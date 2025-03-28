@@ -2,59 +2,22 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraint_question_detail"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:padding="25dp"
     android:background="@color/white"
-    android:padding="12dp"
-    android:visibility="visible"
-    tools:context=".ui.question.select.selection.SelectAnswerActivity">
+    android:layout_height="match_parent">
 
     <ImageButton
         android:id="@+id/btn_back"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="20dp"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_arrow_left"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button_detail_answerbefore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:text="@string/question_detail_button_answer_before"
-        android:textColor="@color/gray_500"
-        app:layout_constraintBottom_toBottomOf="@+id/compose_detail_questiontype"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_back" />
-
-    <TextView
-        android:id="@+id/txt_today"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/compose_detail_questiontype" />
-
-    <TextView
-        android:id="@+id/textview_detail_question"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:text="오늘 하루 기분은 어땠어?"
-        android:textColor="@color/text_black"
-        android:textStyle="bold"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_today" />
-
     <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/compose_category"
+        android:id="@+id/question_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
@@ -63,31 +26,76 @@
 
 
     <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/compose_detail_questiontype"
+        android:id="@+id/answer_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        app:layout_constraintStart_toEndOf="@id/compose_category"
-        app:layout_constraintTop_toTopOf="@+id/compose_category" />
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/question_category"
+        app:layout_constraintStart_toEndOf="@+id/question_category"
+        app:layout_constraintTop_toBottomOf="@+id/btn_back"
+        app:layout_constraintTop_toTopOf="@id/question_category" />
 
-    <View
-        android:id="@+id/view2"
+    <Button
+        android:id="@+id/button_detail_answerbefore"
         android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/gray_200"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="@string/question_detail_button_answer_before"
+        android:textColor="@color/gray_500"
+        app:layout_constraintBottom_toBottomOf="@+id/question_category"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_detail_question" />
+        app:layout_constraintTop_toTopOf="@+id/question_category" />
 
-    <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/compose_detail_answeroption"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginTop="44dp"
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="2025년 1월 25일의 대화"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2" />
+        app:layout_constraintTop_toBottomOf="@+id/button_detail_answerbefore" />
+
+
+    <TextView
+        android:id="@+id/textview_detail_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="오늘 하루 기분은 어땠어?"
+        android:textColor="@color/text_black"
+        android:textFontWeight="700"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_date" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/materialDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_detail_question" />
+
+
+    <EditText
+        android:paddingVertical="30dp"
+        android:paddingHorizontal="20dp"
+        android:gravity="top"
+        android:id="@+id/edit_text"
+        android:hint="이곳에 입력해주세요"
+        android:textColorHint="@color/gray_400"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/edit_text_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialDivider" />
 
     <Button
         android:id="@+id/button_detail_complete"
@@ -99,17 +107,16 @@
         android:text="@string/question_detail_button_complete"
         android:textColor="@color/gray_500"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@id/go_to_chat"
+        app:layout_constraintBottom_toTopOf="@+id/go_to_select"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-
     <Button
         android:visibility="invisible"
-        android:id="@+id/go_to_chat"
+        android:id="@+id/go_to_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/go_to_chat"
+        android:text="@string/go_to_select_text"
         android:textColor="@color/gray_600"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
