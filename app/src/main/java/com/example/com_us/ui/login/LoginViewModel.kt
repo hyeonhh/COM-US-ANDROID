@@ -3,16 +3,21 @@ package com.example.com_us.ui.login
 import android.util.Log
 import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialResponse
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.com_us.base.viewmodel.BaseViewModel
 import com.example.com_us.data.model.auth.LoginRequest
+import com.example.com_us.data.model.auth.LoginResponse
 import com.example.com_us.data.repository.AuthRepository
 import com.example.com_us.data.repository.UserTokenRepository
 import com.example.com_us.data.repository.impl.UserTokenRepositoryImpl
+import com.example.com_us.ui.event.SingleLiveEvent
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -24,8 +29,37 @@ class LoginViewModel @Inject constructor(
     private val userTokenRepository: UserTokenRepository
 ) : BaseViewModel() {
 
-    suspend fun onKakaoLogin(request : LoginRequest){
+    private var accessToken : String =""
+    private var refreshToken : String = ""
+
+    init {
+        viewModelScope.launch {
+            getToken().await()
+            if (accessToken!="" && refreshToken!="") {
+                startHomeActivity()
+            }
+
+        }
+    }
+
+    // 홈화면 필요 여부
+    private val _homeEvent  = SingleLiveEvent<Any>()
+    val homeEvent : LiveData<Any>
+        get() = _homeEvent
+
+    private fun startHomeActivity(){
+        _homeEvent.call()
+    }
+
+    private  fun getToken()=
         viewModelScope.async {
+            // 만약 빈 경우 로그인 실행
+            accessToken =  userTokenRepository.getAccessToken().first()
+            refreshToken = userTokenRepository.getRefreshToken().first()
+        }
+
+     fun onKakaoLogin(request : LoginRequest){
+        viewModelScope.launch {
             authRepository.login(request)
                 .onSuccess {
                     //todo : 토큰 처리
@@ -33,37 +67,11 @@ class LoginViewModel @Inject constructor(
                     Timber.d("success to login :${it}")
                     userTokenRepository.saveAccessToken(it.accessToken)
                     userTokenRepository.saveRefreshToken(it.refreshToken)
-
+                    startHomeActivity()
                 }
                 .onFailure {
-                    Timber.d("failed to login :${it.message}")
+                    Timber.d("failed to login :${it}")
                 }
-        }.await()
-    }
-    fun handleSignIn(result : GetCredentialResponse) {
-        when(val credential = result.credential) {
-            is CustomCredential -> {
-                if (credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
-                    try {
-                        val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
-                        //todo : 확인용 출력문
-                        println(googleIdTokenCredential.id)
-
-                        // 로그인
-                        // googleLogin(googleIdTokenCredential.id)
-
-                    } catch (e: GoogleIdTokenParsingException) {
-                        Log.e(TAG, "Received an invalid google id token response", e)
-                    }
-                } else {
-                    Log.e(TAG, "Unexpected type of credential")
-                }
-            }
-            else ->  {
-                Log.e(TAG, "Unexpected type of credential")
-            }
         }
     }
-
-
 }

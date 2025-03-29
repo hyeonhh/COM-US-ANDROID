@@ -47,6 +47,14 @@ class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(
     override fun onBindLayout() {
         super.onBindLayout()
         binding.btnKakaoLogin.setOnClickListener { onKakaoLogin() }
+
+      lifecycleScope.launch {
+          viewModel.homeEvent.observe(this@LoginActivity, {
+              val intent = Intent(this@LoginActivity, MainActivity::class.java)
+              startActivity(intent)
+          })
+      }
+
     }
 
     val callback : (OAuthToken?, Throwable?) -> Unit = {token,error ->
@@ -91,11 +99,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(
                                     imageUrl = user.kakaoAccount?.profile?.thumbnailImageUrl ?: "",
                                     socialId = user.id.toString(),
                                 )
-                                lifecycleScope.launch {
                                     viewModel.onKakaoLogin(request)
-                                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                                    startActivity(intent)
-                                }
                             }
                             Timber.i("success to login with kakaotalk :${token.accessToken}")
 
@@ -126,14 +130,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(
                                         imageUrl = user.kakaoAccount?.profile?.thumbnailImageUrl ?: "",
                                         socialId = user.id.toString(),
                                     )
-                                    lifecycleScope.launch {
                                         viewModel.onKakaoLogin(request)
-                                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                                        startActivity(intent)
-                                    }
                                 }
                             }
-
 
                         }
                         else {
@@ -145,6 +144,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(
                         callback = callback
                     )
                 }catch (e:Exception){
+                    Timber.e("로그인 에러 :${e.message}")
                     e.printStackTrace()
                 }
             }

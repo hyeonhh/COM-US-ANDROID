@@ -7,8 +7,10 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.example.com_us.base.data.BaseResponse
 import com.example.com_us.data.model.auth.LoginResponse
 import com.example.com_us.data.repository.UserTokenRepository
+import com.example.com_us.data.source.TokenDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -19,6 +21,7 @@ import javax.inject.Inject
 
 class UserTokenRepositoryImpl @Inject constructor(
     private val dataStore: DataStore<Preferences>,
+    private val tokenDatasource : TokenDataSource,
     @ApplicationContext val context: Context,
     ) : UserTokenRepository{
 
@@ -28,7 +31,11 @@ class UserTokenRepositoryImpl @Inject constructor(
 
     }
 
-     override suspend fun saveRefreshToken(refreshToken : String) {
+    override suspend fun reissueToken(body: LoginResponse) : BaseResponse<LoginResponse> {
+        return tokenDatasource.reissueToken(body)
+    }
+
+    override suspend fun saveRefreshToken(refreshToken : String) {
         dataStore.edit { preferences->
             preferences[PreferencesKeys.REFRESH_KEY] = refreshToken
 
