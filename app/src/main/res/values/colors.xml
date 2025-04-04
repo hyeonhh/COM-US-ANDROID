@@ -24,7 +24,11 @@
     <color name="gray_200">#FFD8D8D8</color>
     <color name="gray_100">#FFF5F5F5</color>
     <color name="gray_80">#FFD2D2D2</color>
+    <color name="gray_60">#F9F9FB</color>
     <color name="gray_50">#FFF4F4F4</color>
+    <color name="gray_30">#EDEDED</color>
+
+    <color name="gray_20">#F9F9FB</color>
 
 
     <color name="graph_blue_light">#EDFFFF</color>
@@ -33,21 +37,31 @@
     <color name="graph_pink_border">#EF9B9B</color>
 
     <color name="blue_700">#00A3E8</color>
+    <color name="blue_700_50">#8000A3E8</color>
+
     <color name="blue_500">#9DCCE1</color>
     <color name="blue_200">#DFF6FF</color>
+
     <color name="purple_700">#9295FF</color>
+    <color name="purple_700_50">#809295FF</color>
+
     <color name="purple_500">#DDC2FF</color>
     <color name="purple_200">#EFEFFF</color>
     <color name="orange_700">#FF9D0A</color>
+    <color name="orange_700_50">#80FF9D0A</color>
     <color name="orange_500">#FFCD82</color>
     <color name="orange_200">#FFF4E3</color>
     <color name="pink_700">#ED72C6</color>
     <color name="pink_500">#EAADD5</color>
     <color name="pink_200">#FFF3FB</color>
     <color name="salmon_700">#FF7474</color>
+    <color name="salmon_700_50">#80FF7474</color>
+
     <color name="salmon_500">#FFEBEB</color>
     <color name="salmon_200">#FFEBEB</color>
     <color name="green_700">#00BE08</color>
+    <color name="green_700_50">#8000BE08</color>
+
     <color name="green_500">#9DD39F</color>
     <color name="green_200">#E8FFE9</color>
 

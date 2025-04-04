@@ -99,7 +99,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(
                                     imageUrl = user.kakaoAccount?.profile?.thumbnailImageUrl ?: "",
                                     socialId = user.id.toString(),
                                 )
-                                    viewModel.onKakaoLogin(request)
+                                viewModel.onKakaoLogin(request)
                             }
                             Timber.i("success to login with kakaotalk :${token.accessToken}")
 
@@ -130,7 +130,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(
                                         imageUrl = user.kakaoAccount?.profile?.thumbnailImageUrl ?: "",
                                         socialId = user.id.toString(),
                                     )
-                                        viewModel.onKakaoLogin(request)
+                                    viewModel.onKakaoLogin(request)
                                 }
                             }
 

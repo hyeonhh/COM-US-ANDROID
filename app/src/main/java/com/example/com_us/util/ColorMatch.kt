@@ -18,8 +18,9 @@ enum class ColorMatch(
     FAMILY("FAMILY", ColorType.PURPLE, Purple700, R.color.purple_700),
     HOBBY("HOBBY", ColorType.SALMON, Salmon700, R.color.salmon_700),
     RANDOM("RANDOM", ColorType.PINK, Pink700, R.color.pink_700),
-    INTERACTIVE("대화형", ColorType.SALMON, Salmon700, R.color.salmon_700),
-    OPTIONAL("선택형", ColorType.BLUE, Blue700, R.color.blue_700);
+    SENTENCE("대화형", ColorType.SALMON, Salmon700, R.color.salmon_700),
+    MULTIPLE_CHOICE("선택형", ColorType.BLUE, Blue700, R.color.blue_700);
+
 
     companion object {
         // kor 값으로 ThemeType을 찾는 메서드

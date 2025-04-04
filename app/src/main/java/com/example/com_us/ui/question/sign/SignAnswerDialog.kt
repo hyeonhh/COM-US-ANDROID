@@ -15,7 +15,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailDto
 import com.example.com_us.databinding.DialogQuestionFollowAlongBinding
-import com.example.com_us.ui.question.block.CollectBlockActivity
 import com.example.com_us.ui.question.result.ResultAfterSignActivity
 import com.example.com_us.util.QuestionManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -58,9 +57,9 @@ class SignAnswerDialog(
         }
         binding.buttonNextStep.setOnClickListener {
             if (viewModel.signIndex.value == signData.lastIndex) {
-                val intent = Intent(context,CollectBlockActivity::class.java)
-                intent.putExtra("category",category)
-                startActivity(intent)
+//                val intent = Intent(context,CollectBlockActivity::class.java)
+//                intent.putExtra("category",category)
+//                startActivity(intent)
             }
             else {
                 index +=1
@@ -115,7 +114,7 @@ class SignAnswerDialog(
         if (viewModel.signIndex.value == signData.lastIndex) {
             binding.buttonNextStep.text = "완료하기"
             binding.btnCompleteWithoutBlock.visibility = View.GONE
-            viewModel.postAnswer(QuestionManager.questionId, answer)
+            viewModel.postAnswer(QuestionManager.questionId, answer, "SENTENCE")
         }
         binding.textviewFollowdialogAnswer.text = signData[signIdx].signLanguageName
         binding.videoviewFollowdialogSign.setVideoURI(Uri.parse(signData[signIdx].signLanguageVideoUrl))

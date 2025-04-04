@@ -5,7 +5,7 @@ import com.example.com_us.data.model.home.ResponseHomeDataDto
 import retrofit2.http.GET
 
 interface HomeService {
-    @GET("/api/user")
+    @GET("/api/user/main")
     suspend fun getHomeData(
     ): BaseResponse<ResponseHomeDataDto>
 }

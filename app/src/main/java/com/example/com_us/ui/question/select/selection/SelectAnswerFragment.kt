@@ -2,25 +2,31 @@ package com.example.com_us.ui.question.select.selection
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Row
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.com_us.R
-import com.example.com_us.base.activity.BaseActivity
+import com.example.com_us.base.fragment.BaseFragment
 import com.example.com_us.data.model.question.request.DetailQuestionRequest
+import com.example.com_us.data.model.question.request.RequestAnswerRequest
 import com.example.com_us.databinding.ActivityQuestionDetailBinding
 import com.example.com_us.ui.base.UiState
 import com.example.com_us.ui.compose.AnswerOptionList
 import com.example.com_us.ui.compose.AnswerTypeTag
 import com.example.com_us.ui.compose.QuestionTypeTag
-import com.example.com_us.ui.question.previous.PreviousAnswerActivity
+import com.example.com_us.ui.qa.AnswerFragment
 import com.example.com_us.ui.question.result.ResultBeforeSignActivity
-import com.example.com_us.ui.question.select.conversation.ConversationQuestionActivity
+import com.example.com_us.ui.question.select.conversation.ConversationQuestionFragmentDirections
 import com.example.com_us.util.ColorMatch
 import com.example.com_us.util.QuestionManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,7 +50,7 @@ enum class TYPE(private val backgroundResourceId: Int) {
 }
 // 질문에 대한 답변을 선택하는 화면
 @AndroidEntryPoint
-class SelectAnswerActivity : BaseActivity<ActivityQuestionDetailBinding, SelectAnswerViewModel>(
+class SelectAnswerFragment : BaseFragment<ActivityQuestionDetailBinding, SelectAnswerViewModel>(
     ActivityQuestionDetailBinding::inflate
 ) {
 
@@ -52,31 +58,74 @@ class SelectAnswerActivity : BaseActivity<ActivityQuestionDetailBinding, SelectA
     private lateinit var question: String
     private lateinit var category: String
 
+    private var selectedAnswer = ""
+
     private var type : String? = null
     private var answerType : String? = null
-    private var questionId: Long = -1
+    private var questionId: Int = -1
     private var answerOptionId: Int = -1
     override val viewModel: SelectAnswerViewModel by viewModels()
+    private val navController by lazy { findNavController() }
+    private val args by navArgs<SelectAnswerFragmentArgs>()
 
-    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
-        questionId = intent.getLongExtra("questionId", 0L)
-        type = intent.getStringExtra("type")
-        answerType = intent.getStringExtra("answerType")
-        return super.onCreateView(name, context, attrs)
+    private var answerDate : String = ""
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        questionId = args.questionId
+        type = args.type
+        answerType = args.answerType
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onBindLayout() {
         super.onBindLayout()
-        if (answerType=="BOTH") {
-                binding.goToChat.visibility = View.VISIBLE
+
+        if(args.answerType=="BOTH") {
+            binding.goToChat.visibility = View.VISIBLE
+        }
+        binding.btnBack.setOnClickListener {
+            navController.popBackStack()
         }
 
+        // 답변 클릭 시
+        viewModel.selectedAnswer.observe(this) {
+            selectedAnswer = it
+
+            if (it != "") {
+                binding.buttonDetailComplete.text= "답변완료"
+                setCompleteButton()
+            }
+        }
+
+
+        // 답변 완료
+        binding.buttonDetailComplete.setOnClickListener {
+                viewModel.postAnswer(RequestAnswerRequest(
+                    questionId = args.questionId,
+                    answerType = "MULTIPLE_CHOICE",
+                    answerContent = selectedAnswer
+                ))
+
+            if (type!= null ) {
+                val action =
+                    SelectAnswerFragmentDirections.actionSelectAnswerFragmentToLoadingFragment(
+                        question = question, answerDate = answerDate, answer = selectedAnswer,
+                        answerType = "MULTIPLE_CHOICE", category = type!!
+                    )
+                navController.navigate(action)
+            }
+        }
+
+
+
         binding.goToChat.setOnClickListener {
-            val intent = Intent(this, ConversationQuestionActivity::class.java)
-            intent.putExtra("answerType", "BOTH")
-            intent.putExtra("type",type)
-            intent.putExtra("questionId", questionId)
-            startActivity(intent)
+            val action = SelectAnswerFragmentDirections.actionSelectAnswerFragmentToConversationQuestionFragment(args.questionId, args.type, args.answerType)
+            navController.navigate(action)
+
         }
         val now = System.currentTimeMillis()
         val date = Date(now)
@@ -90,21 +139,14 @@ class SelectAnswerActivity : BaseActivity<ActivityQuestionDetailBinding, SelectA
             QuestionManager.questionId = questionId
             viewModel.loadQuestionDetail(
                 DetailQuestionRequest(
-                    isRandom = false, questionId.toInt())
+                    isRandom = args.isRandom, questionId)
             )
             setPreviousAnswerButton()
         }
 
         setQuestionDetail()
 
-        // 답변 클릭 시
-        viewModel.selectedAnswerOptionId.observe(this) {
-            if (it > -1) {
-                binding.buttonDetailComplete.text= "답변완료"
-                setCompleteButton()
-                answerOptionId = it
-            }
-        }
+
 
     }
 
@@ -116,8 +158,13 @@ class SelectAnswerActivity : BaseActivity<ActivityQuestionDetailBinding, SelectA
                     is UiState.Success -> {
                         binding.constraintQuestionDetail.visibility = View.VISIBLE
                         binding.textviewDetailQuestion.text = it.data.question.questionContent
+
+                        if(it.data.question.answerType =="BOTH") {
+                            binding.goToChat.visibility = View.VISIBLE
+                        }
                         question = it.data.question.questionContent
                         category = it.data.question.category
+                        answerDate = it.data.question.answerDate
                         setAnswerTypeCompose(it.data.question.answerType,category)
                         if (it.data.multipleChoice[0]=="") return@collectLatest
                         setQuestionAnswerOptionCompose(it.data.multipleChoice,category)
@@ -188,37 +235,25 @@ class SelectAnswerActivity : BaseActivity<ActivityQuestionDetailBinding, SelectA
         binding.buttonDetailComplete.isClickable = true
         binding.buttonDetailComplete.setTextColor(
             ContextCompat.getColor(
-                this,
+                requireContext(),
                 R.color.white
             )
         )
 
 
 
-        // 완료 버튼 클릭
-        binding.buttonDetailComplete.setOnClickListener{
-            if(answerOptionId > -1) {
-                // 답변 저장
-                moveToQuestionAnswer(answerOptionId)
-            }
-        }
+
     }
 
     private fun setPreviousAnswerButton() {
         binding.buttonDetailAnswerbefore.setOnClickListener {
-            val intent = Intent(this, PreviousAnswerActivity::class.java)
+            val action = SelectAnswerFragmentDirections.actionSelectAnswerFragmentToPreviousAnswerFragment(args.questionId.toString())
+            navController.navigate(action)
             QuestionManager.questionId = questionId
-            intent.putExtra("questionId", questionId)
-            startActivity(intent)
         }
     }
 
     private fun moveToQuestionAnswer(answerOptionId: Int) {
-        val intent = Intent(this, ResultBeforeSignActivity::class.java)
-        intent.putExtra("question", question)
-        intent.putExtra("category", category)
-        intent.putExtra("answer", answerList[answerOptionId])
-        startActivity(intent)
-        finish()
+        navController.navigate(R.id.answerFragment)
     }
 }

@@ -3,7 +3,7 @@ package com.example.com_us.data.repository.impl
 import com.example.com_us.base.data.NetworkError
 import com.example.com_us.data.model.home.ResponseHomeDataDto
 import com.example.com_us.data.repository.HomeRepository
-import com.example.com_us.data.default_source.DefaultHomeDataSource
+import com.example.com_us.data.source.impl.DefaultHomeDataSource
 import com.example.com_us.base.data.toResult
 import javax.inject.Inject
 

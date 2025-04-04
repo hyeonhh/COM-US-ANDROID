@@ -43,7 +43,6 @@ import com.example.com_us.util.ColorType
 @Composable
 fun AnswerTypeTag(colorType: ColorType, text: String) {
     val colorPalette = getColor(colorType)
-
     Box(
         Modifier
             .padding(3.dp, 0.dp)
@@ -51,10 +50,10 @@ fun AnswerTypeTag(colorType: ColorType, text: String) {
             .background(color = colorPalette.background)
     ) {
         Text(
-            text = text,
+            text =text,
             softWrap = false,
             style = Typography.labelSmall,
-            modifier = Modifier.padding(8.dp,5.dp),
+            modifier = Modifier.padding(10.dp,5.dp),
             color = colorPalette.text)
 
     }
@@ -73,7 +72,7 @@ fun QuestionTypeTag(colorType: ColorType,category : String) {
         Text(text = when(category){
             "SCHOOL" -> "학교"
             "DAILY" ->"일상"
-            "INTEREST" -> "관심사"
+            "INTEREST", "HOBBY" -> "관심사"
             "FAMILY" -> "가족"
             "FRIEND" -> "친구"
             else -> ""

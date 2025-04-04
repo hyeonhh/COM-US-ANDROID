@@ -2,43 +2,59 @@ package com.example.com_us.ui.question.select.conversation
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
-import androidx.activity.viewModels
+import android.view.ViewGroup
 import androidx.compose.foundation.layout.Row
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.com_us.R
-import com.example.com_us.base.activity.BaseActivity
+import com.example.com_us.base.fragment.BaseFragment
+import com.example.com_us.data.model.question.request.DetailQuestionRequest
+import com.example.com_us.data.model.question.request.RequestAnswerRequest
 import com.example.com_us.databinding.ActivityConversationQuestionBinding
+import com.example.com_us.ui.base.UiState
 import com.example.com_us.ui.compose.AnswerTypeTag
 import com.example.com_us.ui.compose.QuestionTypeTag
-import com.example.com_us.ui.question.previous.PreviousAnswerActivity
-import com.example.com_us.ui.question.select.selection.SelectAnswerActivity
+import com.example.com_us.ui.qa.AnswerFragment
 import com.example.com_us.util.ColorMatch
 import com.example.com_us.util.QuestionManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class ConversationQuestionActivity : BaseActivity<ActivityConversationQuestionBinding, ConversationQuestionViewModel>(
+class ConversationQuestionFragment : BaseFragment<ActivityConversationQuestionBinding, ConversationQuestionViewModel>(
     ActivityConversationQuestionBinding::inflate
 ){
     private var type : String? = null
     private var answerType : String? = null
-    private var questionId: Long = -1
+    private var questionId: Int = -1
     override val viewModel : ConversationQuestionViewModel by viewModels()
+    private val navController by lazy {findNavController()}
+    private val args : ConversationQuestionFragmentArgs by navArgs()
 
-    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
-        questionId = intent.getLongExtra("questionId", 0L)
-        type = intent.getStringExtra("type")
-        answerType = intent.getStringExtra("answerType")
-        Timber.d("answerTYpe:$answerType")
-        return super.onCreateView(name, context, attrs)
+    private var answerDate : String = ""
+    private var question : String = ""
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        questionId = args.questionId
+        type = args.type
+        answerType = args.answerType
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
-
 
     private fun setQuestionTypeCompose(category : String) {
         binding.questionCategory.apply {
@@ -72,16 +88,82 @@ class ConversationQuestionActivity : BaseActivity<ActivityConversationQuestionBi
 
     private fun setPreviousAnswerButton() {
         binding.buttonDetailAnswerbefore.setOnClickListener {
-            val intent = Intent(this, PreviousAnswerActivity::class.java)
+            val action = ConversationQuestionFragmentDirections.actionConversationQuestionFragmentToPreviousAnswerFragment(args.questionId.toString())
+            navController.navigate(action)
             QuestionManager.questionId = questionId
-            intent.putExtra("questionId", questionId)
-            startActivity(intent)
         }
     }
 
 
+    private fun setQuestionDetail() {
+        lifecycleScope.launch {
+            viewModel.uiState.collectLatest {
+                when(it) {
+                    is UiState.Loading ->{}
+                    is UiState.Success -> {
+                        binding.tvDate.text = "${it.data.question.answerDate}일의 기록"
+                        binding.textviewDetailQuestion.text = it.data.question.questionContent
+
+                        answerDate = it.data.question.answerDate
+                        question = it.data.question.questionContent
+                        setAnswerTypeCompose()
+                        if (it.data.multipleChoice[0]=="") return@collectLatest
+                    }
+
+                    is UiState.Error -> {
+                        Timber.d("에러 $it.message")
+                    }
+                }
+            }
+
+        }
+
+    }
+
     override fun onBindLayout() {
         super.onBindLayout()
+
+        if(args.answerType=="BOTH") {
+            binding.goToSelect.visibility = View.VISIBLE
+        }
+
+        binding.btnBack.setOnClickListener {
+            navController.popBackStack()
+        }
+        if(questionId > 0) {
+            QuestionManager.questionId = questionId
+            viewModel.loadQuestionDetail(
+                DetailQuestionRequest(
+                    isRandom = args.isRandom, questionId)
+            )
+            setQuestionDetail()
+            setPreviousAnswerButton()
+        }
+
+        // 답변 완료 클릭
+        binding.buttonDetailComplete.setOnClickListener {
+
+            viewModel.postAnswer(
+                RequestAnswerRequest(
+                questionId = args.questionId,
+                answerType = "SENTENCE",
+                answerContent = binding.editText.text.toString()
+            )
+            )
+
+            if (type!= null ) {
+                val action =
+                    ConversationQuestionFragmentDirections.actionConversationQuestionFragmentToLoadingFragment(
+                        question = question,
+                        answerDate = answerDate,
+                        answer = binding.editText.text.toString(),
+                        answerType = "SENTENCE",
+                        category = type!!
+                    )
+                navController.navigate(action)
+
+            }
+        }
 
         // 이전 답변 보기 기능
         binding.buttonDetailAnswerbefore.setOnClickListener {
@@ -125,11 +207,14 @@ class ConversationQuestionActivity : BaseActivity<ActivityConversationQuestionBi
         setAnswerTypeCompose()
 
         binding.goToSelect.setOnClickListener {
-            val intent = Intent(this, SelectAnswerActivity::class.java)
-            intent.putExtra("answerType", "BOTH")
-            intent.putExtra("type",type)
-            intent.putExtra("questionId", questionId)
-            startActivity(intent)
+            if (type!= null && answerType!= null ) {
+                val action =
+                    ConversationQuestionFragmentDirections.actionConversationQuestionFragmentToSelectAnswerFragment(
+                        questionId = questionId, type = type!!, answerType = answerType!!
+                    )
+                navController.navigate(action)
+            }
+
         }
     }
 }

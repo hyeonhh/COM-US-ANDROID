@@ -12,4 +12,15 @@
         <item name="android:textColor">@color/unactive_block_text_color</item>
     </style>
 
+    <!-- SplashTheme -->
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="AnswerCompleteButtonStyle" parent="ShapeAppearanceOverlay.Material3.Button">
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/block_complete_button_orange</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 </resources>

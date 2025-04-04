@@ -2,6 +2,7 @@ package com.example.com_us.data.service
 
 import com.example.com_us.data.model.question.request.RequestAnswerRequest
 import com.example.com_us.base.data.BaseResponse
+import com.example.com_us.data.model.question.Data
 import com.example.com_us.data.model.question.request.DetailQuestionRequest
 import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailDto
 import com.example.com_us.data.model.question.response.question.ResponseAnswerDetailWithDateDto
@@ -18,9 +19,10 @@ interface QuestionService {
     @GET("/api/question")
     suspend fun getQuestionListByCate(
         @Query("category") category: String,
+        @Query("sort") sort : String= ""
     ): BaseResponse<List<ResponseQuestionDto>>
 
-    @GET("/api/question/detail")
+    @POST("/api/question/detail")
     suspend fun getQuestionDetail(
         @Body body : DetailQuestionRequest,
     ): BaseResponse<ResponseQuestionDetailDto>
@@ -35,8 +37,12 @@ interface QuestionService {
     @Body body: RequestAnswerRequest,
     ): BaseResponse<ResponseAnswerDetailWithDateDto>
 
+    @GET("/api/answer")
+    suspend fun getAnswer(
+    ): BaseResponse<List<Data>>
+
     @GET("/api/answer/{questionId}")
     suspend fun getPreviousAnswer(
-        @Path("questionId") questionId: Long,
+        @Path("questionId") questionId: Int,
     ): BaseResponse<ResponsePreviousAnswerDto>
 }

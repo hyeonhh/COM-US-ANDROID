@@ -25,7 +25,7 @@ class AllQuestionListViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     init {
-        loadQuestionListByCate("")
+        loadQuestionListByCate("","")
     }
 
     // 질문 리스트
@@ -69,15 +69,13 @@ class AllQuestionListViewModel @Inject constructor(
         }
     }
 
-    fun updateSelectedThemeId(newId: Int) {
-        _selectedThemeId.value = newId
-    }
 
 
     // 클릭한 카테고리의 질문 리스트를 가져오는 함수
-    fun loadQuestionListByCate(category: String){
+    fun loadQuestionListByCate(category: String,sort:String){
+        Timber.d("Category :$category")
         viewModelScope.launch {
-            questionRepository.getQuestionListByCate(category)
+            questionRepository.getQuestionListByCate(category,sort)
                 .onSuccess {
                     _uiState.value = UiState.Success(it)
                 }

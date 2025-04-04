@@ -16,5 +16,6 @@ data class ResponseQuestionDto(
     val questionContent: String,
     @SerialName("answerCount")
     val answerCount: String,
+    @SerialName("isLiked")
     val isLiked : Boolean
 )

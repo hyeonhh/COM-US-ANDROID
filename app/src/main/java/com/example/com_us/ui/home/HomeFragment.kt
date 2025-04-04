@@ -1,9 +1,12 @@
 package com.example.com_us.ui.home
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.Toast
+import androidx.compose.foundation.layout.Row
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
@@ -16,9 +19,12 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.com_us.R
 import com.example.com_us.base.fragment.BaseFragment
 import com.example.com_us.data.model.home.Block
-import com.example.com_us.data.model.home.Category
+import com.example.com_us.data.model.home.QuestionCounts
+import com.example.com_us.data.model.home.RandomQuestion
 import com.example.com_us.databinding.FragmentHomeBinding
 import com.example.com_us.ui.base.UiState
+import com.example.com_us.ui.compose.AnswerTypeTag
+import com.example.com_us.ui.compose.QuestionTypeTag
 import com.example.com_us.ui.login.LoginActivity
 import com.example.com_us.util.ColorMatch
 import com.example.com_us.util.ThemeType
@@ -33,18 +39,60 @@ class HomeFragment :
     override val viewModel: HomeViewModel by viewModels()
     private lateinit var blockList: List<List<View>>
     private var isReload: MutableLiveData<Boolean> = MutableLiveData(false)
+    private var randomQuestion =  RandomQuestion()
+
 
     private val homeViewModel: HomeViewModel by viewModels()
+    private val navController by lazy { findNavController() }
 
 
     override fun onBindLayout() {
         super.onBindLayout()
 
-        Timber.d("여기가 홈 프래그먼트다! ")
+        //랜덤 질문 화면으로 넘어가기
+        binding.randomQuestionBox.layout.setOnClickListener {
+            when(randomQuestion.answerType){
+                "BOTH" -> {
+                    val action = HomeFragmentDirections.actionNavigationHomeToSelectAnswerFragment(
+                        questionId = randomQuestion.questionId,
+                        type = randomQuestion.category,
+                        answerType = randomQuestion.answerType,
+                        isRandom = true
+                    )
+                    navController.navigate(action)
+                }
+                "MULTIPLE_CHOICE" -> {
+                   val action = HomeFragmentDirections.actionNavigationHomeToSelectAnswerFragment(
+                       questionId = randomQuestion.questionId,
+                       type = randomQuestion.category,
+                       answerType = randomQuestion.answerType,
+                       isRandom = true
+                   )
+                    navController.navigate(action)
+
+                }
+                "SENTENCE" -> {
+                    val action = HomeFragmentDirections.actionNavigationHomeToConversationQuestionFragment(
+                        questionId = randomQuestion.questionId,
+                        type = randomQuestion.category,
+                        answerType = randomQuestion.answerType,
+                        isRandom = true
+
+                    )
+                    navController.navigate(action)
+                }
+            }
+        }
+
+
+        // 월별 기록 페이지로 넘어가기
+        binding.viewUserConversationInfoBox.viewWeekCalendar.btnCalendar.setOnClickListener {
+            navController.navigate(R.id.recordFragment)
+        }
+
 
         lifecycleScope.launch {
            viewModel.loginEvent.observe(this@HomeFragment, {
-               Timber.d("홈에서 로그인으로 이동")
                val intent = Intent(requireContext(),LoginActivity::class.java)
                startActivity(intent)
            })
@@ -52,29 +100,30 @@ class HomeFragment :
         blockList =
             listOf(
                 listOf(
-                    binding.viewConversation.block16,
-                    binding.viewConversation.block15,
-                    binding.viewConversation.block14,
-                    binding.viewConversation.block13,
-                ),
-                listOf(
-                    binding.viewConversation.block12,
-                    binding.viewConversation.block11,
-                    binding.viewConversation.block10,
-                    binding.viewConversation.block9,
-                ),
-                listOf(
-                    binding.viewConversation.block8,
-                    binding.viewConversation.block7 ,
-                    binding.viewConversation.block6,
-                    binding.viewConversation.block5,
-                ),
-                listOf(
-                    binding.viewConversation.block4,
-                    binding.viewConversation.block3,
-                    binding.viewConversation.block2,
                     binding.viewConversation.block1,
+                    binding.viewConversation.block2,
+                    binding.viewConversation.block3,
+                    binding.viewConversation.block4,
                 ),
+                listOf(
+                    binding.viewConversation.block5,
+                    binding.viewConversation.block6,
+                    binding.viewConversation.block7 ,
+                    binding.viewConversation.block8,
+                ),
+                listOf(
+                    binding.viewConversation.block9,
+                    binding.viewConversation.block10,
+                    binding.viewConversation.block11,
+                    binding.viewConversation.block12,
+
+                ),
+                listOf(
+                    binding.viewConversation.block13,
+                    binding.viewConversation.block14,
+                    binding.viewConversation.block15,
+                    binding.viewConversation.block16,
+                )
             )
 
         setThemeClickListener()
@@ -93,7 +142,6 @@ class HomeFragment :
                 binding.swiperefreshHome.isRefreshing = false
             }
         }
-//        binding.scrollviewHome.viewTreeObserver.addOnScrollChangedListener(scrollChangedListener)
     }
 
     private fun setThemeClickListener() {
@@ -107,6 +155,107 @@ class HomeFragment :
         }
     }
 
+    // 일상인지 학교인지 등등
+    private fun setQuestionTypeCompose(category : String) {
+        binding.randomQuestionBox.category.apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                Row {
+                    //todo :데이터 연결
+                    val colorType = ColorMatch.fromKor(category)
+                    if (colorType != null) {
+                        QuestionTypeTag(colorType.colorType, category)
+                    }
+                }
+            }
+        }
+    }
+
+    // 대화형인지 선택형인지
+    private fun setAnswerTypeCompose(answerType : String) {
+        when (answerType) {
+            "BOTH" -> {
+                Timber.d("answerType :$answerType")
+                binding.randomQuestionBox.answerType2.visibility = View.VISIBLE
+
+                binding.randomQuestionBox.answerType1.apply{
+                    setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+                    setContent {
+                        Row {
+                            //todo :데이터 연결
+                            val colorType = ColorMatch.fromKor("선택형")
+                            if (colorType != null) {
+                                Timber.d("$colorType")
+                                AnswerTypeTag(colorType.colorType, "선택형")
+                            }
+
+                        }
+                    }
+                }
+                binding.randomQuestionBox.answerType2.apply{
+                    setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+                    setContent {
+                        Row {
+                            //todo :데이터 연결
+                            val colorType = ColorMatch.fromKor("대화형")
+                            if (colorType != null) {
+                                Timber.d("$colorType")
+                                AnswerTypeTag(colorType.colorType, "대화형")
+                            }
+                        }
+                    }
+                }
+            }
+            "MULTIPLE_CHOICE" -> {
+                Timber.d("answerType :$answerType")
+                binding.randomQuestionBox.answerType2.visibility = View.GONE
+
+                binding.randomQuestionBox.answerType1.apply{
+                    setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+                    setContent {
+                        Row {
+                            //todo :데이터 연결
+                            val colorType = ColorMatch.fromKor("선택형")
+                            if (colorType != null) {
+                                Timber.d("$colorType")
+                                AnswerTypeTag(colorType.colorType, "선택형")
+                            }
+                        }
+                    }
+                }
+            }
+            "SENTENCE" ->  {
+                Timber.d("answerType :$answerType")
+                binding.randomQuestionBox.answerType2.visibility = View.GONE
+                binding.randomQuestionBox.answerType1.apply {
+                    setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+                    setContent {
+                        Row {
+                            //todo :데이터 연결
+                            val colorType = ColorMatch.fromKor("대화형")
+                            if (colorType != null) {
+                                Timber.d("$colorType")
+                                AnswerTypeTag(colorType.colorType, "대화형")
+                            }
+
+                        }
+                    }
+                }
+                }
+            }
+    }
+
+    private fun setWeekBlockImage(category : String):Drawable {
+        val drawable = when(category) {
+            "DAILY" ->  resources.getDrawable(R.drawable.ic_face_orange)
+            "SCHOOL" ->  resources.getDrawable(R.drawable.ic_face_blue_v2)
+            "HOBBY" ->   resources.getDrawable(R.drawable.ic_face_pink)
+            "FAMILY" -> resources.getDrawable(R.drawable.ic_face_purple)
+            "FRIEND" -> resources.getDrawable(R.drawable.ic_face_green)
+            else -> resources.getDrawable(R.drawable.ic_blank_week)
+        }
+        return drawable
+    }
     private fun setHomeData() {
         val emojiText = String(Character.toChars(resources.getInteger(R.integer.waving_hand_sign)))
         viewLifecycleOwner.lifecycleScope.launch {
@@ -114,6 +263,51 @@ class HomeFragment :
                 homeViewModel.homeUiState.collect {
                     when (it) {
                         is UiState.Success -> {
+                            // 단계 표시
+                      //    binding.viewConversation.textviewHomeStep.text =  if (it.data.blocks.isEmpty()) "1" else it.data.blocks.first().level.toString()
+
+                          // 주간  캘린더 표시
+                            binding.viewUserConversationInfoBox.viewWeekCalendar.txtWeekTitle.text = it.data.userInfo.week
+
+                            it.data.userInfo.weeklyAnswer.forEach {
+                                val category = setWeekBlockImage(it.category)
+                                when(it.answerDay){
+                                    "월" -> {
+                                        binding.viewUserConversationInfoBox.viewWeekCalendar.monday.setImageDrawable(category)
+                                    }
+                                    "화" -> {
+                                        binding.viewUserConversationInfoBox.viewWeekCalendar.tuesday.setImageDrawable(category)
+                                    }
+                                    "수" -> {
+                                        binding.viewUserConversationInfoBox.viewWeekCalendar.wednesday.setImageDrawable(category)
+                                    }
+                                    "목" -> {
+                                        binding.viewUserConversationInfoBox.viewWeekCalendar.thursday.setImageDrawable(category)
+                                    }
+                                    "금" -> {
+                                        binding.viewUserConversationInfoBox.viewWeekCalendar.friday.setImageDrawable(category)
+
+                                    }
+                                    "토" -> {
+                                        binding.viewUserConversationInfoBox.viewWeekCalendar.saturday.setImageDrawable(category)
+
+                                    }
+                                    "일" -> {
+                                        binding.viewUserConversationInfoBox.viewWeekCalendar.sunday.setImageDrawable(category)
+
+                                    }
+                                }
+                            }
+
+                            binding.randomQuestionBox.txtQuestion.text = it.data.randomQuestion.questionContent
+                            setAnswerTypeCompose(it.data.randomQuestion.answerType)
+                            setQuestionTypeCompose(it.data.randomQuestion.category)
+                            randomQuestion = it.data.randomQuestion
+
+                           binding.viewUserConversationInfoBox.infoCountBox.setAnswerCount(it.data.userInfo.answerCount)
+                           binding.viewUserConversationInfoBox.likeCountBox.setAnswerCount(it.data.userInfo.likeCount)
+                            setBlock(it.data.blocks)
+
                             binding.swiperefreshHome.isRefreshing = false
                             binding.progressBar.visibility = View.GONE
                             binding.constraintHome.visibility = View.VISIBLE
@@ -121,18 +315,58 @@ class HomeFragment :
                             binding.viewUserConversationInfoBox.textviewHomeGreeting.text =
                                 String.format(
                                     resources.getString(R.string.home_title_greeting_user_hi),
-                                    it.data.user.name,
+                                    it.data.userInfo.name,
                                     emojiText,
                                 )
 
                             Glide
                                 .with(this@HomeFragment)
-                                .load(it.data.user.imageUrl)
+                                .load(it.data.userInfo.imageUrl)
                                 .apply(RequestOptions().transform(RoundedCorners(300)))
                                 .into(binding.viewUserConversationInfoBox.imageviewHomeUsericon)
 
-                            setThemeProgress(it.data.category)
-                            setBlock(it.data.block)
+
+                            for (i in it.data.questionCounts) {
+                                 when(i.category){
+                                     "DAILY"->{
+                                         binding.viewConversation.includeHomeDaily.textviewThemeFraction.text = i.count
+                                         binding.viewConversation.includeHomeDaily.textviewThemePercent.text =
+                                             i.percentage
+                                         binding.viewConversation.includeHomeDaily.progressbarTheme.max = i.questionTotalCount
+                                         binding.viewConversation.includeHomeDaily.progressbarTheme.progress = i.questionAnsweredCount
+
+                                     }
+                                     "SCHOOL" -> {
+                                         binding.viewConversation.includeHomeSchool.textviewThemeFraction.text = i.count
+                                         binding.viewConversation.includeHomeSchool.textviewThemePercent.text =
+                                             i.percentage
+                                         binding.viewConversation.includeHomeSchool.progressbarTheme.max = i.questionTotalCount
+                                         binding.viewConversation.includeHomeSchool.progressbarTheme.progress = i.questionAnsweredCount
+                                     }
+                                     "FRIEND" -> {
+                                         binding.viewConversation.includeHomeFriend.textviewThemeFraction.text = i.count
+                                         binding.viewConversation.includeHomeFriend.textviewThemePercent.text =
+                                             i.percentage
+                                         binding.viewConversation.includeHomeFriend.progressbarTheme.max = i.questionTotalCount
+                                         binding.viewConversation.includeHomeFriend.progressbarTheme.progress = i.questionAnsweredCount
+                                     }
+                                     "FAMILY" -> {
+                                         binding.viewConversation.includeHomeFamily.textviewThemeFraction.text = i.count
+                                         binding.viewConversation.includeHomeFamily.textviewThemePercent.text =
+                                             i.percentage
+                                         binding.viewConversation.includeHomeFamily.progressbarTheme.max = i.questionTotalCount
+                                         binding.viewConversation.includeHomeFamily.progressbarTheme.progress = i.questionAnsweredCount
+                                     }
+                                     "HOBBY" ->{
+                                         binding.viewConversation.includeHomeHobby.textviewThemeFraction.text = i.count
+                                         binding.viewConversation.includeHomeHobby.textviewThemePercent.text =
+                                             i.percentage
+                                         binding.viewConversation.includeHomeHobby.progressbarTheme.max = i.questionTotalCount
+                                         binding.viewConversation.includeHomeHobby.progressbarTheme.progress = i.questionAnsweredCount
+                                     }
+                                 }
+
+                            }
                             isReload.value = true
                         }
                         is UiState.Error -> {
@@ -150,66 +384,76 @@ class HomeFragment :
     override fun onClick(view: View) {
         when (view.id) {
             R.id.include_home_daily -> {
-                moveToQuestionList(ThemeType.DAILY.toString(), ThemeType.DAILY.kor)
+                moveToQuestionList(ThemeType.DAILY.toString())
             }
             R.id.include_home_school -> {
-                moveToQuestionList(ThemeType.SCHOOL.toString(), ThemeType.SCHOOL.kor)
+                moveToQuestionList(ThemeType.SCHOOL.toString())
             }
             R.id.include_home_friend -> {
-                moveToQuestionList(ThemeType.FRIEND.toString(), ThemeType.FRIEND.kor)
+                moveToQuestionList(ThemeType.FRIEND.toString())
             }
             R.id.include_home_family -> {
-                moveToQuestionList(ThemeType.FAMILY.toString(), ThemeType.FAMILY.kor)
+                moveToQuestionList(ThemeType.FAMILY.toString())
             }
             R.id.include_home_hobby -> {
-                moveToQuestionList(ThemeType.HOBBY.toString(), ThemeType.HOBBY.kor)
+                moveToQuestionList(ThemeType.HOBBY.toString())
             }
             R.id.include_home_random -> {
-                moveToQuestionList(ThemeType.RANDOM.toString(), ThemeType.RANDOM.kor)
+                    when(randomQuestion.answerType){
+                        "BOTH" -> {
+                            val action = HomeFragmentDirections.actionNavigationHomeToSelectAnswerFragment(
+                                questionId = randomQuestion.questionId,
+                                type = randomQuestion.category,
+                                answerType = randomQuestion.answerType,
+                                isRandom = true
+                            )
+                            navController.navigate(action)
+                        }
+                        "MULTIPLE_CHOICE" -> {
+                            val action = HomeFragmentDirections.actionNavigationHomeToSelectAnswerFragment(
+                                questionId = randomQuestion.questionId,
+                                type = randomQuestion.category,
+                                answerType = randomQuestion.answerType,
+                                isRandom = true
+                            )
+                            navController.navigate(action)
+
+                        }
+                        "SENTENCE" -> {
+                            val action = HomeFragmentDirections.actionNavigationHomeToConversationQuestionFragment(
+                                questionId = randomQuestion.questionId,
+                                type = randomQuestion.category,
+                                answerType = randomQuestion.answerType,
+                                isRandom = true
+
+                            )
+                            navController.navigate(action)
+                        }
+                }
             }
         }
     }
 
-    private fun setThemeProgress(categoryData: Category) {
-        binding.viewConversation.includeHomeDaily.textviewThemeFraction.text =
-            String.format(resources.getString(R.string.home_theme_fraction), categoryData.DailyCount, categoryData.DailyTotalCount)
-        binding.viewConversation.includeHomeDaily.textviewThemePercent.text =
-            String.format(resources.getString(R.string.home_theme_percent), categoryData.DailyPercent)
-        binding.viewConversation.includeHomeDaily.progressbarTheme.progress = categoryData.DailyPercent.toInt()
 
-        binding.viewConversation.includeHomeSchool.textviewThemeFraction.text =
-            String.format(resources.getString(R.string.home_theme_fraction), categoryData.SchoolCount, categoryData.SchoolTotalCount)
-        binding.viewConversation.includeHomeSchool.textviewThemePercent.text =
-            String.format(resources.getString(R.string.home_theme_percent), categoryData.SchoolPercent)
-        binding.viewConversation.includeHomeSchool.progressbarTheme.progress = categoryData.SchoolPercent.toInt()
 
-        binding.viewConversation.includeHomeFriend.textviewThemeFraction.text =
-            String.format(resources.getString(R.string.home_theme_fraction), categoryData.FriendCount, categoryData.FriendTotalCount)
-        binding.viewConversation.includeHomeFriend.textviewThemePercent.text =
-            String.format(resources.getString(R.string.home_theme_percent), categoryData.FriendPercent)
-        binding.viewConversation.includeHomeFriend.progressbarTheme.progress = categoryData.FriendPercent.toInt()
-
-        binding.viewConversation.includeHomeFamily.textviewThemeFraction.text =
-            String.format(resources.getString(R.string.home_theme_fraction), categoryData.FamilyCount, categoryData.FamilyTotalCount)
-        binding.viewConversation.includeHomeFamily.textviewThemePercent.text =
-            String.format(resources.getString(R.string.home_theme_percent), categoryData.FamilyPercent)
-        binding.viewConversation.includeHomeFamily.progressbarTheme.progress = categoryData.FamilyPercent.toInt()
-
-        binding.viewConversation.includeHomeHobby.textviewThemeFraction.text =
-            String.format(resources.getString(R.string.home_theme_fraction), categoryData.HobbyCount, categoryData.HobbyTotalCount)
-        binding.viewConversation.includeHomeHobby.textviewThemePercent.text =
-            String.format(resources.getString(R.string.home_theme_percent), categoryData.HobbyPercent)
-        binding.viewConversation.includeHomeHobby.progressbarTheme.progress = categoryData.HobbyPercent.toInt()
-    }
-
-    private fun setBlock(blockData: List<Block>) {
-        if (blockData.isNotEmpty()) setNoBlockBackground(false) else setNoBlockBackground(true)
-        var color: Int?
+    private fun setBlock(blockData: List<Block>?) {
+        if (blockData== null ){
+            setNoBlockBackground(true)
+            return
+        }
+        if (blockData.isNotEmpty()) setNoBlockBackground(false)
         for (data in blockData) {
-            color = ColorMatch.findColorFromKor(data.category)
-            if (color != null) {
-                // todo : 색 변경 방식 변경 필요
-                blockList[data.blockRow][data.blockColumn].setBackgroundResource(color)
+            val color = when(data.category) {
+                "DAILY" -> resources.getColor(R.color.orange_700)
+                "SCHOOL" -> resources.getColor(R.color.blue_700)
+                "HOBBY" -> resources.getColor(R.color.salmon_700)
+                "FAMILY" -> resources.getColor(R.color.purple_700)
+                "FRIEND" -> resources.getColor(R.color.green_700)
+                else -> resources.getColor(R.color.orange_700)
+            }
+            // todo : 색 변경 방식 변경 필요
+            data.blockPlace.forEach {
+                blockList[it.row][it.col].setBackgroundColor(color)
             }
         }
     }
@@ -222,27 +466,9 @@ class HomeFragment :
 
     private fun moveToQuestionList(
         theme: String,
-        themeKor: String,
     ) {
-        findNavController().navigate(R.id.themeQuestionListFragment)
-//        val intent = Intent(context, ThemeQuestionListActivity::class.java)
-//        intent.putExtra("theme", theme)
-//        intent.putExtra("themeKor", themeKor)
-//        startActivity(intent)
+        val action  = HomeFragmentDirections.actionNavigationHomeToThemeQuestionListFragment(theme)
+       navController.navigate(action)
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        binding.scrollviewHome.viewTreeObserver.addOnScrollChangedListener(scrollChangedListener)
-//    }
-//
-//    override fun onPause() {
-//        super.onPause()
-//        binding.scrollviewHome.viewTreeObserver?.removeOnScrollChangedListener(scrollChangedListener)
-//    }
-//
-//    override fun onDestroyView() {
-//        binding.scrollviewHome.viewTreeObserver?.removeOnScrollChangedListener(scrollChangedListener)
-//        super.onDestroyView()
-//    }
 }

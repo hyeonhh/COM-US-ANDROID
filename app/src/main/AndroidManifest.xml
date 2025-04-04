@@ -37,12 +37,6 @@
 
 
         <activity
-            android:name=".ui.question.previous.PreviousAnswerActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.question.block.CollectBlockActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.question.result.ResultAfterSignActivity"
             android:exported="false" />
         <activity

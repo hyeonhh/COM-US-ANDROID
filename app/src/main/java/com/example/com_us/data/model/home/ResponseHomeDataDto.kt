@@ -1,84 +1,75 @@
 package com.example.com_us.data.model.home
 
+import androidx.collection.emptyLongList
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 @Serializable
 data class ResponseHomeDataDto(
-    @SerialName("user")
-    val user: User,
-    @SerialName("category")
-    val category: Category,
-    @SerialName("block")
-    val block: List<Block>,
+    @SerialName("userInfo")
+    val userInfo: User,
+    @SerialName("randomQuestion")
+    val randomQuestion : RandomQuestion,
+    @SerialName("questionCounts")
+    val questionCounts: List<QuestionCounts>,
+    @SerialName("blocks")
+    val blocks: List<Block>,
+)
+
+@Serializable
+data class RandomQuestion(
+    val questionId:Int = 0,
+    val questionContent : String = "",
+    val category : String = "",
+    val answerType : String= "",
 )
 
 @Serializable
 data class User(
-    @SerialName("id")
-    val id: Long,
     @SerialName("name")
     val name: String,
     @SerialName("imageUrl")
     val imageUrl: String,
-    @SerialName("todayChatTime")
-    val todayChatTime: String,
+    @SerialName("answerCount")
+    val answerCount : Int,
+    @SerialName("likeCount")
+    val likeCount : Int,
+    @SerialName("week")
+    val week : String,
+    @SerialName("weeklyAnswer")
+    val weeklyAnswer: List<Answer>,
 )
 
 @Serializable
-data class Category(
-    @SerialName("DailyCount")
-    val DailyCount: Int,
-    @SerialName("DailyTotalCount")
-    val DailyTotalCount: Int,
-    @SerialName("DailyPercent")
-    val DailyPercent: Int,
+data class Answer(
+    val answerDay : String,
+    val category : String,
+)
 
-    @SerialName("SchoolCount")
-    val SchoolCount: Int,
-    @SerialName("SchoolTotalCount")
-    val SchoolTotalCount: Int,
-    @SerialName("SchoolPercent")
-    val SchoolPercent: Int,
-
-    @SerialName("FriendCount")
-    val FriendCount: Int,
-    @SerialName("FriendTotalCount")
-    val FriendTotalCount: Int,
-    @SerialName("FriendPercent")
-    val FriendPercent: Int,
-
-    @SerialName("FamilyCount")
-    val FamilyCount: Int,
-    @SerialName("FamilyTotalCount")
-    val FamilyTotalCount: Int,
-    @SerialName("FamilyPercent")
-    val FamilyPercent: Int,
-
-    @SerialName("HobbyCount")
-    val HobbyCount: Int,
-    @SerialName("HobbyTotalCount")
-    val HobbyTotalCount: Int,
-    @SerialName("HobbyPercent")
-    val HobbyPercent: Int,
-
-    @SerialName("RandomCount")
-    val RandomCount: Int,
-    @SerialName("RandomTotalCount")
-    val RandomTotalCount: Int,
-    @SerialName("RandomPercent")
-    val RandomPercent: Int,
+@Serializable
+data class QuestionCounts(
+    val category : String,
+    val questionTotalCount : Int,
+    val questionAnsweredCount : Int,
+    val count : String,
+    val percentage : String,
 )
 
 @Serializable
 data class Block(
-    @SerialName("id")
-    val id: Long,
-    @SerialName("level")
-    val level: Int,
-    @SerialName("category")
-    val category: String,
-    @SerialName("blockRow")
-    val blockRow: Int,
-    @SerialName("blockColumn")
-    val blockColumn: Int,
+    val level : Int = 0,
+    val questionId: Int =0,
+    val category : String = "",
+    val questionContent : String = "",
+    val answerId : Int =0,
+    val answerType : String = "",
+    val answerContent : String = "",
+    val blockPlace:List<BlockPlace> = emptyList<BlockPlace>(),
+)
+
+@Serializable
+data class BlockPlace(
+    val blockId :Long,
+    val row:Int,
+    val col : Int,
 )

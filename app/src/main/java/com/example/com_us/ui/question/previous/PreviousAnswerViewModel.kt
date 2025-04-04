@@ -28,7 +28,7 @@ class PreviousAnswerViewModel @Inject constructor(
     private val _answerPrevious = MutableLiveData<ResponsePreviousAnswerDto>()
     val answerPrevious: LiveData<ResponsePreviousAnswerDto> = _answerPrevious
 
-    fun loadPreviousAnswer(questionId: Long) {
+    fun loadPreviousAnswer(questionId: Int) {
         viewModelScope.launch {
             questionRepository.getPreviousAnswer(questionId)
                 .onSuccess {

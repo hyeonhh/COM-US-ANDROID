@@ -21,6 +21,7 @@ import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -50,9 +51,11 @@ fun QuestionListItem(
     viewmodel : AllQuestionListViewModel? = null,
     viewModel2 : ThemeQuestionListViewModel?= null,
     data: ResponseQuestionDto, onClick: () -> Unit) {
-    val isLiked  = remember {
+
+    val isLiked = remember(data.id, data.isLiked) {
         mutableStateOf(data.isLiked)
     }
+
     var color1 : ColorType?=null
     var color2 : ColorType? = null
 

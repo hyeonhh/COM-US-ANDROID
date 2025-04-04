@@ -8,16 +8,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollview_home"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="50dp"
+            android:layout_marginBottom="?actionBarSize"
+            android:fillViewport="true"
             android:scrollIndicators="none"
             android:visibility="visible">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:paddingVertical="25dp"
                 android:layout_height="wrap_content"
                 android:visibility="visible">
 
@@ -74,13 +76,14 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/imageView5" />
 
-                    <com.example.com_us.util.RandomQuestionBox
+                    <include
                         android:id="@+id/random_question_box"
+                        android:layout_marginTop="18dp"
+                        layout="@layout/view_random_question_box"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="18dp"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/view_user_conversation_info_box" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -89,6 +92,7 @@
                     android:id="@+id/constraint_conversion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:background="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -109,6 +113,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

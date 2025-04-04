@@ -5,7 +5,11 @@ import android.util.Log
 import com.example.com_us.R
 import com.example.com_us.base.AppInterceptor
 import com.example.com_us.data.di.BaseUrl
+import com.example.com_us.data.di.ModifyBaseUrl
+import com.example.com_us.data.di.ModifyRetrofit
 import com.example.com_us.data.repository.UserTokenRepository
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,6 +17,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
@@ -120,4 +125,20 @@ object NetworkModule {
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+
+    @Provides
+    @Singleton
+    @ModifyRetrofit
+    fun provideModifyRetrofit(
+        @ModifyBaseUrl baseUrl: String,
+        okHttpClient: OkHttpClient,
+    ): Retrofit =
+        Retrofit
+            .Builder()
+            .baseUrl(baseUrl)
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+
 }

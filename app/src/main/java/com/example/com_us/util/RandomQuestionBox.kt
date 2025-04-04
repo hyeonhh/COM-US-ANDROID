@@ -12,8 +12,6 @@ class RandomQuestionBox(
 )  : ConstraintLayout(context,attrs){
 
 
-    //  todo : 전체 질문 중 랜덤으로 불러오기
-    fun getRandomQuestion(){}
     init {
         inflate(context, R.layout.view_random_question_box, this)
     }

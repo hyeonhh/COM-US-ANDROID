@@ -5,34 +5,29 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ResponsePreviousAnswerDto(
-    @SerialName("question")
-    val question: QuestionPrevious,
-    @SerialName("answerList")
-    val answerList: List<Answer>
-)
-
-@Serializable
-data class QuestionPrevious(
-    @SerialName("id")
-    val id: Long,
-    @SerialName("category")
-    val category: String,
-    @SerialName("answerType")
-    val answerType: String,
-    @SerialName("questionContent")
-    val questionContent: String,
-    @SerialName("questionCount")
-    val questionCount: Int
-)
-
-@Serializable
-data class Answer(
-    @SerialName("id")
-    val id: Long,
-    @SerialName("answerContent")
-    val answerContent: String,
     @SerialName("questionId")
     val questionId: Long,
-    @SerialName("createdAt")
-    val  createdAt: String
+    @SerialName("category")
+    val category: String,
+    @SerialName("questionAnswerType")
+    val questionAnswerType: String,
+    @SerialName("questionContent")
+    val questionContent: String,
+    @SerialName("answerCount")
+    val answerCount: Int,
+    @SerialName("answers")
+    val answers : List<PreviousAnswer>
+)
+
+
+@Serializable
+data class PreviousAnswer(
+    @SerialName("answerId")
+    val id: Long,
+    @SerialName("answerDate")
+    val answerDate: String,
+    @SerialName("answerType")
+    val answerType: String,
+    @SerialName("answerContent")
+    val  answerContent: String
 )

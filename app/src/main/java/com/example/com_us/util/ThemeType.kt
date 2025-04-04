@@ -5,11 +5,11 @@ import com.example.com_us.R
 
 enum class ThemeType(val kor: String, val blockRes: Int?) {
     ALL("전체", null),
-    DAILY("일상", R.drawable.img_block_char_orange),
-    SCHOOL("학교", R.drawable.img_block_char_blue),
-    FRIEND("친구", R.drawable.img_block_char_purple),
-    FAMILY("가족", R.drawable.img_block_char_salmon),
-    HOBBY("관심사", R.drawable.img_block_char_green),
+    DAILY("DAILY", R.drawable.img_block_char_orange),
+    SCHOOL("SCHOOL", R.drawable.img_block_char_blue),
+    FRIEND("FRIEND", R.drawable.img_block_char_purple),
+    FAMILY("FAMILY", R.drawable.img_block_char_salmon),
+    HOBBY("HOBBY", R.drawable.img_block_char_green),
     RANDOM("랜덤", null);
 
     companion object {

@@ -33,8 +33,8 @@ class SignAnswerViewModel @Inject constructor(
     val resultData: LiveData<ResponseAnswerDetailWithDateDto> = _resultData
 
     // todo : 이 함수의 역할은 뭐야? : 답변을 저장하는 함수
-    fun postAnswer(questionId: Long, answerContent: String){
-        val body = RequestAnswerRequest(questionId, answerContent)
+    fun postAnswer(questionId: Int, answerContent: String,answerType : String ){
+        val body = RequestAnswerRequest(questionId, answerContent, answerType)
         viewModelScope.launch {
             questionRepository.postAnswer(body)
                 .onSuccess {

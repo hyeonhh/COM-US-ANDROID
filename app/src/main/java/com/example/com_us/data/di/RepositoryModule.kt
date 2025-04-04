@@ -6,10 +6,14 @@ import com.example.com_us.data.repository.impl.HomeRepositoryImpl
 import com.example.com_us.data.repository.impl.ProfileRepositoryImpl
 import com.example.com_us.data.repository.impl.QuestionRepositoryImpl
 import com.example.com_us.data.repository.AuthRepository
+import com.example.com_us.data.repository.BlockRepository
 import com.example.com_us.data.repository.HomeRepository
+import com.example.com_us.data.repository.ModifyRepository
 import com.example.com_us.data.repository.ProfileRepository
 import com.example.com_us.data.repository.QuestionRepository
 import com.example.com_us.data.repository.UserTokenRepository
+import com.example.com_us.data.repository.impl.BlockRepositoryImpl
+import com.example.com_us.data.repository.impl.ModifyRepositoryImpl
 import com.example.com_us.data.repository.impl.UserTokenRepositoryImpl
 import dagger.Binds
 import dagger.Module
@@ -39,4 +43,13 @@ interface RepositoryModule {
         defaultRepository: UserTokenRepositoryImpl,
     ) : UserTokenRepository
 
+    @Binds
+    fun provideBlockRepository(
+        defaultRepository: BlockRepositoryImpl
+    ) : BlockRepository
+
+    @Binds
+    fun provideModifyRepository(
+        defaultRepository: ModifyRepositoryImpl
+    ) : ModifyRepository
 }

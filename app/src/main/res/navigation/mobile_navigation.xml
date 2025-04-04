@@ -19,13 +19,47 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_profile"
             app:destination="@id/navigation_profile" />
+        <action
+            android:id="@+id/action_navigation_home_to_all_question_list"
+            app:destination="@id/navigation_questions" />
+        <action
+            android:id="@+id/action_navigation_home_to_recordFragment"
+            app:destination="@id/recordFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_selectAnswerFragment"
+            app:destination="@id/selectAnswerFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_conversationQuestionFragment"
+            app:destination="@id/conversationQuestionFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_checkFragment"
+            app:destination="@id/checkFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_themeQuestionListFragment"
+            app:destination="@id/themeQuestionListFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_questions"
         android:name="com.example.com_us.ui.question.list.AllQuestionListFragment"
         android:label="@string/title_question"
-        tools:layout="@layout/fragment_question" />
+        tools:layout="@layout/fragment_question" >
+        <action
+            android:id="@+id/action_navigation_questions_to_selectAnswerFragment"
+            app:destination="@id/selectAnswerFragment" />
+        <action
+            android:id="@+id/action_navigation_questions_to_conversationQuestionFragment"
+            app:destination="@id/conversationQuestionFragment" />
+        <action
+            android:id="@+id/action_navigation_questions_to_conversationQuestionFragment2"
+            app:destination="@id/conversationQuestionFragment" />
+        <action
+            android:id="@+id/action_navigation_questions_to_conversationQuestionFragment3"
+            app:destination="@id/conversationQuestionFragment" />
+        <action
+            android:id="@+id/action_all_question_list_to_themeQuestionListFragment"
+            app:destination="@id/themeQuestionListFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
@@ -37,6 +71,10 @@
         android:id="@+id/blockFragment"
         android:name="com.example.com_us.ui.block.basic.BlockFragment"
         android:label="BlockFragment" >
+        <argument
+            android:name="isFull"
+            android:defaultValue="false"
+            app:argType="boolean"/>
         <action
             android:id="@+id/action_blockFragment_to_blockModifyFragment"
             app:destination="@id/blockModifyFragment" />
@@ -46,9 +84,210 @@
         android:id="@+id/blockModifyFragment"
         android:name="com.example.com_us.ui.block.modify.BlockModifyFragment"
         android:label="BlockModifyFragment" >
+        <argument
+            android:defaultValue="false"
+            app:argType="boolean"
+            android:name="isFull"/>
         <action
             android:id="@+id/action_blockModifyFragment_to_blockFragment"
             app:destination="@id/blockFragment" />
+        <action
+            android:id="@+id/action_blockModifyFragment_to_blockCompleteFragment"
+            app:destination="@id/blockCompleteFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/activity_question_detail"
+        android:id="@+id/selectAnswerFragment"
+        android:name="com.example.com_us.ui.question.select.selection.SelectAnswerFragment"
+        android:label="SelectAnswerFragment" >
+
+        <argument
+            android:name="isRandom"
+            android:defaultValue="false"/>
+        <argument
+            app:argType="integer"
+            android:name="questionId"/>
+        <argument
+            app:argType="string"
+            android:name="type"/>
+        <argument
+            app:argType="string"
+            android:name="answerType"/>
+
+
+        <action
+            android:id="@+id/action_selectAnswerFragment_to_conversationQuestionFragment"
+            app:destination="@id/conversationQuestionFragment" />
+        <action
+            android:id="@+id/action_selectAnswerFragment_to_answerFragment"
+            app:destination="@id/answerFragment" />
+        <action
+            android:id="@+id/action_selectAnswerFragment_to_loadingFragment"
+            app:destination="@id/loadingFragment" />
+        <action
+            android:id="@+id/action_selectAnswerFragment_to_previousAnswerFragment"
+            app:destination="@id/previousAnswerFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/activity_conversation_question"
+        android:id="@+id/conversationQuestionFragment"
+        android:name="com.example.com_us.ui.question.select.conversation.ConversationQuestionFragment"
+        android:label="ConversationQuestionFragment" >
+        <argument
+            android:name="isRandom"
+            android:defaultValue="false"/>
+        <argument
+            app:argType="integer"
+            android:name="questionId"/>
+        <argument
+            app:argType="string"
+            android:name="type"/>
+        <argument
+            app:argType="string"
+            android:name="answerType"/>
+
+        <action
+            android:id="@+id/action_conversationQuestionFragment_to_selectAnswerFragment"
+            app:destination="@id/selectAnswerFragment" />
+        <action
+            android:id="@+id/action_conversationQuestionFragment_to_answerFragment"
+            app:destination="@id/answerFragment" />
+        <action
+            android:id="@+id/action_conversationQuestionFragment_to_loadingFragment"
+            app:destination="@id/loadingFragment" />
+        <action
+            android:id="@+id/action_conversationQuestionFragment_to_previousAnswerFragment"
+            app:destination="@id/previousAnswerFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/activity_answer"
+        android:id="@+id/answerFragment"
+        android:name="com.example.com_us.ui.qa.AnswerFragment"
+        android:label="AnswerFragment" >
+
+        <!-- 백스택에서 LoadingFragment까지 제거하는 action 추가 -->
+        <action
+            android:id="@+id/action_selectAnswerFragment_to_previous_destination"
+            app:popUpTo="@id/loadingFragment"
+            app:popUpToInclusive="true" />
+
+
+        <argument
+            android:name="isRecord"
+            android:defaultValue= "false"
+            app:argType="boolean"/>
+
+        <action
+            android:id="@+id/action_answerFragment_to_collectBlockFragment"
+            app:destination="@id/collectBlockFragment" />
+
+    </fragment>
+    <fragment
+        tools:layout="@layout/activity_theme_question_list"
+        android:id="@+id/themeQuestionListFragment"
+        android:name="com.example.com_us.ui.question.theme.ThemeQuestionListFragment"
+        android:label="ThemeQuestionListFragment" >
+
+        <argument
+            app:argType="string"
+            android:name="theme"/>
+        <action
+            android:id="@+id/action_themeQuestionListFragment_to_all_question_list"
+            app:destination="@id/navigation_questions" />
+        <action
+            android:id="@+id/action_themeQuestionListFragment_to_selectAnswerFragment"
+            app:destination="@id/selectAnswerFragment" />
+        <action
+            android:id="@+id/action_themeQuestionListFragment_to_conversationQuestionFragment"
+            app:destination="@id/conversationQuestionFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_record"
+        android:id="@+id/recordFragment"
+        android:name="com.example.com_us.ui.record.month.RecordFragment"
+        android:label="RecordFragment" >
+        <action
+            android:id="@+id/action_recordFragment_to_loadingFragment"
+            app:destination="@id/loadingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loadingFragment"
+        android:name="com.example.com_us.ui.loading.LoadingFragment"
+        android:label="LoadingFragment">
+
+        <argument
+            android:name="isRecord"
+            android:defaultValue= "false"
+            app:argType="boolean"/>
+
+        <argument
+            app:argType="string"
+            android:name="answerDate"/>
+
+        <argument
+            app:argType="string"
+            android:name="question"/>
+
+        <argument
+            app:argType="string"
+            android:name="answer"/>
+        <argument
+            app:argType="string"
+           android:name="answerType"/>
+        <argument
+            app:argType="string"
+            android:name="category"/>
+
+        <action
+            android:id="@+id/action_loadingFragment_to_answerFragment"
+            app:destination="@id/answerFragment" />
+        <action
+            android:id="@+id/action_loadingFragment_to_selectAnswerFragment"
+            app:destination="@id/selectAnswerFragment" />
+        <action
+            android:id="@+id/action_loadingFragment_to_selectAnswerFragment2"
+            app:destination="@id/selectAnswerFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_check"
+        android:id="@+id/checkFragment"
+        android:name="com.example.com_us.ui.check.CheckFragment"
+        android:label="CheckFragment" />
+    <fragment
+        tools:layout="@layout/fragment_block_complete"
+        android:id="@+id/blockCompleteFragment"
+        android:name="com.example.com_us.ui.complete.BlockCompleteFragment"
+        android:label="BlockCompleteFragment" >
+        <action
+            android:id="@+id/action_blockCompleteFragment_to_blockFragment"
+            app:destination="@id/blockFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/activity_question_collect_block"
+        android:id="@+id/collectBlockFragment"
+        android:name="com.example.com_us.ui.question.block.CollectBlockFragment"
+        android:label="CollectBlockFragment" >
+
+
+
+
+        <argument
+            app:argType="string"
+            android:name="category"/>
+        <action
+            android:id="@+id/action_collectBlockFragment_to_navigation_questions"
+            app:destination="@id/navigation_questions" />
+    </fragment>
+    <fragment
+        android:id="@+id/previousAnswerFragment"
+        android:name="com.example.com_us.ui.question.previous.PreviousAnswerFragment"
+        android:label="PreviousAnswerFragment" >
+        <argument
+            android:name="questionId"
+            app:argType="string"/>
+        <action
+            android:id="@+id/action_previousAnswerFragment_to_loadingFragment"
+            app:destination="@id/loadingFragment" />
     </fragment>
 
 

@@ -41,6 +41,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:text="@string/question_detail_button_answer_before"
+        android:clickable="false"
         android:textColor="@color/gray_500"
         app:layout_constraintBottom_toBottomOf="@+id/question_category"
         app:layout_constraintEnd_toEndOf="parent"
@@ -82,6 +83,7 @@
 
 
     <EditText
+        android:maxLength="120"
         android:paddingVertical="30dp"
         android:paddingHorizontal="20dp"
         android:gravity="top"

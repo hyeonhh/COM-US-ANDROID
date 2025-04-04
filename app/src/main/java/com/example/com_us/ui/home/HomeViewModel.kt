@@ -88,6 +88,7 @@ class HomeViewModel @Inject constructor(
     private suspend fun checkToken(){
         Timber.d("checkToken")
         viewModelScope.async {
+            try {
                 userTokenRepository.reissueToken(
                     LoginResponse(
                         accessToken =
@@ -101,18 +102,21 @@ class HomeViewModel @Inject constructor(
                             // 토큰 갱신 성공
                             if (this.data != null) {
                                 userTokenRepository.saveAccessToken(this.data.accessToken)
-                                userTokenRepository.saveRefreshToken(this.data.refreshToken)
                                 Timber.d("토큰 갱신 성공")
+                                loadHomeData()
                             }
                         }
 
                         500, 401 -> {
                             //토큰 갱신 실패 : 재로그인!
                             startLoginActivity()
-                            throw NetworkError.HttpException(message)
                         }
                     }
                 }
+            }catch (e:HttpException){
+               Timber.d("에러 발생")
+            }
+
         }.await()
     }
 

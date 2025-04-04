@@ -6,6 +6,15 @@ import javax.inject.Qualifier
     @Retention(AnnotationRetention.BINARY)
     annotation class BaseUrl
 
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class ModifyBaseUrl
+
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class ModifyRetrofit
+
 
     @Retention(AnnotationRetention.BINARY)
     @Qualifier

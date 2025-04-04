@@ -1,75 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraint_answer"
+    android:fillViewport="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.question.previous.PreviousAnswerActivity">
+>
 
-    <include
-        android:id="@+id/include_previous_toolbar"
-        layout="@layout/toolbar_top" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:padding="25dp"
+        android:layout_height="match_parent">
+
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_arrow_left"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:textSize="21sp"
+        android:textStyle="bold"
+        android:id="@+id/textView24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/activity_horizontal_whitespace"
-        android:text="@string/question_previous_title_question"
-        android:textColor="@color/orange_700"
-        android:textFontWeight="700"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textview_previous_conv_count"
+        android:text="이전 답변 보기"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_back"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textview_previous_conv_count" />
+        app:layout_constraintTop_toTopOf="@+id/btn_back" />
 
-    <TextView
-        android:id="@+id/textview_previous_conv_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:textColor="@color/gray_700"
-        android:textFontWeight="400"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@id/textView7"
-        app:layout_constraintTop_toBottomOf="@id/include_previous_toolbar"
-        tools:layout_editor_absoluteY="30dp" />
 
-    <TextView
-        android:id="@+id/textview_previous_question"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_whitespace"
-        android:layout_marginTop="11dp"
-        android:text="@string/question_sample_question"
-        android:textColor="@color/text_black"
-        android:textFontWeight="700"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/compose_previous_questiontype"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView7" />
 
     <androidx.compose.ui.platform.ComposeView
         android:id="@+id/compose_previous_questiontype"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/activity_horizontal_whitespace"
-        android:layout_marginStart="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/textview_previous_question"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textview_previous_question"
-        app:layout_constraintTop_toTopOf="@+id/textview_previous_question" />
+        app:layout_constraintStart_toStartOf="@+id/btn_back"
+        app:layout_constraintTop_toBottomOf="@+id/btn_back" />
 
-    <View
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/answerType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textview_previous_question"
+        app:layout_constraintStart_toEndOf="@id/compose_previous_questiontype"
+        app:layout_constraintTop_toBottomOf="@+id/btn_back" />
+
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/answerType2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/answerType"
+        app:layout_constraintStart_toEndOf="@+id/answerType"
+        app:layout_constraintTop_toTopOf="@+id/answerType" />
+
+
+    <TextView
+        android:id="@+id/textview_previous_question"
+        android:layout_width="match_parent"
+        android:textAlignment="center"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/question_sample_question"
+        android:textColor="@color/text_black"
+        android:textFontWeight="700"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/answerType" />
+
+    <com.google.android.material.divider.MaterialDivider
+        app:dividerColor="@color/gray_30"
         android:id="@+id/view2"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="2dp"
         android:layout_marginVertical="20dp"
-        android:background="@color/gray_100"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_previous_question" />
@@ -79,10 +95,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/activity_horizontal_whitespace"
-        android:layout_marginVertical="20dp"
+        android:layout_marginTop="20dp"
         android:text="@string/question_previous_answer"
         android:textColor="@color/text_black"
-        android:textFontWeight="400"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view2" />
@@ -91,20 +106,25 @@
         android:id="@+id/textview_previous_answer_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:textColor="@color/gray_700"
         android:textFontWeight="400"
         android:textSize="14sp"
-        android:layout_marginStart="6dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView8"
         app:layout_constraintStart_toEndOf="@+id/textView8"
         app:layout_constraintTop_toTopOf="@+id/textView8" />
 
-    <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/compose_previous_answerlist"
-        android:layout_width="match_parent"
-        android:layout_height="550dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginHorizontal="17.5dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"/>
+       <androidx.compose.ui.platform.ComposeView
+           android:id="@+id/compose_previous_answerlist"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="14dp"
+           android:layout_marginBottom="10dp"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

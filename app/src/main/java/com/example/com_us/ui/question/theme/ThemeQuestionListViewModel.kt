@@ -72,7 +72,7 @@ class ThemeQuestionListViewModel @Inject constructor(
     // 클릭한 카테고리의 질문 리스트를 가져오는 함수
     fun loadQuestionListByCate(category: String){
         viewModelScope.launch {
-            questionRepository.getQuestionListByCate(category)
+            questionRepository.getQuestionListByCate(category,"")
                 .onSuccess {
                     _uiState.value = UiState.Success(it)
                 }

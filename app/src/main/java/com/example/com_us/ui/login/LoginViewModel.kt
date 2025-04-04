@@ -38,7 +38,6 @@ class LoginViewModel @Inject constructor(
             if (accessToken!="" && refreshToken!="") {
                 startHomeActivity()
             }
-
         }
     }
 
@@ -59,6 +58,7 @@ class LoginViewModel @Inject constructor(
         }
 
      fun onKakaoLogin(request : LoginRequest){
+         Timber.d("로그인")
         viewModelScope.launch {
             authRepository.login(request)
                 .onSuccess {

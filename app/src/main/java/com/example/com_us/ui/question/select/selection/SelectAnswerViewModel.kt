@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.com_us.base.data.NetworkError
 import com.example.com_us.base.viewmodel.BaseViewModel
 import com.example.com_us.data.model.question.request.DetailQuestionRequest
+import com.example.com_us.data.model.question.request.RequestAnswerRequest
 import com.example.com_us.data.model.question.response.question.ResponseQuestionDetailDto
 import com.example.com_us.data.repository.QuestionRepository
 import com.example.com_us.ui.base.UiState
@@ -13,6 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,15 +26,24 @@ class SelectAnswerViewModel @Inject constructor(
     private val _uiState =  MutableStateFlow<UiState<ResponseQuestionDetailDto>>(UiState.Loading)
     val uiState: StateFlow<UiState<ResponseQuestionDetailDto>> = _uiState
 
-    private val _selectedAnswerOptionId = MutableLiveData(-1)
-    val selectedAnswerOptionId: LiveData<Int> = _selectedAnswerOptionId
+    private val _selectedAnswer= MutableLiveData("")
+    val selectedAnswer: LiveData<String> = _selectedAnswer
 
-    fun updateSelectedAnswerOptionId(newOptionId: Int) {
-        _selectedAnswerOptionId.value = newOptionId
+
+    fun updateSelectedAnswer(selectedAnswer: String) {
+        _selectedAnswer.value = selectedAnswer
     }
 
 
+    fun setAnswer(selectedAnswer : String){
+        Timber.d("선택된 것: $selectedAnswer")
+    }
 
+    fun postAnswer(answer : RequestAnswerRequest) {
+        viewModelScope.launch {
+            questionRepository.postAnswer(answer)
+        }
+    }
 
     // 질문 클릭 시 상세 내용 가져오는 함수
     fun loadQuestionDetail(body: DetailQuestionRequest){
@@ -53,5 +64,7 @@ class SelectAnswerViewModel @Inject constructor(
                 }
         }
     }
+
+
 
 }

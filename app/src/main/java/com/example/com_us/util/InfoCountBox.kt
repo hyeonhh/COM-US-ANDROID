@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.TypedArrayUtils.getResourceId
 import com.example.com_us.R
+import com.example.com_us.databinding.ViewInfoCountBoxBinding
 
 class InfoCountBox
     @JvmOverloads
@@ -21,20 +22,25 @@ class InfoCountBox
         private lateinit var countTextView: TextView
         private lateinit var iconImageView: ImageView
 
+        private lateinit var binding : ViewInfoCountBoxBinding
+
         init {
             initializeView()
             getAttrs(attrs, defStyleAttr)
         }
 
-        private fun initializeView() {
-            val view =
-                LayoutInflater
-                    .from(context)
-                    .inflate(R.layout.view_info_count_box, this, true)
-            titleTextView = view.findViewById(R.id.txt_title)
-            countTextView = view.findViewById(R.id.txt_count)
-            iconImageView = view.findViewById(R.id.iv_icon)
+        fun setAnswerCount(count : Int){
+            binding.txtCount.text = "${count}개"
         }
+
+
+    private fun initializeView(){
+        val layoutInflater = LayoutInflater.from(context)
+        binding = ViewInfoCountBoxBinding.inflate(layoutInflater,this,true)
+        titleTextView = binding.txtTitle
+        countTextView = binding.txtCount
+        iconImageView = binding.ivIcon
+    }
 
         private fun getAttrs(
             attrs: AttributeSet?,
