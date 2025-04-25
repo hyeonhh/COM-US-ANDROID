@@ -205,11 +205,7 @@ class AllQuestionListFragment : BaseFragment<FragmentQuestionBinding,AllQuestion
             selectedView = "FRIEND"
             viewModel.loadQuestionListByCate(selectedView,"")
         }
-        binding.includeThemeRandom.textviewTheme.setOnClickListener {
-            onClickTheme(it as TextView)
-            selectedView = "Random"
-            viewModel.loadQuestionListByCate(selectedView,"")
-        }
+
         binding.includeThemeInterest.textviewTheme.setOnClickListener {
             onClickTheme(it as TextView)
             selectedView = "HOBBY"
@@ -248,10 +244,7 @@ class AllQuestionListFragment : BaseFragment<FragmentQuestionBinding,AllQuestion
             it.setBackgroundResource(R.drawable.shape_stroke_rect5_gray200)  // 기본 배경 리소스로 변경
             it.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray_500))  // 기본 텍스트 색상으로 변경
         }
-        binding.includeThemeRandom.textviewTheme.let {
-            it.setBackgroundResource(R.drawable.shape_stroke_rect5_gray200)  // 기본 배경 리소스로 변경
-            it.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray_500))  // 기본 텍스트 색상으로 변경
-        }
+
         binding.includeThemeInterest.textviewTheme.let {
             it.setBackgroundResource(R.drawable.shape_stroke_rect5_gray200)  // 기본 배경 리소스로 변경
             it.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray_500))  // 기본 텍스트 색상으로 변경

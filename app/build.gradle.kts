@@ -78,6 +78,7 @@ dependencies {
 
     implementation("com.google.dagger:hilt-android:2.51.1")
     implementation("androidx.test.espresso:espresso-core:3.6.1")
+    implementation("androidx.draganddrop:draganddrop:1.0.0")
     ksp("com.google.dagger:hilt-android-compiler:2.51.1")
 
     implementation("androidx.core:core-ktx:1.13.1")

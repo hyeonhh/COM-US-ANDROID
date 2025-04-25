@@ -1,8 +1,19 @@
 package com.example.com_us.ui.block.modify
 
 
+import android.content.ClipData
+import android.content.ClipDescription.MIMETYPE_TEXT_PLAIN
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Point
+import android.view.DragEvent
 import android.view.View
-import android.widget.Toast
+import android.widget.ImageView
+import androidx.core.util.component1
+import androidx.core.util.component2
+import androidx.core.view.DragStartHelper
+import androidx.core.view.children
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -13,11 +24,13 @@ import com.example.com_us.data.model.block.BlockPlace
 import com.example.com_us.data.model.block.SaveBlockRequest
 import com.example.com_us.data.model.home.Block
 import com.example.com_us.databinding.FragmentBlockModifyBinding
-import com.example.com_us.util.ColorMatch
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import kotlin.math.ceil
+import kotlin.math.sqrt
+
+data class CellInfo(val row: Int, val column: Int)
 
 @AndroidEntryPoint
 class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModifyViewModel>(
@@ -28,8 +41,11 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
     override val viewModel: BlockModifyViewModel by viewModels()
     private var currentType: String? = null
 
+    private var row : Int = 0
+    private var col : Int = 0
+
     private var level = 0
-    private var rotateDegree = intArrayOf(-90, -180, -270,0)
+    private var rotateDegree = intArrayOf(-90, -180, -270, 0)
     private var clickCount = 0
     private var selectedDegree = 0
 
@@ -39,54 +55,174 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
         mutableListOf(0, 0, 0, 0),
         mutableListOf(0, 0, 0, 0)
     )
-    private var selectedBlock = arrayListOf<Pair<Int , Int>>()
+    private var selectedBlock = arrayListOf<Pair<Int, Int>>()
 
-    private var blockView : List<List<View>> = emptyList()
-    private fun onClickBlockBox(type: String, resId: Int) {
-        with(binding) {
-            currentType = type
-            rotateToLeft.visibility = View.VISIBLE
-            rotateToRight.visibility = View.VISIBLE
-            selectedDegree=0
-            ivBlockRotate.rotation = selectedDegree.toFloat()
-            ivBlockRotate.visibility = View.VISIBLE
-            ivBlockRotate.setImageDrawable(resources.getDrawable(resId))
+    private var blockView: List<List<View>> = emptyList()
 
-            rotateToLeft.setOnClickListener {
-                clickCount += 1
-                if (clickCount >= 5) clickCount -= 4
-                ivBlockRotate.rotation = rotateDegree[clickCount-1].toFloat()
+    private fun setGridDragListener() {
+        binding.includeBlock.gridLayout.setOnDragListener { view, event ->
+            when (event.action) {
+                DragEvent.ACTION_DRAG_STARTED -> {
+                    // 드래그 시작 - MIME 타입 확인
+                    event.clipDescription.hasMimeType(MIMETYPE_TEXT_PLAIN)
+                }
 
-                selectedDegree = rotateDegree[clickCount-1]
-                Timber.d("선택된 대화 주머니 :$currentType, degree:$selectedDegree")
+                DragEvent.ACTION_DRAG_ENTERED -> {
+                    // 드래그가 그리드 영역에 들어옴
+                    Timber.d("ACTION_DRAG_ENTERED")
+                    true
+                }
 
-            }
-            rotateToRight.setOnClickListener {
-                clickCount += 1
-                if (clickCount >= 5) clickCount -= 4
-                selectedDegree = rotateDegree[clickCount - 1]
-                ivBlockRotate.rotation = rotateDegree[clickCount - 1].toFloat()
+                DragEvent.ACTION_DRAG_LOCATION -> {
+                    val gridLayout = binding.includeBlock.gridLayout
+                    // 드래그 중 - 현재 위치에 따라 적절한 셀 하이라이트
+                    val x = event.x
+                    val y = event.y
+
+                    // 현재 위치에 해당하는 셀 찾기
+                    row = (y / (view.height / (gridLayout.rowCount))).toInt()
+                    col = (x / (view.width / (gridLayout.columnCount))).toInt()
+
+                    true
+                }
+
+                DragEvent.ACTION_DROP -> {
+                    Timber.d("ACTION_DROP")
+                    val gridLayout = binding.includeBlock.gridLayout
+                    for (i in 0 until gridLayout.childCount) {
+                        val child = gridLayout.getChildAt(i)
+                        val first = child.tag.toString()[0].toString()
+                        val second = child.tag.toString()[1].toString()
+                        if (first == row.toString() && second == col.toString()) {
+                            Timber.d(("currentTYpe :$currentType"))
+                             when(currentType){
+                                "DAILY" -> {
+                                    setDailyBlock(row,col)
+                                }
+                                "SCHOOL" -> {
+                                    setSchoolBlock(row,col,  selectedDegree)
+                                }
+                                "HOBBY" -> {
+                                    setInterestBlock(row,col,  selectedDegree)
+                                }
+                                "FAMILY" -> {
+                                    setFamilyBlock(row,col,  selectedDegree)
+                                }
+                                "FRIEND" -> {
+                                    setFriendBlock(row,col, selectedDegree)
+                                }
+                                else -> {}
+                            }
+
+                            break
+                        } else continue
+                    }
+
+
+                    true
+                }
+                DragEvent.ACTION_DRAG_EXITED -> {
+                    Timber.d("ACTION_DRAG_EXITED")
+                    true
+                }
+                DragEvent.ACTION_DRAG_ENDED -> {
+                    Timber.d("ACTION_DRAG_ENDED")
+                    true
+                }
+
+                else -> false
             }
         }
     }
 
-    private fun setDailyBlock(row :Int, col : Int){
-        selectedBlock = arrayListOf<Pair<Int , Int>>()
 
-        if (row >=4 || row <0 || col>=4 || col<0) {
+    private fun onDragBlock() {
+        binding.ivBlockRotate.rotation = selectedDegree.toFloat()
+
+        // 현재 회전 각도도 조절하기
+        DragStartHelper(binding.ivBlockRotate) { v, _ ->
+            val item = ClipData.Item(v.tag as? CharSequence)
+            val dragData = ClipData(
+                v.tag as? CharSequence,
+                arrayOf(MIMETYPE_TEXT_PLAIN),
+                item
+            )
+
+
+            val shadowBuilder = object :View.DragShadowBuilder(v){
+                override fun onProvideShadowMetrics(
+                    outShadowSize: Point?,
+                    outShadowTouchPoint: Point?
+                ) {
+                    val maxSize = ceil(sqrt((v.width * v.width + v.height * v.height).toDouble())).toInt()
+                    outShadowSize?.set(maxSize, maxSize)
+                    outShadowTouchPoint?.set(maxSize / 2, maxSize / 2)
+                }
+                override fun onDrawShadow(canvas: Canvas) {
+                    canvas.save()
+                    // 중앙으로 이동하고 회전 후 원래 위치로 이동
+                    val centerX = canvas.width / 2f
+                    val centerY = canvas.height / 2f
+                    canvas.translate(centerX - v.width / 2f, centerY - v.height / 2f)
+                    canvas.rotate(selectedDegree.toFloat(), v.width / 2f, v.height / 2f)
+
+                    super.onDrawShadow(canvas)
+                    canvas.restore()
+                }
+            }
+            v.startDragAndDrop(
+                dragData,
+                shadowBuilder,
+                null,
+                0
+            )
+            true
+        }.attach()
+    }
+    private fun onClickBlockBox(type: String, resId: Int) {
+        with(binding) {
+            currentType = type
+            selectedDegree= 0
+            ivBlockRotate.rotation = selectedDegree.toFloat()
+            ivBlockRotate.visibility = View.VISIBLE
+            ivBlockRotate.setImageDrawable(resources.getDrawable(resId))
+
+            btnRotate.setOnClickListener {
+                clickCount += 1
+                if (clickCount >= 5) clickCount -= 4
+                selectedDegree = rotateDegree[clickCount - 1]
+                ivBlockRotate.rotation = selectedDegree.toFloat()
+            }
+        }
+    }
+
+    private fun setDailyBlock(row :Int, col : Int) {
+        selectedBlock = arrayListOf<Pair<Int, Int>>()
+
+        if (row >= 4 || row < 0 || col >= 4 || col < 0) {
             onRetry()
             return
         }
-        currentType = "DAILY"
         binding.warnText.visibility = View.INVISIBLE
-        block[row][col] =1
-        viewModel.setBlock(row,col)
+        block[row][col] = 1
+        viewModel.setBlock(row, col)
+        selectedBlock.add(row to col)
+
         blockView[row][col].setBackgroundColor(resources.getColor(R.color.orange_700_50))
 
-        selectedBlock.add(row to col)
         Timber.d("selectedBlock :$selectedBlock")
+        val gridLayout = binding.includeBlock.gridLayout
+        for (i in 0 until gridLayout.childCount) {
+            val child = gridLayout.getChildAt(i)
+            val first = child.tag.toString()[0].toString()
+            val second = child.tag.toString()[1].toString()
+            if (first == row.toString() && second == col.toString()) {
+                child.setBackgroundColor(resources.getColor(R.color.orange_700_50))
 
-        onComplete()
+                onComplete()
+                break
+            }
+        }
     }
 
 
@@ -256,8 +392,6 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
             viewModel.setBlock(row+1,col+2)
 
 
-
-
             blockView[row][col].setBackgroundColor(resources.getColor(R.color.purple_700_50))
             blockView[row-1][col+1].setBackgroundColor(resources.getColor(R.color.purple_700_50))
             blockView[row+1][col+1].setBackgroundColor(resources.getColor(R.color.purple_700_50))
@@ -307,8 +441,6 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
         binding.warnText.visibility = View.VISIBLE
         binding.ivBlockRotate.visibility= View.VISIBLE
         binding.ivBlockRotate.rotation = selectedDegree.toFloat()
-        binding.rotateToLeft.visibility = View.VISIBLE
-        binding.rotateToRight.visibility = View.VISIBLE
     }
 
     private fun onComplete(){
@@ -348,6 +480,22 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
             selectedBlock.add(row+1 to col+1)
             selectedBlock.add(row+2 to col+1)
 
+
+            val gridLayout = binding.includeBlock.gridLayout
+            for (i in 0 until gridLayout.childCount) {
+
+                val child = gridLayout.getChildAt(i)
+                val first = child.tag.toString()[0].toString()
+                val second = child.tag.toString()[1].toString()
+                if (first == row.toString() && second == col.toString()) {
+                    child.setBackgroundColor(resources.getColor(R.color.orange_700_50))
+                   // blockView[row][col].setBackgroundColor(resources.getColor(R.color.orange_700_50))
+                    onComplete()
+                    break
+                }
+            }
+
+
             blockView[row][col].setBackgroundColor(resources.getColor(R.color.green_700_50))
             blockView[row+1][col].setBackgroundColor(resources.getColor(R.color.green_700_50))
             blockView[row+1][col+1].setBackgroundColor(resources.getColor(R.color.green_700_50))
@@ -367,6 +515,7 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
             }
             currentType = "FRIEND"
             binding.warnText.visibility = View.INVISIBLE
+
             block[row][col]=1
             block[row][col+1]=1
             block[row-1][col+1]=1
@@ -524,15 +673,13 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
     }
 
     private fun onSetBlock(blockType : String, degree :Int, row : Int, col : Int){
-        binding.rotateToLeft.visibility = View.INVISIBLE
-        binding.rotateToRight.visibility = View.INVISIBLE
         binding.ivBlockRotate.visibility = View.INVISIBLE
         when(blockType){
-            "school" -> setSchoolBlock(row,col,degree)
-            "daily" ->  setDailyBlock(row,col)
-            "family" -> setFamilyBlock(row,col,degree)
-            "friend" -> setFriendBlock(row,col,degree)
-            "interest" -> setInterestBlock(row, col, degree)
+            "SCHOOL" -> setSchoolBlock(row,col,degree)
+            "DAILY" ->  setDailyBlock(row,col)
+            "FAMILY" -> setFamilyBlock(row,col,degree)
+            "FRIEND" -> setFriendBlock(row,col,degree)
+            "HOBBY" -> setInterestBlock(row, col, degree)
         }
     }
 
@@ -548,18 +695,12 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
     override fun onBindLayout() {
         super.onBindLayout()
 
+        onDragBlock()
+        setGridDragListener()
+        //handleBlockDrop()
+
         binding.includeInfo.txtDeleteBlock.setOnClickListener { viewModel.deleteBlock()}
 
-//        if (args.isFull){
-//            initBlock()
-//            binding.includeInfo.txtLevel.text =" ${level+1}단계"
-//        }
-//        lifecycleScope.launch {
-//            viewModel.currentLevel.collect{
-//                level = it
-//                binding.includeInfo.txtLevel.text ="${it}단계"
-//            }
-//        }
 
         viewModel.allBlockCompleteEvent.observe(this, {
             // 블럭이 모두 채워진 경우?
@@ -739,58 +880,58 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
 
             // 대화 주머니 클릭
             includeInfo.firstBlock.setOnClickListener {
-                    it.isSelected = !it.isSelected
-
-                    if (it.isSelected) {
+                it.isSelected =true
+                        currentType = "DAILY"
                         includeInfo.secondBlock.isSelected = false
                         includeInfo.thirdBlock.isSelected = false
                         includeInfo.fourthBlock.isSelected = false
                         includeInfo.fifthBlock.isSelected = false
-                        onClickBlockBox("daily", R.drawable.block_daily_v2)
+                        onClickBlockBox("DAILY", R.drawable.block_daily_v2)
                     }
+
+
+            includeInfo.imageView6.setOnClickListener {
+                includeInfo.firstBlock.isSelected = true
+                    includeInfo.secondBlock.isSelected = false
+                    includeInfo.thirdBlock.isSelected = false
+                    includeInfo.fourthBlock.isSelected = false
+                    includeInfo.fifthBlock.isSelected = false
+                    onClickBlockBox("DAILY", R.drawable.block_daily_v2)
                 }
                 includeInfo.secondBlock.setOnClickListener {
-                    it.isSelected = !it.isSelected
-                    if (it.isSelected) {
+                    it.isSelected = true
                         includeInfo.firstBlock.isSelected = false
                         includeInfo.thirdBlock.isSelected = false
                         includeInfo.fourthBlock.isSelected = false
                         includeInfo.fifthBlock.isSelected = false
-                        onClickBlockBox("school", R.drawable.block_school_v2)
-                    }
+                        onClickBlockBox("SCHOOL", R.drawable.block_school_v2)
                 }
                 includeInfo.thirdBlock.setOnClickListener {
-                    it.isSelected = !it.isSelected
-                    if (it.isSelected) {
+                    it.isSelected = true
                         includeInfo.firstBlock.isSelected = false
                         includeInfo.secondBlock.isSelected = false
                         includeInfo.fourthBlock.isSelected = false
                         includeInfo.fifthBlock.isSelected = false
-
-                        onClickBlockBox("interest", R.drawable.block_interest_v2)
+                        onClickBlockBox("HOBBY", R.drawable.block_interest_v2)
                     }
-                }
+
                 includeInfo.fourthBlock.setOnClickListener {
-                    it.isSelected = !it.isSelected
-                    if (it.isSelected) {
+                    it.isSelected = true
                         includeInfo.firstBlock.isSelected = false
                         includeInfo.secondBlock.isSelected = false
                         includeInfo.thirdBlock.isSelected = false
                         includeInfo.fifthBlock.isSelected = false
-
-                        onClickBlockBox("family", R.drawable.block_family_v2)
+                        onClickBlockBox("FAMILY", R.drawable.block_family_v2)
                     }
-                }
+
                 includeInfo.fifthBlock.setOnClickListener {
-                    it.isSelected = !it.isSelected
-                    if (it.isSelected) {
+                    it.isSelected  = true
+
                         includeInfo.secondBlock.isSelected = false
                         includeInfo.thirdBlock.isSelected = false
                         includeInfo.fourthBlock.isSelected = false
                         includeInfo.firstBlock.isSelected = false
-
-                        onClickBlockBox("friend", R.drawable.block_friend_v2)
-                    }
+                        onClickBlockBox("FRIEND", R.drawable.block_friend_v2)
                 }
             }
         }

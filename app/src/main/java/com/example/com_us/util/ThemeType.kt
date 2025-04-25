@@ -7,9 +7,9 @@ enum class ThemeType(val kor: String, val blockRes: Int?) {
     ALL("전체", null),
     DAILY("DAILY", R.drawable.img_block_char_orange),
     SCHOOL("SCHOOL", R.drawable.img_block_char_blue),
-    FRIEND("FRIEND", R.drawable.img_block_char_purple),
-    FAMILY("FAMILY", R.drawable.img_block_char_salmon),
-    HOBBY("HOBBY", R.drawable.img_block_char_green),
+    FRIEND("FRIEND", R.drawable.img_block_char_green),
+    FAMILY("FAMILY", R.drawable.img_block_char_purple),
+    HOBBY("HOBBY", R.drawable.img_block_char_salmon),
     RANDOM("랜덤", null);
 
     companion object {

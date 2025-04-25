@@ -61,8 +61,8 @@ class RecordFragment :BaseFragment<FragmentRecordBinding, RecordViewModel>(
         super.onBindLayout()
 
         binding.viewRecord.layout.visibility = View.GONE
-
         binding.viewFlipper.displayedChild = 0
+
         currentIndex = 4
         binding.btnPrevious.visibility = View.INVISIBLE
         binding.btnNext.setOnClickListener {
