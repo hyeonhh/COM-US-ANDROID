@@ -19,6 +19,14 @@ class BlockModifyViewModel @Inject constructor(
     private val blockRepository: BlockRepository,
 ) : BaseViewModel() {
 
+    // 블럭 배치하기
+    fun putBlock(category: String) {
+        when(category) {
+            "DAILY" -> {
+            }
+        }
+    }
+
     //현재 단계
     private val _currentLevel = MutableStateFlow(0)
     val currentLevel = _currentLevel.asStateFlow()
@@ -67,6 +75,7 @@ class BlockModifyViewModel @Inject constructor(
         _blockEvent.call()
     }
 
+
     private val _familyBlockCount = MutableStateFlow(0)
     private val _friendBlockCount = MutableStateFlow(0)
     private val _dailyBlockCount = MutableStateFlow(0)
@@ -74,6 +83,14 @@ class BlockModifyViewModel @Inject constructor(
     private val _interestBlockCount = MutableStateFlow(0)
 
     val familyBlockCount = _familyBlockCount.asStateFlow()
+
+    val userFamilyBlockCount =  _familyBlockCount.asStateFlow()
+    val userDailyBlockCount = _dailyBlockCount.asStateFlow()
+    val userSchoolBlockCount = _schoolBlockCount.asStateFlow()
+    val userHobbyBlockCount = _interestBlockCount.asStateFlow()
+
+
+
     val friendBlockCount = _friendBlockCount.asStateFlow()
     val dailyBlockCount = _dailyBlockCount.asStateFlow()
     val schoolBlockCount = _schoolBlockCount.asStateFlow()
@@ -81,7 +98,7 @@ class BlockModifyViewModel @Inject constructor(
     val interestBlockCount = _interestBlockCount.asStateFlow()
 
 
-    private val _block = MutableStateFlow(emptyList<Block>())
+    private val _block = MutableStateFlow(Block())
     val block = _block.asStateFlow()
 
     init {
@@ -100,7 +117,7 @@ class BlockModifyViewModel @Inject constructor(
                     _block.value = it
                   //  _currentLevel.value = it.first().level
                     // 이미 채워진 블럭 위치도 1로 만들어주기
-                    it.forEach {
+                    it.blocks.forEach {
                         it.blockPlace.forEach {
                             setBlock(it.row,it.col)
                         }

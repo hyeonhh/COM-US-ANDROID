@@ -306,7 +306,7 @@ class HomeFragment :
 
                            binding.viewUserConversationInfoBox.infoCountBox.setAnswerCount(it.data.userInfo.answerCount)
                            binding.viewUserConversationInfoBox.likeCountBox.setAnswerCount(it.data.userInfo.likeCount)
-                            setBlock(it.data.blocks)
+                            setBlock(it.data.blockBoard)
 
                             binding.swiperefreshHome.isRefreshing = false
                             binding.progressBar.visibility = View.GONE
@@ -436,13 +436,13 @@ class HomeFragment :
 
 
 
-    private fun setBlock(blockData: List<Block>?) {
-        if (blockData== null ){
+    private fun setBlock(blockData: Block) {
+        if (blockData.blocks.isEmpty() ){
             setNoBlockBackground(true)
             return
         }
-        if (blockData.isNotEmpty()) setNoBlockBackground(false)
-        for (data in blockData) {
+        setNoBlockBackground(false)
+        for (data in blockData.blocks) {
             val color = when(data.category) {
                 "DAILY" -> resources.getColor(R.color.orange_700)
                 "SCHOOL" -> resources.getColor(R.color.blue_700)

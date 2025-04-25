@@ -20,7 +20,7 @@ class BlockRepositoryImpl @Inject constructor(
         return blockDataSource.saveBlock(body)
     }
 
-    override suspend fun getBlock(): Result<List<Block>> {
+    override suspend fun getBlock(): Result<Block> {
         return  try {
             blockDataSource.getBlock().toResult()
         }catch (e:Exception){

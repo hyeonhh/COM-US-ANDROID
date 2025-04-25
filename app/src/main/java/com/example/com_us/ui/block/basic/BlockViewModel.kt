@@ -19,7 +19,7 @@ class BlockViewModel @Inject constructor(
     private val blockRepository: BlockRepository,
 ):BaseViewModel() {
 
-    private val _block = MutableStateFlow(emptyList<Block>())
+    private val _block = MutableStateFlow(Block())
     val block = _block.asStateFlow()
 
     init {
@@ -44,16 +44,21 @@ class BlockViewModel @Inject constructor(
 
      val interestBlockCount = _interestBlockCount.asStateFlow()
 
-    private val _blockList =
+     private val _blockList =
+         MutableStateFlow(
         mutableListOf(
             mutableListOf(0, 0, 0, 0),
             mutableListOf(0, 0, 0, 0),
             mutableListOf(0, 0, 0, 0),
             mutableListOf(0, 0, 0, 0)
         )
+         )
+
+    val blockList = _blockList.asStateFlow()
 
     fun setBlock(rol : Int, col : Int){
-        _blockList[rol][col] = 1
+        _blockList.value[rol][col] = 1
+        Timber.d("block list :$_blockList")
     }
 
     private val _allBlockCompleteEvent = SingleLiveEvent<Any>()
@@ -66,7 +71,7 @@ class BlockViewModel @Inject constructor(
 
 
     private fun checkAllBlockIsOne() : Boolean {
-        return _blockList.all {row ->
+        return _blockList.value.all{row ->
             row.isNotEmpty() && row.all { it==1 }
         }
     }
@@ -79,12 +84,12 @@ class BlockViewModel @Inject constructor(
                 }
                 .onSuccess {
                     _block.value = it
-                  //  _currentLevel.value = it.first().level
-                    it.forEach {
+                    it.blocks.forEach {
                         it.blockPlace.forEach {
                             setBlock(it.row,it.col)
                         }
                     }
+
                     if(checkAllBlockIsOne()) {
                         showCompleteScreen()
                     }

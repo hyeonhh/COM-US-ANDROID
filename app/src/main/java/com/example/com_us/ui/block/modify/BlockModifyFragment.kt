@@ -10,6 +10,7 @@ import android.graphics.Point
 import android.view.DragEvent
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.util.component1
 import androidx.core.util.component2
 import androidx.core.view.DragStartHelper
@@ -41,6 +42,11 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
     override val viewModel: BlockModifyViewModel by viewModels()
     private var currentType: String? = null
 
+    private var dailyBlockCount = 0
+    private var schoolBlockCount = 0
+    private var hobbyBlockCount = 0
+    private var familyBlockCount  = 0
+    private var friendBlockCount = 0
     private var row : Int = 0
     private var col : Int = 0
 
@@ -59,6 +65,9 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
 
     private var blockView: List<List<View>> = emptyList()
 
+    private fun  showCompleteToast() {
+        Toast.makeText(requireContext(), "블럭을 모두 배치했어요 !", Toast.LENGTH_SHORT).show()
+    }
     private fun setGridDragListener() {
         binding.includeBlock.gridLayout.setOnDragListener { view, event ->
             when (event.action) {
@@ -74,6 +83,8 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
                 }
 
                 DragEvent.ACTION_DRAG_LOCATION -> {
+                    binding.ivBlockRotate.visibility = View.INVISIBLE
+
                     val gridLayout = binding.includeBlock.gridLayout
                     // 드래그 중 - 현재 위치에 따라 적절한 셀 하이라이트
                     val x = event.x
@@ -87,6 +98,7 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
                 }
 
                 DragEvent.ACTION_DROP -> {
+                    binding.ivBlockRotate.visibility = View.INVISIBLE
                     Timber.d("ACTION_DROP")
                     val gridLayout = binding.includeBlock.gridLayout
                     for (i in 0 until gridLayout.childCount) {
@@ -97,18 +109,24 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
                             Timber.d(("currentTYpe :$currentType"))
                              when(currentType){
                                 "DAILY" -> {
+                                    dailyBlockCount+=1
                                     setDailyBlock(row,col)
                                 }
                                 "SCHOOL" -> {
+
+                                    schoolBlockCount+=1
                                     setSchoolBlock(row,col,  selectedDegree)
                                 }
                                 "HOBBY" -> {
+                                    hobbyBlockCount+=1
                                     setInterestBlock(row,col,  selectedDegree)
                                 }
                                 "FAMILY" -> {
+                                    familyBlockCount+=1
                                     setFamilyBlock(row,col,  selectedDegree)
                                 }
                                 "FRIEND" -> {
+                                    friendBlockCount+=1
                                     setFriendBlock(row,col, selectedDegree)
                                 }
                                 else -> {}
@@ -226,8 +244,9 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
     }
 
 
-    private fun setBlock(blockData: List<Block>) {
-        for (block in blockData) {
+    private fun setBlock(blockData: Block) {
+
+        for (block in blockData.blocks) {
             val color = when(block.category) {
                 "DAILY" -> resources.getColor(R.color.orange_700)
                 "SCHOOL" -> resources.getColor(R.color.blue_700)
@@ -237,9 +256,11 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
                 else -> resources.getColor(R.color.white)
             }
             block.blockPlace.forEach {
-                    this.block[it.row][it.col] = 1
-                    blockList[it.row][it.col].setBackgroundColor(color)
-                }
+                this.block[it.row][it.col] = 1
+                blockList[it.row][it.col].setBackgroundColor(color)
+            }
+
+
         }
     }
 
@@ -787,99 +808,12 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
                 findNavController().popBackStack()
             }
 
-            includeBlock.block1.setOnClickListener {
-                currentType?.let {
-                    onSetBlock(it,selectedDegree,0,0)
-                }
-            }
-            includeBlock.block2.setOnClickListener {
-                currentType?.let {
-                    onSetBlock(it,selectedDegree,0,1)
-                }
-            }
-            includeBlock.block3.setOnClickListener {
-                    currentType?.let {
-                        onSetBlock(it,selectedDegree,0,2)
-                    }
-                }
-            includeBlock.block4.setOnClickListener {
-                currentType?.let {
-                    onSetBlock(it,selectedDegree,0,3)
-                }
-            }
-
-            includeBlock.block5.setOnClickListener {
-                currentType?.let {
-                    onSetBlock(it,selectedDegree,1,0)
-                }
-            }
-
-            includeBlock.block6.setOnClickListener {
-                currentType?.let {
-                    onSetBlock(it,selectedDegree,1,1)
-                }
-            }
-
-            includeBlock.block7.setOnClickListener {
-                currentType?.let {
-                    onSetBlock(it,selectedDegree,1,2)
-                }
-            }
-
-            includeBlock.block8.setOnClickListener {
-                currentType?.let {
-                    onSetBlock(it,selectedDegree,1,3)
-                }
-            }
-
-            includeBlock.block9.setOnClickListener {
-                currentType?.let {
-                    onSetBlock(it,selectedDegree,2,0)
-                }
-            }
-
-
-            includeBlock.block10.setOnClickListener {
-                currentType?.let {
-                    onSetBlock(it,selectedDegree,2,1)
-                }
-            }
-            includeBlock.block11.setOnClickListener {
-                currentType?.let {
-                    onSetBlock(it,selectedDegree,2,2)
-                }
-            }
-
-            includeBlock.block12.setOnClickListener {
-                currentType?.let {
-                    onSetBlock(it,selectedDegree,2,3)
-                }
-            }
-            includeBlock.block13.setOnClickListener {
-                currentType?.let {
-                    onSetBlock(it,selectedDegree,3,0)
-                }
-            }
-
-            includeBlock.block14.setOnClickListener {
-                currentType?.let {
-                    onSetBlock(it,selectedDegree,3,1)
-                }
-            }
-
-            includeBlock.block15.setOnClickListener {
-                currentType?.let {
-                    onSetBlock(it,selectedDegree,3,2)
-                }
-            }
-            includeBlock.block16.setOnClickListener {
-                currentType?.let {
-                    onSetBlock(it,selectedDegree,3,3)
-                }
-            }
-
             // 대화 주머니 클릭
             includeInfo.firstBlock.setOnClickListener {
+                if (viewModel.dailyBlockCount.value == dailyBlockCount) {
+                    showCompleteToast()
+                    return@setOnClickListener
+                }
                 it.isSelected =true
                         currentType = "DAILY"
                         includeInfo.secondBlock.isSelected = false
@@ -891,6 +825,10 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
 
 
             includeInfo.imageView6.setOnClickListener {
+                if (viewModel.dailyBlockCount.value == dailyBlockCount) {
+                    showCompleteToast()
+                    return@setOnClickListener
+                }
                 includeInfo.firstBlock.isSelected = true
                     includeInfo.secondBlock.isSelected = false
                     includeInfo.thirdBlock.isSelected = false
@@ -899,6 +837,10 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
                     onClickBlockBox("DAILY", R.drawable.block_daily_v2)
                 }
                 includeInfo.secondBlock.setOnClickListener {
+                    if (viewModel.schoolBlockCount.value == schoolBlockCount) {
+                        showCompleteToast()
+                        return@setOnClickListener
+                    }
                     it.isSelected = true
                         includeInfo.firstBlock.isSelected = false
                         includeInfo.thirdBlock.isSelected = false
@@ -907,6 +849,10 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
                         onClickBlockBox("SCHOOL", R.drawable.block_school_v2)
                 }
                 includeInfo.thirdBlock.setOnClickListener {
+                    if (viewModel.userHobbyBlockCount.value == hobbyBlockCount) {
+                        showCompleteToast()
+                        return@setOnClickListener
+                    }
                     it.isSelected = true
                         includeInfo.firstBlock.isSelected = false
                         includeInfo.secondBlock.isSelected = false
@@ -916,6 +862,10 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
                     }
 
                 includeInfo.fourthBlock.setOnClickListener {
+                    if (viewModel.userFamilyBlockCount.value == familyBlockCount) {
+                        showCompleteToast()
+                        return@setOnClickListener
+                    }
                     it.isSelected = true
                         includeInfo.firstBlock.isSelected = false
                         includeInfo.secondBlock.isSelected = false
@@ -925,6 +875,10 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
                     }
 
                 includeInfo.fifthBlock.setOnClickListener {
+                    if (viewModel.friendBlockCount.value == friendBlockCount) {
+                        showCompleteToast()
+                        return@setOnClickListener
+                    }
                     it.isSelected  = true
 
                         includeInfo.secondBlock.isSelected = false

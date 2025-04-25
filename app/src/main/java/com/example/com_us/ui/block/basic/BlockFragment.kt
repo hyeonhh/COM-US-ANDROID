@@ -14,6 +14,7 @@ import com.example.com_us.util.ColorMatch
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class BlockFragment : BaseFragment<FragmentBlockBasicBinding, BlockViewModel>(
@@ -132,10 +133,14 @@ class BlockFragment : BaseFragment<FragmentBlockBasicBinding, BlockViewModel>(
         }
     }
 
-    private fun setBlock(blockData: List<Block>) {
-        if (blockData.isNotEmpty()) setNoBlockBackground(false) else setNoBlockBackground(true)
-        for (data in blockData) {
-            level = data.level
+    private fun setBlock(blockData: Block) {
+        Timber.d("setBlock")
+        if (blockData.blocks.isNotEmpty()) setNoBlockBackground(false)
+        else setNoBlockBackground(true)
+
+        level = blockData.level
+
+        for (data in blockData.blocks) {
             val color = when(data.category) {
                 "DAILY" -> resources.getColor(R.color.orange_700)
                 "SCHOOL" -> resources.getColor(R.color.blue_700)
@@ -144,11 +149,13 @@ class BlockFragment : BaseFragment<FragmentBlockBasicBinding, BlockViewModel>(
                 "FRIEND" -> resources.getColor(R.color.green_700)
                 else -> resources.getColor(R.color.orange_700)
             }
-            // todo : 색 변경 방식 변경 필요
-                data.blockPlace.forEach {
-                    blockList[it.row][it.col].setBackgroundColor(color)
-                }
+            data.blockPlace.forEach {
+                Timber.d("블럭 :$data")
+                // todo : 색 변경 방식 변경 필요
+                blockList[it.row][it.col].setBackgroundColor(color)
             }
+            }
+
     }
 
     private fun setNoBlockBackground(setBg: Boolean) {

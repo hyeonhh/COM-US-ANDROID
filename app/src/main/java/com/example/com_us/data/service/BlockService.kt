@@ -18,7 +18,7 @@ interface BlockService {
         @Body body : SaveBlockRequest) : BaseResponse<Unit>
 
     @GET("/api/block")
-    suspend fun getBlock() : BaseResponse<List<Block>>
+    suspend fun getBlock() : BaseResponse<Block>
     @DELETE("/api/block")
     suspend fun deleteBlock() : BaseResponse<Unit>
 }

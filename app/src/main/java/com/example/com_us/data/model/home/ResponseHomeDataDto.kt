@@ -13,7 +13,7 @@ data class ResponseHomeDataDto(
     @SerialName("questionCounts")
     val questionCounts: List<QuestionCounts>,
     @SerialName("blocks")
-    val blocks: List<Block>,
+    val blockBoard: Block,
 )
 
 @Serializable
@@ -58,15 +58,20 @@ data class QuestionCounts(
 @Serializable
 data class Block(
     val level : Int = 0,
+    val blocks: List<Question> = emptyList(),
+
+)
+
+@Serializable
+data class Question(
     val questionId: Int =0,
     val category : String = "",
     val questionContent : String = "",
-    val answerId : Int =0,
+    val answerId : Int = 0,
     val answerType : String = "",
     val answerContent : String = "",
     val blockPlace:List<BlockPlace> = emptyList<BlockPlace>(),
 )
-
 @Serializable
 data class BlockPlace(
     val blockId :Long,

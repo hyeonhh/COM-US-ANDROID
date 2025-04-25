@@ -16,6 +16,6 @@ class BlockDataSourceImpl @Inject constructor(
     }
 
     override suspend fun saveBlock(body: SaveBlockRequest): BaseResponse<Unit> = blockService.saveBlock(body)
-    override suspend fun getBlock(): BaseResponse<List<Block>> = blockService.getBlock()
+    override suspend fun getBlock(): BaseResponse<Block> = blockService.getBlock()
     override suspend fun getBlockCount(): BaseResponse<BlockCountResponse> = blockService.getAvailableCount()
 }
