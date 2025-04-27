@@ -58,7 +58,7 @@ data class QuestionCounts(
 @Serializable
 data class Block(
     val level : Int = 0,
-    val blocks: List<Question> = emptyList(),
+    val blocks: List<Question>? = emptyList(),
 
 )
 

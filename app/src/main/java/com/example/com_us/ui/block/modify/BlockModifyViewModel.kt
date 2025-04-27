@@ -117,9 +117,12 @@ class BlockModifyViewModel @Inject constructor(
                     _block.value = it
                   //  _currentLevel.value = it.first().level
                     // 이미 채워진 블럭 위치도 1로 만들어주기
-                    it.blocks.forEach {
-                        it.blockPlace.forEach {
-                            setBlock(it.row,it.col)
+
+                    if (it.blocks!= null) {
+                        it.blocks.forEach {
+                            it.blockPlace.forEach {
+                                setBlock(it.row, it.col)
+                            }
                         }
                     }
                 }

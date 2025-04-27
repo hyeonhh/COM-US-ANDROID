@@ -245,7 +245,7 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
 
 
     private fun setBlock(blockData: Block) {
-
+        if ( blockData.blocks == null ) return
         for (block in blockData.blocks) {
             val color = when(block.category) {
                 "DAILY" -> resources.getColor(R.color.orange_700)
@@ -718,7 +718,6 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
 
         onDragBlock()
         setGridDragListener()
-        //handleBlockDrop()
 
         binding.includeInfo.txtDeleteBlock.setOnClickListener { viewModel.deleteBlock()}
 
@@ -726,7 +725,6 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
         viewModel.allBlockCompleteEvent.observe(this, {
             // 블럭이 모두 채워진 경우?
             initBlock()
-           // binding.includeInfo.txtLevel.text =" ${level+1}단계"
             findNavController().navigate(R.id.blockCompleteFragment)
         })
         blockList =
@@ -763,6 +761,8 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
         lifecycleScope.launch {
             viewModel.block.collect {
                 setBlock(it)
+                binding.includeInfo.txtLevel.text =it.level.toString()+"단계"
+
             }
         }
 

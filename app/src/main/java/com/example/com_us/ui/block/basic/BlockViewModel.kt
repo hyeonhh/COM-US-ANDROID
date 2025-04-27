@@ -84,12 +84,13 @@ class BlockViewModel @Inject constructor(
                 }
                 .onSuccess {
                     _block.value = it
-                    it.blocks.forEach {
-                        it.blockPlace.forEach {
-                            setBlock(it.row,it.col)
+                    if (it.blocks!= null) {
+                        it.blocks.forEach {
+                            it.blockPlace.forEach {
+                                setBlock(it.row, it.col)
+                            }
                         }
                     }
-
                     if(checkAllBlockIsOne()) {
                         showCompleteScreen()
                     }

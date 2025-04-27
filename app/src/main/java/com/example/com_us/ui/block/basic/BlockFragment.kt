@@ -66,27 +66,15 @@ class BlockFragment : BaseFragment<FragmentBlockBasicBinding, BlockViewModel>(
         override fun onBindLayout() {
         super.onBindLayout()
 
-//            lifecycleScope.launch {
-//                viewModel.currentLevel.collectLatest {
-//                    level= it
-//                    binding.includeBlockInfo.txtLevel.text = "${level}단계"
-//                }
-//            }
-//
-
             viewModel.allBlockCompleteEvent.observe(this, {
                 initBlock()
             })
-//        //todo :
-//        if (args.isFull) {
-//           // 새로운 판 보이기
-//            initBlock()
-//        }
 
         // 블럭 조회 후  채우기
         lifecycleScope.launch {
             viewModel.block.collect {
                 setBlock(it)
+                binding.includeBlockInfo.txtLevel.text = it.level.toString()+"단계"
             }
         }
 
@@ -135,8 +123,12 @@ class BlockFragment : BaseFragment<FragmentBlockBasicBinding, BlockViewModel>(
 
     private fun setBlock(blockData: Block) {
         Timber.d("setBlock")
-        if (blockData.blocks.isNotEmpty()) setNoBlockBackground(false)
-        else setNoBlockBackground(true)
+        if (blockData.blocks==null){
+            setNoBlockBackground(true)
+            binding.includeBlockInfo.txtLevel.text = blockData.level.toString()
+            return
+        }
+        setNoBlockBackground(false)
 
         level = blockData.level
 

@@ -264,7 +264,7 @@ class HomeFragment :
                     when (it) {
                         is UiState.Success -> {
                             // 단계 표시
-                      //    binding.viewConversation.textviewHomeStep.text =  if (it.data.blocks.isEmpty()) "1" else it.data.blocks.first().level.toString()
+                          binding.viewConversation.textviewHomeStep.text =  it.data.blockBoard.level.toString()
 
                           // 주간  캘린더 표시
                             binding.viewUserConversationInfoBox.viewWeekCalendar.txtWeekTitle.text = it.data.userInfo.week
@@ -437,10 +437,11 @@ class HomeFragment :
 
 
     private fun setBlock(blockData: Block) {
-        if (blockData.blocks.isEmpty() ){
+        if  (blockData.blocks.isNullOrEmpty()) {
             setNoBlockBackground(true)
             return
         }
+
         setNoBlockBackground(false)
         for (data in blockData.blocks) {
             val color = when(data.category) {
