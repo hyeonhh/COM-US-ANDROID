@@ -24,9 +24,6 @@ import com.example.com_us.ui.base.UiState
 import com.example.com_us.ui.compose.AnswerOptionList
 import com.example.com_us.ui.compose.AnswerTypeTag
 import com.example.com_us.ui.compose.QuestionTypeTag
-import com.example.com_us.ui.qa.AnswerFragment
-import com.example.com_us.ui.question.result.ResultBeforeSignActivity
-import com.example.com_us.ui.question.select.conversation.ConversationQuestionFragmentDirections
 import com.example.com_us.util.ColorMatch
 import com.example.com_us.util.QuestionManager
 import dagger.hilt.android.AndroidEntryPoint

@@ -77,6 +77,22 @@ class AnswerFragment : BaseFragment<ActivityAnswerBinding, AnswerViewModel>(
     override fun onBindLayout() {
         super.onBindLayout()
 
+        // 안내 문구 표시
+        val word = "파란색"
+        val start = binding.txtInfo.text.toString().indexOf("파란색")
+        val end = start + word.length
+
+        val content = binding.txtInfo.text.toString()
+        val spannableString = SpannableString(content)
+
+        spannableString.setSpan(ForegroundColorSpan(resources.getColor(R.color.blue_700)),start,end,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        spannableString.setSpan(UnderlineSpan(), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        binding.txtInfo.setText(spannableString)
+
+
         binding.btnComplete.setOnClickListener {
             val action = AnswerFragmentDirections.actionSelectAnswerFragmentToPreviousDestination()
             navController.navigate(action)
@@ -107,6 +123,7 @@ class AnswerFragment : BaseFragment<ActivityAnswerBinding, AnswerViewModel>(
             viewModel.uiState.collectLatest {
                 when(it){
                    is  UiState.Success -> {
+
                        val modifiedText = it.data.convertedSentence.joinToString(" ")
                        binding.txtModifiedAnswer.text = modifiedText
 
@@ -184,8 +201,7 @@ class AnswerFragment : BaseFragment<ActivityAnswerBinding, AnswerViewModel>(
 
         }
 
-
-        binding.txtDate.text = viewModel.answeredDate
+        binding.txtDate.text = viewModel.answeredDate +"의 대화"
         binding.txtQuestion.text = viewModel.selectedQuestion
         binding.txtAnswer.text = viewModel.answer
 

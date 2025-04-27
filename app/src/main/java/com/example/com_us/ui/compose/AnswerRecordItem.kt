@@ -45,6 +45,7 @@ import com.example.com_us.ui.record.month.RecordFragmentDirections.Companion.act
 
 @Composable
 fun TimeLineList(items : List<Answer>,
+                 answerDate : String,
                  navController : NavController,
                  directions : RecordFragmentDirections.Companion,
                  ) {
@@ -61,7 +62,7 @@ fun TimeLineList(items : List<Answer>,
                     TimeLineItem(answer, true, onClick = {
                         val action = directions.actionRecordFragmentToLoadingFragment(
                             isRecord = true,
-                            answerDate = answer.answerTime,
+                            answerDate = answerDate,
                             answer = answer.answerContent,
                             question = answer.questionContent,
                             category = answer.category,

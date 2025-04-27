@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.compose.animation.core.animateRectAsState
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.view.children
 import androidx.fragment.app.viewModels
@@ -35,11 +36,11 @@ class RecordFragment :BaseFragment<FragmentRecordBinding, RecordViewModel>(
     private val navController by lazy { findNavController() }
 
 
-    private fun setRecordList(record:List<Answer>) {
+    private fun setRecordList(record:List<Answer>,answerDate :String) {
         binding.viewRecord.compose.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                TimeLineList(record, navController = navController, directions = RecordFragmentDirections.Companion)
+                TimeLineList(record, answerDate = answerDate, navController = navController, directions = RecordFragmentDirections.Companion)
             }
         }
     }
@@ -235,7 +236,7 @@ class RecordFragment :BaseFragment<FragmentRecordBinding, RecordViewModel>(
                 Timber.d("추출 데이터 :$record")
                 if (record.isNotEmpty()) {
                     binding.viewRecord.layout.visibility = View.VISIBLE
-                    setRecordList(record.first().answers)
+                    setRecordList(record.first().answers, answerDate =record.first().answerDate)
                 }
                 else {
                     binding.viewRecord.layout.visibility = View.INVISIBLE
