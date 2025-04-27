@@ -100,36 +100,48 @@
                 android:visibility="invisible" />
 
             <TextView
+                android:id="@+id/text_day_1"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="1"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_2"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="2"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_3"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="3"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_4"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="4"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_5"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="5"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_6"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="6"
@@ -208,42 +220,56 @@
             android:layout_weight="1">
 
             <TextView
+                android:id="@+id/text_day_7"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="7"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_8"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="8"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_9"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="9"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_10"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="10"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_11"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="11"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_12"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="12"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_13"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="13"
@@ -322,42 +348,56 @@
             android:layout_weight="1">
 
             <TextView
+                android:id="@+id/text_day_14"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="14"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_15"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="15"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_16"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="16"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_17"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="17"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_18"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="18"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_19"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="19"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_20"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="20"
@@ -436,42 +476,56 @@
             android:layout_weight="1">
 
             <TextView
+                android:id="@+id/text_day_21"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="21"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_22"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="22"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_23"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="23"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_24"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="24"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_25"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="25"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_26"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="26"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_27"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="27"
@@ -550,24 +604,32 @@
             android:layout_weight="1">
 
             <TextView
+                android:id="@+id/text_day_28"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="28"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_29"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="29"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_30"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="30"
                 android:textAlignment="center" />
 
             <TextView
+                android:id="@+id/text_day_31"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="31"

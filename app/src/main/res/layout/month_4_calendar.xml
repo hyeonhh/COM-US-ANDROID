@@ -92,43 +92,107 @@
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_1"
+                android:src="@drawable/ic_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_2"
+                android:src="@drawable/ic_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_3"
+                android:src="@drawable/ic_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_4"
+                android:src="@drawable/ic_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_5"
+                android:src="@drawable/ic_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_6"
+                android:src="@drawable/ic_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
             <TextView
+                android:id="@+id/text_day_empty"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="invisible" />
 
             <TextView
-                android:id="@+id/fourth_month_one"
+                android:id="@+id/text_day_1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="1"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/black" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="2"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="3"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="4"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="5"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="6"
@@ -212,48 +276,115 @@
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_7"
+                android:src="@drawable/ic_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_8"
+                android:src="@drawable/ic_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_9"
+                android:src="@drawable/ic_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_10"
+                android:src="@drawable/ic_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_11"
+                android:src="@drawable/ic_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_12"
+                android:src="@drawable/ic_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_13"
+                android:src="@drawable/ic_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="7"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="8"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="9"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="10"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="11"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="12"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="13"
                 android:textAlignment="center" />
-
         </TableRow>
 
         <TableRow
@@ -328,48 +459,118 @@
         </TableRow>
 
 
+
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_14"
+                android:src="@drawable/ic_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_15"
+                android:src="@drawable/ic_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_16"
+                android:src="@drawable/ic_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_17"
+                android:src="@drawable/ic_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_18"
+                android:src="@drawable/ic_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_19"
+                android:src="@drawable/ic_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_20"
+                android:src="@drawable/ic_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="14"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="15"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="16"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_17"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="17"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_18"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="18"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_19"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="19"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="20"
@@ -448,6 +649,59 @@
                 app:layout_constraintDimensionRatio="1:1" />
         </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_21"
+                android:src="@drawable/ic_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_22"
+                android:src="@drawable/ic_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_23"
+                android:src="@drawable/ic_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_24"
+                android:src="@drawable/ic_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_25"
+                android:src="@drawable/ic_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_26"
+                android:src="@drawable/ic_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_27"
+                android:src="@drawable/ic_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
@@ -455,42 +709,56 @@
             android:layout_weight="1">
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_21"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="21"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_22"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="22"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_23"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="23"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_24"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="24"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_25"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="25"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_26"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="26"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_27"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="27"
@@ -569,24 +837,59 @@
                 app:layout_constraintDimensionRatio="1:1" />
         </TableRow>
 
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_28"
+                android:src="@drawable/ic_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_29"
+                android:src="@drawable/ic_today"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_30"
+                android:src="@drawable/ic_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </TableRow>
+
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_28"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="28"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_29"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="29"
                 android:textAlignment="center" />
 
             <TextView
+                android:textColor="@color/black"
+                android:id="@+id/text_day_30"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="30"

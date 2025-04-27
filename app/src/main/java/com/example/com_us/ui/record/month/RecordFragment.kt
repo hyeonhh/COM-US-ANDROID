@@ -1,41 +1,30 @@
 package com.example.com_us.ui.record.month
 
 import android.graphics.drawable.Drawable
+import android.icu.text.SimpleDateFormat
+import android.media.Image
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TableRow
-import android.widget.Toast
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.ui.Modifier
+import android.widget.TextView
 import androidx.compose.ui.platform.ViewCompositionStrategy
-import androidx.compose.ui.unit.dp
 import androidx.core.view.children
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.com_us.R
 import com.example.com_us.base.fragment.BaseFragment
-import com.example.com_us.data.model.modify.VideoInfo
 import com.example.com_us.data.model.question.Answer
 import com.example.com_us.data.model.question.Data
 import com.example.com_us.databinding.FragmentRecordBinding
-import com.example.com_us.ui.compose.AnswerOptionList
-import com.example.com_us.ui.compose.TimeLineItem
 import com.example.com_us.ui.compose.TimeLineList
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.w3c.dom.Text
 import timber.log.Timber
+import java.util.Date
 
 @AndroidEntryPoint
 class RecordFragment :BaseFragment<FragmentRecordBinding, RecordViewModel>(
@@ -59,13 +48,16 @@ class RecordFragment :BaseFragment<FragmentRecordBinding, RecordViewModel>(
 
     override fun onBindLayout() {
         super.onBindLayout()
+        showCurrentState()
 
         binding.viewRecord.layout.visibility = View.GONE
         binding.viewFlipper.displayedChild = 0
 
         currentIndex = 4
+
         binding.btnPrevious.visibility = View.INVISIBLE
         binding.btnNext.setOnClickListener {
+            binding.viewRecord.layout.visibility= View.GONE
             when(currentIndex) {
                 4 ->  {
                     currentIndex =5
@@ -73,7 +65,7 @@ class RecordFragment :BaseFragment<FragmentRecordBinding, RecordViewModel>(
                     binding.viewFlipper.displayedChild=1
                     binding.btnNext.visibility= View.VISIBLE
                     binding.btnPrevious.visibility = View.VISIBLE
-
+                    showCurrentState()
 
                 }
                 5 -> {
@@ -82,6 +74,8 @@ class RecordFragment :BaseFragment<FragmentRecordBinding, RecordViewModel>(
                     binding.viewFlipper.displayedChild=2
                     binding.btnNext.visibility= View.VISIBLE
                     binding.btnPrevious.visibility = View.VISIBLE
+                    showCurrentState()
+
                 }
                 6-> {
                     currentIndex = 7
@@ -89,12 +83,15 @@ class RecordFragment :BaseFragment<FragmentRecordBinding, RecordViewModel>(
                     binding.viewFlipper.displayedChild=3
                     binding.btnNext.visibility= View.INVISIBLE
                     binding.btnPrevious.visibility = View.VISIBLE
+                    showCurrentState()
+
                 }
 
             }
 
         }
         binding.btnPrevious.setOnClickListener {
+            binding.viewRecord.layout.visibility= View.GONE
             when(currentIndex) {
                 5 -> {
                     // 5월 일때
@@ -103,6 +100,7 @@ class RecordFragment :BaseFragment<FragmentRecordBinding, RecordViewModel>(
                     binding.btnNext.visibility= View.VISIBLE
                     binding.date.text="2025년 4월"
                     binding.viewFlipper.displayedChild=0
+
                 }
                 6 -> {
                     // 6월 일때
@@ -112,6 +110,7 @@ class RecordFragment :BaseFragment<FragmentRecordBinding, RecordViewModel>(
 
                     binding.date.text="2025년 5월"
                     binding.viewFlipper.displayedChild=1
+
                 }
                 7->{
                     currentIndex =6
@@ -119,6 +118,7 @@ class RecordFragment :BaseFragment<FragmentRecordBinding, RecordViewModel>(
                     binding.btnNext.visibility= View.VISIBLE
                     binding.date.text="2025년 6월"
                     binding.viewFlipper.displayedChild=2
+
                 }
             }
         }
@@ -244,6 +244,102 @@ class RecordFragment :BaseFragment<FragmentRecordBinding, RecordViewModel>(
         }
     }
 
+    private fun showCurrentState(){
+        //todo : 오늘 날짜를 기준으로 오늘까지의 날짜만 검은색으로 표시
+        // todo : 이후 날짜는 검은색으로 표시
+        // todo : 오늘 날짜에 표시하기
+
+        //1. 현재 시간 가져오기
+        val now  = System.currentTimeMillis()
+        // 날짜 생성하기
+        val date: Date = Date(now)
+        val sdf = SimpleDateFormat("MM-dd")
+        val getTime = sdf.format(date);
+        Timber.d("오늘 :$getTime")
+
+        // 오늘 날짜 위에 검은색 동그라미 뷰 추가하기
+        val month = getTime.substring(0,2)
+        val day = getTime.substring(3,5)
+        showToday(day, month)
+    }
+
+    private fun showMonthDate(month: String) {
+        val koreanDays = listOf("월", "화", "수", "목", "금", "토", "일")
+
+        val tableLayout = when(month){
+            "04" -> binding.month4.tableLayout
+            "05" -> binding.month5.tableLayout
+            "06" -> binding.month6.tableLayout
+            "07" -> binding.month7.tableLayout
+            else -> binding.month4.tableLayout
+        }
+
+        for (i in 0 until tableLayout.childCount) {
+            val tableRow = tableLayout.getChildAt(i) as TableRow
+            for (j in 0 until tableRow.childCount) {
+                val tv = tableRow.getChildAt(j)
+                if (tv is TextView) {
+                    val text =tv.text.toString()
+                    //todo : 요일이 아닐 때
+                    if(text in koreanDays || text== "") {
+                        continue
+                    }
+                    // todo 요일도 아니고 오늘 날짜보다 이후인 경우
+
+                        Timber.d("text :$text")
+                        val resId = requireView().context.resources.getIdentifier("text_day_$text","id", requireView().context.packageName)
+                        val textView = resId.let { requireView().findViewById<TextView>(it) }
+                        textView.setTextColor(resources.getColor(R.color.gray_500))
+                        continue
+                }
+            }
+        }
+    }
+    private fun showToday(day :  String, month : String){
+        val tableLayout = when(month){
+            "04" -> binding.month4.tableLayout
+            "05" -> binding.month5.tableLayout
+            "06" -> binding.month6.tableLayout
+            "07" -> binding.month7.tableLayout
+            else -> binding.month4.tableLayout
+        }
+
+        val koreanDays = listOf("월", "화", "수", "목", "금", "토", "일")
+
+
+        for (i in 0 until tableLayout.childCount) {
+            val tableRow = tableLayout.getChildAt(i) as TableRow
+            for (j in 0 until tableRow.childCount) {
+                val tv = tableRow.getChildAt(j)
+                if (tv is TextView) {
+                    val text =tv.text.toString()
+                    if (text == day){
+                        Timber.d("찾았따 :$text, $day")
+                       //  그 뷰 위에  아이콘 추가
+                       val resId = requireView().context.resources.getIdentifier("iv_$day","id", requireView().context.packageName)
+                        val iv = resId.let { requireView().findViewById<ImageView>(it) }
+                        iv?.visibility = View.VISIBLE
+                        continue
+
+                    }
+
+                    //todo : 요일이 아닐 때
+                    else if(text in koreanDays || text== "") {
+                        continue
+                    }
+                    // todo 요일도 아니고 오늘 날짜보다 이후인 경우
+
+                    else if (text.toInt()> day.toInt()) {
+                        Timber.d("text :$text")
+                        val resId = requireView().context.resources.getIdentifier("text_day_$text","id", requireView().context.packageName)
+                        val textView = resId.let { requireView().findViewById<TextView>(it) }
+                        textView.setTextColor(resources.getColor(R.color.gray_500))
+                        continue
+                    }
+                }
+            }
+        }
+    }
     private fun set4MonthBlock(data : Data) {
         val date = data.answerDate
         if (data.answers.isEmpty()) return
