@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_marginTop="?attr/actionBarSize"
+    android:layout_marginBottom="?attr/actionBarSize"
     android:background="@color/white"
     android:fillViewport="true"
     android:layout_height="match_parent">
@@ -10,9 +12,7 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:padding="25dp"
-
-
+    android:paddingHorizontal="25dp"
     android:layout_height="match_parent">
 
     <ImageButton
@@ -140,7 +140,6 @@
         android:id="@+id/textView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:text="대화는 자동으로 기록되어요"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

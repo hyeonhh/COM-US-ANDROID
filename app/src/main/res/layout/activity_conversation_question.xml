@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="25dp"
+    android:layout_marginTop="?attr/actionBarSize"
+    android:paddingHorizontal="25dp"
+    android:layout_marginBottom="?attr/actionBarSize"
     android:background="@color/white"
     android:layout_height="match_parent">
 

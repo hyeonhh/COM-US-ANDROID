@@ -33,7 +33,7 @@ class ThemeQuestionListFragment : BaseFragment<ActivityThemeQuestionListBinding,
         val themeKor = when(theme){
             "DAILY" -> "일상"
             "SCHOOL" ->"학교"
-            "HOBBY" -> "취미"
+            "HOBBY","INTEREST" -> "취미"
             "FAMILY" -> "학교"
             "FRIEND" -> "친구"
             else -> ""

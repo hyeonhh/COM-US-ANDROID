@@ -50,7 +50,6 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
     private var row : Int = 0
     private var col : Int = 0
 
-    private var level = 0
     private var rotateDegree = intArrayOf(-90, -180, -270, 0)
     private var clickCount = 0
     private var selectedDegree = 0
@@ -113,7 +112,6 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
                                     setDailyBlock(row,col)
                                 }
                                 "SCHOOL" -> {
-
                                     schoolBlockCount+=1
                                     setSchoolBlock(row,col,  selectedDegree)
                                 }
@@ -218,6 +216,10 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
         selectedBlock = arrayListOf<Pair<Int, Int>>()
 
         if (row >= 4 || row < 0 || col >= 4 || col < 0) {
+            onRetry()
+            return
+        }
+        if (block[row][col]==1) {
             onRetry()
             return
         }
@@ -484,6 +486,7 @@ class BlockModifyFragment : BaseFragment<FragmentBlockModifyBinding, BlockModify
             currentType = "FRIEND"
 
             binding.warnText.visibility = View.INVISIBLE
+
             block[row][col]=1
             block[row+1][col]=1
             block[row+1][col+1]=1

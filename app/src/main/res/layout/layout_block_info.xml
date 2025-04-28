@@ -22,8 +22,8 @@
 
         <ImageView
             android:id="@+id/app_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="90dp"
+            android:layout_height="30dp"
             android:layout_marginTop="25dp"
             android:src="@drawable/ic_app_logo"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,6 +34,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:background="@drawable/ic_notification"
+            app:layout_constraintBottom_toBottomOf="@+id/app_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/app_logo" />
 

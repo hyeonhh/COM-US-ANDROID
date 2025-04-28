@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="25dp"
+    android:layout_marginBottom="?attr/actionBarSize"
+    android:layout_marginTop="?attr/actionBarSize"
+    android:paddingHorizontal="25dp"
     android:layout_height="match_parent">
 
     <include
@@ -41,6 +43,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/include_block" />
 
+    <TextView
+        android:textColor="@color/blue_700"
+        android:id="@+id/txt_drag_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="⚠ 블럭을 꾹 누른 후 드래그해주세요"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/include_block" />
+
+
     <Button
         android:id="@+id/btn_cancel"
         style="@style/BlockButtonStyle"
@@ -52,6 +66,8 @@
         app:layout_constraintEnd_toStartOf="@+id/btn_complete"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/warn_text" />
+
+
 
     <Button
         android:id="@+id/btn_complete"
@@ -67,6 +83,7 @@
     <TextView
         android:id="@+id/warn_text"
         android:visibility="invisible"
+        android:textAlignment="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="⚠ 올바른 자리에 놓아주세요"

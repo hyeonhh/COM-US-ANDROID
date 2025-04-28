@@ -5,8 +5,10 @@
     android:id="@+id/constraint_question_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="?attr/actionBarSize"
+    android:layout_marginBottom="?attr/actionBarSize"
     android:background="@color/white"
-    android:padding="25dp"
+    android:paddingHorizontal="25dp"
     android:visibility="visible">
 
     <ImageButton
