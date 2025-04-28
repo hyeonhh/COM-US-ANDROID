@@ -226,14 +226,15 @@ class RecordFragment :BaseFragment<FragmentRecordBinding, RecordViewModel>(
 
 
     private fun onClickDate(selectedDate : String) {
-
+        Timber.d("클릭한 날짜 :$selectedDate")
         binding.viewRecord.txtDate.text= selectedDate
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.record.collectLatest {
+                Timber.d(" 추출1 : ${selectedDate.substringBeforeLast(" ")}")
             val record = it.filter {
-                    it.answerDate == ( selectedDate.substringBeforeLast("일 ") + "일")
+                        it.answerDate == selectedDate.substringBeforeLast(" ")
                 }
-                Timber.d("추출 데이터 :$record")
+                Timber.d("추출  record  :$record")
                 if (record.isNotEmpty()) {
                     binding.viewRecord.layout.visibility = View.VISIBLE
                     setRecordList(record.first().answers, answerDate =record.first().answerDate)
@@ -262,39 +263,6 @@ class RecordFragment :BaseFragment<FragmentRecordBinding, RecordViewModel>(
         val month = getTime.substring(0,2)
         val day = getTime.substring(3,5)
         showToday(day, month)
-    }
-
-    private fun showMonthDate(month: String) {
-        val koreanDays = listOf("월", "화", "수", "목", "금", "토", "일")
-
-        val tableLayout = when(month){
-            "04" -> binding.month4.tableLayout
-            "05" -> binding.month5.tableLayout
-            "06" -> binding.month6.tableLayout
-            "07" -> binding.month7.tableLayout
-            else -> binding.month4.tableLayout
-        }
-
-        for (i in 0 until tableLayout.childCount) {
-            val tableRow = tableLayout.getChildAt(i) as TableRow
-            for (j in 0 until tableRow.childCount) {
-                val tv = tableRow.getChildAt(j)
-                if (tv is TextView) {
-                    val text =tv.text.toString()
-                    //todo : 요일이 아닐 때
-                    if(text in koreanDays || text== "") {
-                        continue
-                    }
-                    // todo 요일도 아니고 오늘 날짜보다 이후인 경우
-
-                        Timber.d("text :$text")
-                        val resId = requireView().context.resources.getIdentifier("text_day_$text","id", requireView().context.packageName)
-                        val textView = resId.let { requireView().findViewById<TextView>(it) }
-                        textView.setTextColor(resources.getColor(R.color.gray_500))
-                        continue
-                }
-            }
-        }
     }
     private fun showToday(day :  String, month : String){
         val tableLayout = when(month){
@@ -520,10 +488,6 @@ class RecordFragment :BaseFragment<FragmentRecordBinding, RecordViewModel>(
                 else -> binding.month7.firstWeekTuesday
             }
             imageView.setImageDrawable(category)
-            imageView.tag = date // 날짜 문자열을 태그로 설정
-            imageView.setOnClickListener {
-                onClickDate(it.tag as String)
-            }
         }
     }
 

@@ -169,17 +169,20 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:src="@drawable/ic_blank_week"
+                android:visibility="invisible"
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
                 android:id="@+id/first_week_wednesday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:visibility="invisible"
                 android:layout_margin="2dp"
                 android:src="@drawable/ic_blank_week"
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 01일 목요일"
                 android:id="@+id/first_week_thursday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -188,6 +191,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 02일 금요일"
                 android:id="@+id/first_week_friday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -196,6 +200,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 03일 토요일"
                 android:id="@+id/first_week_saturday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -204,6 +209,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 03일 일요일"
                 android:id="@+id/first_week_sunday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -283,6 +289,7 @@
             android:layout_weight="1">
 
             <ImageView
+                android:tag="2025년 05월 05일 월요일"
                 android:id="@+id/second_week_monday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -291,6 +298,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 06일 화요일"
                 android:id="@+id/second_week_tuesday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -299,6 +307,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 07일 수요일"
                 android:id="@+id/second_week_wednesday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -307,6 +316,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 08일 목요일"
                 android:id="@+id/second_week_thursday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -315,6 +325,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 09일 금요일"
                 android:id="@+id/second_week_friday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -323,6 +334,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 10일 토요일"
                 android:id="@+id/second_week_saturday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -331,6 +343,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 11일 일요일"
                 android:id="@+id/second_week_sunday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -411,6 +424,7 @@
             android:layout_weight="1">
 
             <ImageView
+                android:tag="2025년 05월 12일 일요일"
                 android:id="@+id/third_week_monday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -419,6 +433,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 13일 화요일"
                 android:id="@+id/third_week_tuesday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -427,6 +442,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 14일 수요일"
                 android:id="@+id/third_week_wednesday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -435,6 +451,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 15일 목요일"
                 android:id="@+id/third_week_thursday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -443,6 +460,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 16일 금요일"
                 android:id="@+id/third_week_friday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -451,6 +469,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 17일 토요일"
                 android:id="@+id/third_week_saturday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -459,6 +478,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 18일 일요일"
                 android:id="@+id/third_week_sunday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -540,6 +560,7 @@
             android:layout_weight="1">
 
             <ImageView
+                android:tag="2025년 05월 19일 월요일"
                 android:id="@+id/fourth_week_monday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -548,6 +569,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 20일 화요일"
                 android:id="@+id/fourth_week_tuesday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -556,6 +578,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 21일 수요일"
                 android:id="@+id/fourth_week_wednesday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -564,6 +587,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 22일 목요일"
                 android:id="@+id/fourth_week_thursday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -572,6 +596,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 23일 금요일"
                 android:id="@+id/fourth_week_friday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -580,6 +605,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 24일 토요일"
                 android:id="@+id/fourth_week_saturday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -588,6 +614,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 25일 금요일"
                 android:id="@+id/fourth_week_sunday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -659,6 +686,7 @@
             android:layout_weight="1">
 
             <ImageView
+                android:tag="2025년 05월 26일 월요일"
                 android:id="@+id/fifth_week_monday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -667,6 +695,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 27일 화요일"
                 android:id="@+id/fifth_week_tuesday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -675,6 +704,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 28일 수요일"
                 android:id="@+id/fifth_week_wednesday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -683,6 +713,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 29일 목요일"
                 android:id="@+id/fifth_week_thursday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -691,6 +722,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 30일 금요일"
                 android:id="@+id/fifth_week_friday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -699,6 +731,7 @@
                 app:layout_constraintDimensionRatio="1:1" />
 
             <ImageView
+                android:tag="2025년 05월 31일 토요일"
                 android:id="@+id/fifth_week_saturday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
