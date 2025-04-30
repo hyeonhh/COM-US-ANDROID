@@ -62,11 +62,13 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             authRepository.login(request)
                 .onSuccess {
+                    Timber.d("onKakaoLogin")
                     //todo : 토큰 처리
                     // access token , refresh token 저장하기
                     Timber.d("success to login :${it}")
                     userTokenRepository.saveAccessToken(it.accessToken)
                     userTokenRepository.saveRefreshToken(it.refreshToken)
+
                     startHomeActivity()
                 }
                 .onFailure {

@@ -260,7 +260,7 @@ class AllQuestionListFragment : BaseFragment<FragmentQuestionBinding,AllQuestion
         themeKor = when(selectedView){
             "DAILY" -> "일상"
             "FAMILY" -> "가족"
-            "FRIEND" -> "일상"
+            "FRIEND" -> "친구"
             "HOBBY" -> "관심사"
             "SCHOOL" -> "학교"
             else -> "전체"
